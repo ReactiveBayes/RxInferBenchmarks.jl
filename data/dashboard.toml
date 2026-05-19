@@ -1,6 +1,8 @@
 # Edit this file to change metric definitions and benchmark navigation.
 # Run `make dashboard` after changing this file.
 
+generated_at = "2026-05-19T12:00:00Z"
+
 [[metrics]]
 id = "cold_run_ms"
 label = "Cold run"

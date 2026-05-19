@@ -127,7 +127,7 @@ function validate!(config, records)
 end
 
 function write_data_js(io, config, records)
-    generated_at = Dates.format(now(UTC), dateformat"yyyy-mm-ddTHH:MM:SSZ")
+    generated_at = get(config, "generated_at", Dates.format(now(UTC), dateformat"yyyy-mm-ddTHH:MM:SSZ"))
     metrics = config["metrics"]
     benchmarks = config["benchmarks"]
 

@@ -98,6 +98,10 @@ and run `make dashboard`.
 The order of metrics and benchmarks in `data/dashboard.toml` controls the order
 shown in the dashboard.
 
+`generated_at` in `data/dashboard.toml` controls the timestamp shown in the top
+right of the page. Keeping it in the source file makes repeated `make dashboard`
+runs deterministic.
+
 ## Changing The View
 
 The UI is intentionally small:
