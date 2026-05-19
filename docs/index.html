@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RxInferBenchmarks.jl</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">Rx</div>
+          <div>
+            <div class="brand-title">RxInferBenchmarks.jl</div>
+            <div class="brand-subtitle">Performance history</div>
+          </div>
+        </div>
+
+        <label class="search-label" for="benchmark-search">Benchmark</label>
+        <input id="benchmark-search" class="search-input" type="search" placeholder="Filter by name or tag">
+
+        <nav id="benchmark-nav" class="benchmark-nav" aria-label="Benchmarks"></nav>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div>
+            <div id="breadcrumb" class="breadcrumb"></div>
+            <h1 id="benchmark-title">Benchmark</h1>
+            <p id="benchmark-description" class="lead"></p>
+          </div>
+          <div id="generated-at" class="run-meta"></div>
+        </header>
+
+        <section class="toolbar" aria-label="Chart controls">
+          <div>
+            <div class="control-label">Metric</div>
+            <div id="metric-controls" class="segmented"></div>
+          </div>
+          <div>
+            <div class="control-label">Scenario</div>
+            <div id="scenario-controls" class="segmented compact"></div>
+          </div>
+        </section>
+
+        <section class="chart-panel">
+          <div class="section-header">
+            <div>
+              <h2 id="chart-title">Performance over time</h2>
+              <p id="chart-subtitle"></p>
+            </div>
+          </div>
+          <div id="summary-strip" class="summary-strip"></div>
+          <div id="chart" class="chart" role="img" aria-label="Performance chart"></div>
+        </section>
+
+        <section class="details-grid">
+          <section class="panel">
+            <div class="section-header tight">
+              <h2>Recent Values</h2>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Scenario</th>
+                    <th>Metric</th>
+                    <th>Value</th>
+                    <th>Commit</th>
+                  </tr>
+                </thead>
+                <tbody id="runs-table"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="section-header tight">
+              <h2>Benchmark Details</h2>
+            </div>
+            <dl id="benchmark-details" class="details-list"></dl>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="dashboard.js"></script>
+  </body>
+</html>
