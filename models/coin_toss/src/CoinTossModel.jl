@@ -9,7 +9,7 @@ module CoinTossModel
 
 using RxInfer
 using Distributions
-using Random
+using StableRNGs
 
 export run_benchmark
 
@@ -21,9 +21,10 @@ const TRUE_BIAS = 0.75
     y .~ Bernoulli(θ)
 end
 
-"Deterministic synthetic dataset from scenario params (`n`, `seed`)."
+"Deterministic synthetic dataset from scenario params (`n`, `seed`). StableRNG
+guarantees the exact same data on every Julia version and platform."
 function generate_data(params::AbstractDict)
-    rng = MersenneTwister(get(params, "seed", 42))
+    rng = StableRNG(get(params, "seed", 42))
     return rand(rng, Bernoulli(TRUE_BIAS), params["n"])
 end
 

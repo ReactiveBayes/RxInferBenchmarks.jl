@@ -15,7 +15,7 @@ module KalmanModel
 using RxInfer
 using Distributions
 using LinearAlgebra
-using Random
+using StableRNGs
 
 export run_benchmark
 
@@ -27,9 +27,10 @@ const P = diageye(2)
 const Q = 25.0 * diageye(2)
 const X0_MEAN = [10.0, -10.0]
 
-"Deterministic synthetic trajectory + observations from scenario params (`n`, `seed`)."
+"Deterministic synthetic trajectory + observations from scenario params (`n`, `seed`).
+StableRNG guarantees the exact same data on every Julia version and platform."
 function generate_data(params::AbstractDict)
-    rng = MersenneTwister(get(params, "seed", 42))
+    rng = StableRNG(get(params, "seed", 42))
     n = params["n"]
     x = Vector{Vector{Float64}}(undef, n)
     y = Vector{Vector{Float64}}(undef, n)

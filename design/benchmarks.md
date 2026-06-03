@@ -42,8 +42,14 @@ The model module exposes **one function**:
 run_benchmark(scenario::AbstractDict; callbacks = nothing)
 ```
 
-It generates data deterministically from `scenario["params"]` (seeded RNG), builds the model, and
-calls `infer(...; callbacks = callbacks)`, returning the inference result. Phase timings come from
+It generates data deterministically from `scenario["params"]`, builds the model, and
+calls `infer(...; callbacks = callbacks)`, returning the inference result.
+
+**Data generation must use [StableRNGs.jl](https://github.com/JuliaRandom/StableRNGs.jl)**
+(`StableRNG(seed)`), never `MersenneTwister` or the default RNG: their streams change between
+Julia versions, which would make benchmarks (and statistical correctness tests) see different
+data on Julia LTS vs stable. With `StableRNG`, every Julia version and every hardware target
+benchmarks **exactly the same data**. Phase timings come from
 the `RxInferBenchmarkCallbacks` instance the wrapper passes in — models need no build/run split
 and no timing code of their own.
 

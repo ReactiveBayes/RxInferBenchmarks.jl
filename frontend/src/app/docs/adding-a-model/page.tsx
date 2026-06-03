@@ -48,8 +48,8 @@ version = "0.1.0"
 BenchmarkTools = "6e4b80f9-dd63-53aa-95a3-0cdb28fa8baf"
 Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
 JSON3 = "0f8b85d8-7281-11e9-16c2-39a750bddbf1"
-Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 RxInfer = "86711068-29c9-4ff7-b620-ae75d7495b3d"
+StableRNGs = "860ef19b-820b-49d6-a774-d7a799459cd3"
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
@@ -107,7 +107,7 @@ end`}</CodeBlock>
         </p>
         <CodeBlock label="models/linear_regression/src/LinearRegressionModel.jl">{`module LinearRegressionModel
 
-using RxInfer, Distributions, Random
+using RxInfer, Distributions, StableRNGs
 
 export run_benchmark
 
@@ -120,7 +120,7 @@ const TRUE_SLOPE = 2.5
 end
 
 function generate_data(params::AbstractDict)
-    rng = MersenneTwister(get(params, "seed", 42))
+    rng = StableRNG(get(params, "seed", 42))
     n = params["n"]
     x = collect(range(-2, 2; length = n))
     y = TRUE_SLOPE .* x .+ 1.0 .+ randn(rng, n)

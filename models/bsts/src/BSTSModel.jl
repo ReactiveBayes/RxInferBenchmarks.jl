@@ -15,7 +15,7 @@ module BSTSModel
 using RxInfer
 using Distributions
 using LinearAlgebra
-using Random
+using StableRNGs
 
 export run_benchmark
 
@@ -64,7 +64,8 @@ state-space simulation with the example's dynamics plus a sinusoidal
 "temperature" regressor with true coefficient `TRUE_BETA`.
 """
 function generate_data(params::AbstractDict)
-    rng = MersenneTwister(get(params, "seed", 42))
+    # StableRNG guarantees the exact same data on every Julia version and platform.
+    rng = StableRNG(get(params, "seed", 42))
     n = params["n"]
     period = get(params, "period", 7)
 
@@ -143,7 +144,7 @@ model, return the result.
 function run_benchmark(scenario::AbstractDict; callbacks = nothing)
     params = scenario["params"]
     data = generate_data(params)
-    priors = make_priors(MersenneTwister(get(params, "seed", 42)))
+    priors = make_priors(StableRNG(get(params, "seed", 42)))
     return infer(
         model = rxsts(H = H_VEC, X = data.X, R = R_MAT, priors = priors),
         data = (y = data.y,),
