@@ -5,7 +5,7 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
   return (
     <div className="flex min-h-full flex-col">
       <TopBar />
-      <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-10">{children}</main>
+      <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-10">{children}</main>
     </div>
   );
 }

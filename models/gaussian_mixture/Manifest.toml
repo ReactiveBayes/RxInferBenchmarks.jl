@@ -2,7 +2,7 @@
 
 julia_version = "1.12.6"
 manifest_format = "2.0"
-project_hash = "cd0c29f878ea8e2e1bd15a304903f45c8f47b3c7"
+project_hash = "abceaa523916a9df7feae113ce4c9bd0593b3894"
 
 [[deps.ADTypes]]
 git-tree-sha1 = "bbc22a9a08a0ef6460041086d8a7b27940ed4ffd"
@@ -467,7 +467,7 @@ uuid = "d54b0c1a-921d-58e0-8e36-89d8069c0969"
 version = "0.5.8"
 
 [[deps.GaussianMixtureModel]]
-deps = ["BenchmarkTools", "Distributions", "JSON3", "Random", "RxInfer", "StableRNGs", "Statistics"]
+deps = ["BenchmarkTools", "Distributions", "JSON3", "LinearAlgebra", "Random", "RxInfer", "StableRNGs", "Statistics"]
 path = "."
 uuid = "6135a3a9-c365-4888-9f52-565b7d778c51"
 version = "0.1.0"

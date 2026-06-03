@@ -22,10 +22,11 @@ happen — and ties them to the exact version/dependency change that caused them
 
 ## How
 
-**Models** (`models/`): each benchmarked model — coin toss (Beta-Bernoulli), Kalman
-filtering/smoothing, Gaussian mixture, Bayesian structural time series — is a standalone Julia
-project, ported from the official RxInfer examples. Each exposes one function,
-`run_benchmark(scenario; callbacks)`, and nothing else.
+**Models** (`models/`): each benchmarked model — coin toss (Beta-Bernoulli), Gaussian parameter
+estimation (mean-field), Bayesian linear regression, Kalman filtering/smoothing, Gaussian
+mixtures (univariate and multivariate) — is a standalone Julia project, ported from the official
+RxInfer examples. Each exposes one function, `run_benchmark(scenario; callbacks)`, and nothing
+else.
 
 **Harness** (`benchmarks/harness/`): reads the experiment matrix from `data/experiments.yml`,
 and for every scenario spawns **3 fresh Julia processes** (true cold starts → real variance).

@@ -42,7 +42,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        model: [coin_toss, iid_normal, linear_regression, kalman, gaussian_mixture, bsts]
+        model: [coin_toss, iid_normal, linear_regression, kalman, gaussian_mixture]
         julia: ["1.10", "1.11", "1.12"]
     steps:
       - uses: actions/checkout@v4

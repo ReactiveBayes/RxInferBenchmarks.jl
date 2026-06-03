@@ -5,7 +5,7 @@ export const metadata: Metadata = { title: "Adding a model — RxInfer Benchmark
 
 export default function AddingAModelPage() {
   return (
-    <article>
+    <article className="mx-auto max-w-3xl">
       <DocTitle>Adding a new model</DocTitle>
       <DocLead>
         A complete tutorial for contributing a new benchmark model. The whole process is five

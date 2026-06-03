@@ -103,26 +103,6 @@
             ],
             "category": "Problem Specific",
             "description": "Variational inference for finite Gaussian mixtures; dimension 1 runs the univariate model, higher dimensions the multivariate one."
-        },
-        {
-            "model": "bsts",
-            "id": "advanced/bsts",
-            "matrix": {
-                "period": [
-                    7
-                ],
-                "n": [
-                    365
-                ]
-            },
-            "title": "Bayesian Structural Time Series",
-            "tags": [
-                "time series",
-                "structured",
-                "large"
-            ],
-            "category": "Advanced Examples",
-            "description": "Structured time-series model with trend and seasonal latent components."
         }
     ],
     "version": 1,

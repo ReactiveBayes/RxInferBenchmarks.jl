@@ -59,13 +59,3 @@ experiments:
       dimension: [1, 5]
       n_components: [2, 3]
       n: [1000]
-
-  - id: advanced/bsts
-    model: bsts
-    category: Advanced Examples
-    title: Bayesian Structural Time Series
-    description: Structured time-series model with trend and seasonal latent components.
-    tags: [time series, structured, large]
-    matrix:
-      n: [365]
-      period: [7]

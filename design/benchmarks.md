@@ -110,14 +110,20 @@ that cannot run cleanly under these flags must have its data/priors fixed — or
 (e.g. sizes × modes) or an explicit `scenarios:` list. See [data.md](data.md) for the schema.
 
 **The `iterations` dimension only exists where it is meaningful**: variational/VMP models
-(mixtures, mean-field Gaussian, BSTS, linear regression with init messages) iterate; closed-form
-conjugate models (coin toss) and exact belief propagation (Kalman) converge in a single pass and
-have no iterations axis.
+(mixtures, mean-field Gaussian, linear regression with init messages) iterate — with a count
+**fixed per model** (per-iteration time is already a reported metric, an axis would only burn CI
+cycles); closed-form conjugate models (coin toss) and exact belief propagation (Kalman) converge
+in a single pass and have no iterations parameter at all.
+
+## Removed models
+
+- **BSTS** (Bayesian Structural Time Series, `ContinuousTransition` + Wishart): removed — its
+  inference was numerically unstable across Julia versions (posterior drift on 1.10) and
+  platforms (non-symmetric FastCholesky failures on linux x64 only), violating the
+  numerical-validity gate above. It can return once the model is stabilized.
 
 ## ⚠️ Open questions
 
 - Exact `@autoupdates`/`datastream` form for the Kalman *filtering* scenario (benchmark callbacks
   record `autostart` there instead of inference/iteration timestamps).
 - Whether `free_energy = true` is meaningful for the conjugate coin-toss model.
-- BSTS may need explicit `@constraints` / `@initialization` for stable convergence; verify
-  against the official example.
