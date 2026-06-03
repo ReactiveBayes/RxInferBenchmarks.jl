@@ -1,0 +1,16 @@
+# Node / Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/public/local-data
+frontend/coverage/
+*.tsbuildinfo
+
+# Julia
+*.jl.cov
+*.jl.mem
+LocalPreferences.toml
+
+# OS / editors
+.DS_Store
+*.swp
