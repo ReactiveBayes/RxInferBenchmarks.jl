@@ -167,6 +167,7 @@ metrics:
   - { id: warm_run_min_ms,     label: Warm run (min),          unit: ms,    lower_is_better: true }
   - { id: warm_run_median_ms,  label: Warm run (median),       unit: ms,    lower_is_better: true }
   - { id: iteration_median_ms, label: Iteration (median),      unit: ms,    lower_is_better: true }
+  - { id: autostart_ms,        label: Autostart (streaming),   unit: ms,    lower_is_better: true }
   - { id: allocations,         label: Allocations,             unit: count, lower_is_better: true }
   - { id: allocated_bytes,     label: Allocated memory,        unit: bytes, lower_is_better: true }
   - { id: gc_time_ms,          label: GC time,                 unit: ms,    lower_is_better: true }
