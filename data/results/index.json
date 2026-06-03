@@ -1,5 +1,25 @@
 {
-    "generated_utc": "2026-06-03T14:39:51Z",
+    "generated_utc": "2026-06-03T18:57:56Z",
     "schema_version": 2,
-    "hardware": []
+    "hardware": [
+        {
+            "label": "Default GitHub CI runner",
+            "julia_versions": [
+                "1.10"
+            ],
+            "id": "github-actions-ubuntu",
+            "entries": [
+                {
+                    "fingerprint": "d6a0e001a8f68da23dead595b6b3e8ee84969d2abab862db1863589befc8eaaa",
+                    "julia_version": "1.10.11",
+                    "file": "github-actions-ubuntu/1.10/d6a0e001a8f6.json",
+                    "last_seen_utc": "2026-06-03T18:57:45Z",
+                    "rxinfer_version": "5.3.4",
+                    "first_seen_utc": "2026-06-03T18:57:45Z",
+                    "run_count": 1,
+                    "sample_count": 3
+                }
+            ]
+        }
+    ]
 }
