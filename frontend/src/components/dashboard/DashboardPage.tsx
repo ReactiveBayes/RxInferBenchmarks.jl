@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { BenchmarkView } from "@/components/benchmark/BenchmarkView";
 import { LandingExplainer } from "@/components/landing/LandingExplainer";
 import { GlobalOverview } from "@/components/overview/GlobalOverview";
+import { MobileNav } from "@/components/layout/MobileNav";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { TopBar } from "@/components/layout/TopBar";
 import {
@@ -55,16 +56,35 @@ export function DashboardPage() {
 
   const activeExperiment = experiments.data?.experiments.find((e) => e.id === selection.benchmark);
 
+  const allExperiments = experiments.data?.experiments ?? [];
+
   return (
     <div className="flex h-full flex-col">
-      <TopBar />
+      <TopBar
+        leading={
+          <MobileNav>
+            {(close) => (
+              <Sidebar
+                className="w-full border-r-0"
+                experiments={allExperiments}
+                selected={selection.benchmark}
+                onSelect={(id) => {
+                  selection.select({ benchmark: id, metric: "all", scenario: "all" });
+                  close();
+                }}
+              />
+            )}
+          </MobileNav>
+        }
+      />
       <div className="flex min-h-0 flex-1">
         <Sidebar
-          experiments={experiments.data?.experiments ?? []}
+          className="hidden lg:flex"
+          experiments={allExperiments}
           selected={selection.benchmark}
           onSelect={(id) => selection.select({ benchmark: id, metric: "all", scenario: "all" })}
         />
-        <main className="min-w-0 flex-1 overflow-y-auto p-6">
+        <main className="min-w-0 flex-1 overflow-y-auto p-4 sm:p-6">
           {isError ? (
             <Card>
               <CardContent className="py-10 text-center text-sm text-muted-foreground">

@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 export function LandingExplainer() {
   return (
     <section className="space-y-6">
-      <div className="rounded-xl border p-8">
+      <div className="rounded-xl border p-5 sm:p-8">
         <Image
           src="/biglogo.svg"
           alt="RxInfer"
@@ -25,7 +25,7 @@ export function LandingExplainer() {
           priority
           className="mb-5 hidden h-auto w-60 dark:block"
         />
-        <h1 className="text-3xl font-semibold tracking-tight">
+        <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
           How fast is RxInfer.jl — and is it getting faster?
         </h1>
         <p className="mt-3 max-w-3xl text-muted-foreground">
@@ -98,7 +98,7 @@ export function LandingExplainer() {
       </div>
 
       <p className="text-sm text-muted-foreground">
-        Pick a benchmark from the sidebar to see its full history, or scan the overview below.
+        Pick a benchmark from the menu to see its full history, or scan the overview below.
       </p>
     </section>
   );

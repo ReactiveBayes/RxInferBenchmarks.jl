@@ -167,7 +167,7 @@ export function BenchmarkView({
         </Card>
       ) : (
         <Tabs defaultValue="explore" className="gap-4">
-          <TabsList className="mb-2 gap-2">
+          <TabsList className="mb-2 max-w-full justify-start gap-2 overflow-x-auto">
             <TabsTrigger value="explore" className="cursor-pointer px-4">
               Explore individual scenario
             </TabsTrigger>
@@ -234,7 +234,7 @@ export function BenchmarkView({
 
           {activeMetric ? (
             <Tabs defaultValue="trend">
-              <TabsList className="gap-2">
+              <TabsList className="max-w-full justify-start gap-2 overflow-x-auto">
                 <TabsTrigger value="trend" className="cursor-pointer px-4">Trend</TabsTrigger>
                 <TabsTrigger value="samples" className="cursor-pointer px-4">Samples</TabsTrigger>
                 <TabsTrigger value="compare" className="cursor-pointer px-4">Compare</TabsTrigger>
@@ -309,7 +309,7 @@ export function BenchmarkView({
           )}
 
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between">
+            <CardHeader className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between">
               <CardTitle className="text-sm">Time phases</CardTitle>
               <div role="group" aria-label="Time phases mode" className="flex items-center gap-1">
                 {(

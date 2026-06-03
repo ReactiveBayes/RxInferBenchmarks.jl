@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { screen, waitFor } from "@testing-library/react";
+import { screen, waitFor, within } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { renderWithProviders, mockFetchByUrl } from "@/test/utils";
 import {
   fixtureExperiments,
@@ -74,6 +75,20 @@ describe("DashboardPage", () => {
       ),
     );
     expect(screen.getByRole("combobox", { name: /julia version/i })).toHaveTextContent("Julia 1.12");
+  });
+
+  it("exposes navigation and benchmarks in a mobile drawer", async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<DashboardPage />);
+    await waitFor(() => expect(screen.getByLabelText(/global overview/i)).toBeInTheDocument());
+
+    await user.click(screen.getByRole("button", { name: /open navigation menu/i }));
+    const drawer = await screen.findByRole("dialog");
+    // Primary nav links and the benchmark list both live in the drawer.
+    expect(within(drawer).getByRole("link", { name: /how it works/i })).toBeInTheDocument();
+
+    await user.click(within(drawer).getByRole("button", { name: "Coin Toss Model" }));
+    expect(replaceMock).toHaveBeenCalled();
   });
 
   it("renders an error card when the index cannot be fetched", async () => {
