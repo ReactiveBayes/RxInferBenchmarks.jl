@@ -1,6 +1,6 @@
 export function Footer() {
   return (
-    <footer className="mt-10 border-t pt-4 pb-2 text-center text-xs text-muted-foreground">
+    <footer className="w-full shrink-0 border-t bg-background py-2 text-center text-xs text-muted-foreground">
       Created and maintained by the{" "}
       <a
         href="https://github.com/ReactiveBayes"

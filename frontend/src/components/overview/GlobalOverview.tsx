@@ -8,7 +8,7 @@ import { Sparkline } from "@/components/charts/Sparkline";
 import { metricColor } from "@/lib/chartTheme";
 import { formatDate, formatValue } from "@/lib/format";
 import { detectRegression, type RegressionResult } from "@/lib/transform/regression";
-import { buildSeries, listScenarios, type SeriesPoint } from "@/lib/transform/series";
+import { buildSeries, listMetrics, listScenarios, type SeriesPoint } from "@/lib/transform/series";
 import type { ExperimentDef, MetricDef, ResultFile, ResultsIndex } from "@/lib/data/types";
 
 /** The headline metric shown on overview sparklines (fall back to whatever exists). */
@@ -20,6 +20,8 @@ interface OverviewEntry {
   metric: MetricDef;
   series: SeriesPoint[];
   regression: RegressionResult;
+  /** Metric defs measured for this benchmark (chips on the card). */
+  availableMetrics: MetricDef[];
 }
 
 export function GlobalOverview({
@@ -50,12 +52,14 @@ export function GlobalOverview({
         metric: metric.id,
       });
       if (series.length === 0) continue;
+      const presentIds = listMetrics(files, experiment.id);
       result.push({
         experiment,
         scenarioId,
         metric,
         series,
         regression: detectRegression(series, { lowerIsBetter: metric.lower_is_better }),
+        availableMetrics: metricDefs.filter((m) => presentIds.includes(m.id)),
       });
     }
     return result;
@@ -107,7 +111,7 @@ export function GlobalOverview({
 
       <div>
         <h2 className="mb-2 text-sm font-semibold">All benchmarks — {entries[0].metric.label} trend</h2>
-        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(15rem,1fr))] gap-3">
           {entries.map((entry) => {
             const latest = entry.series[entry.series.length - 1];
             return (
@@ -115,26 +119,38 @@ export function GlobalOverview({
                 key={entry.experiment.id}
                 role="button"
                 aria-label={`Open ${entry.experiment.title} details`}
-                className="cursor-pointer py-4 transition-colors hover:border-primary/50"
+                className="cursor-pointer gap-2 py-4 transition-all duration-150 hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg"
                 onClick={() => onOpenBenchmark(entry.experiment.id)}
               >
-                <CardHeader className="pb-2">
-                  <CardTitle className="flex items-center justify-between text-sm">
+                <CardHeader className="pb-0">
+                  <CardTitle className="flex items-start justify-between gap-2 text-base">
                     {entry.experiment.title}
                     <RegressionBadge result={entry.regression} />
                   </CardTitle>
+                  {entry.experiment.description && (
+                    <p className="text-xs leading-snug text-muted-foreground">
+                      {entry.experiment.description}
+                    </p>
+                  )}
                 </CardHeader>
-                <CardContent>
+                <CardContent className="space-y-2">
                   <Sparkline
                     values={entry.series.map((p) => p.stats.mean)}
                     color={metricColor(entry.metric.id)}
                     label={`${entry.experiment.title} ${entry.metric.label} trend`}
                   />
-                  <p className="mt-2 text-xs text-muted-foreground">
+                  <p className="text-xs text-muted-foreground">
                     latest {formatValue(latest.stats.mean, entry.metric.unit)} ±{" "}
                     {formatValue(latest.stats.std, entry.metric.unit)} · {entry.series.length} env
                     {entry.series.length === 1 ? "" : "s"}
                   </p>
+                  <div className="flex flex-wrap gap-1" aria-label={`${entry.experiment.title} measured metrics`}>
+                    {entry.availableMetrics.map((m) => (
+                      <Badge key={m.id} variant="secondary" className="px-1.5 py-0 text-[10px]">
+                        {m.label}
+                      </Badge>
+                    ))}
+                  </div>
                 </CardContent>
               </Card>
             );

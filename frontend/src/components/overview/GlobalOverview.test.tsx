@@ -40,6 +40,14 @@ describe("GlobalOverview", () => {
     expect(screen.getAllByLabelText(/\(regression\)/i).length).toBeGreaterThanOrEqual(1);
   });
 
+  it("shows the description and measured-metric chips on each card", () => {
+    renderOverview();
+    expect(screen.getByText("Beta-Bernoulli inference with IID observations.")).toBeInTheDocument();
+    const chips = screen.getByLabelText(/coin toss model measured metrics/i);
+    expect(chips).toHaveTextContent("Cold run");
+    expect(chips).toHaveTextContent("Allocations");
+  });
+
   it("opens a benchmark on card click", async () => {
     const user = userEvent.setup();
     const onOpen = renderOverview();

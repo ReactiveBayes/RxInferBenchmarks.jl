@@ -6,7 +6,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { BenchmarkView } from "@/components/benchmark/BenchmarkView";
 import { LandingExplainer } from "@/components/landing/LandingExplainer";
 import { GlobalOverview } from "@/components/overview/GlobalOverview";
-import { Footer } from "@/components/layout/Footer";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { TopBar } from "@/components/layout/TopBar";
 import {
@@ -57,7 +56,7 @@ export function DashboardPage() {
   const activeExperiment = experiments.data?.experiments.find((e) => e.id === selection.benchmark);
 
   return (
-    <div className="flex h-screen flex-col">
+    <div className="flex h-full flex-col">
       <TopBar />
       <div className="flex min-h-0 flex-1">
         <Sidebar
@@ -110,7 +109,6 @@ export function DashboardPage() {
               />
             </div>
           )}
-          <Footer />
         </main>
       </div>
     </div>
