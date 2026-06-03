@@ -44,13 +44,18 @@ Query params (via a `useSelection` hook wrapping `useSearchParams` + `router.rep
 
 Always use `next/link` (basePath-aware); never raw `<a href="/...">` for internal links.
 
-## Theme — Julia palette on shadcn tokens
+## Theme — shadcn defaults with light Julia accents
 
-Light mode: primary = Julia purple `#9558B2`; categorical chart palette `--chart-1..4` =
-purple / green `#389826` / blue `#4063D8` / red `#CB3C33` (+ amber 5th). Red doubles as the
-regression signal, green as improvement. Dark mode uses the lighter "Julia dot" pastel variants
-on a dark background. Dark/light via `next-themes` (class strategy, default system). Each metric
-gets a **stable color** across all views (`chart-theme.ts`).
+Stay close to **stock shadcn**: the neutral default palette, default Geist font, no decorative
+gradients or tinted neutrals. (Previously a fully custom Julia-hued theme; reverted — it looked
+worse than the defaults.) The only deviations:
+
+- `--primary` = Julia purple `#9558B2` (lighter "logo dot" `#AA79C1` in dark mode),
+- chart palette `--chart-1..4` = Julia purple / green `#389826` / blue `#4063D8` / red `#CB3C33`,
+- `--signal-improve` / `--signal-regress` (green/red) for regression badges.
+
+Dark/light via `next-themes` (class strategy, default system). Each metric keeps a **stable
+color** across all views (`chartTheme.ts`).
 
 ## Views & charts
 

@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { formatValue } from "@/lib/format";
 import { detectRegression } from "@/lib/transform/regression";
@@ -35,9 +36,16 @@ export function SummaryStrip({
             key={metric.id}
             role={onSelectMetric ? "button" : undefined}
             aria-label={`${metric.label} summary`}
+            title={
+              onSelectMetric
+                ? selectedMetric === metric.id
+                  ? "Click to go back to the all-metrics overview"
+                  : `Click to open the detailed ${metric.label} view`
+                : undefined
+            }
             onClick={() => onSelectMetric?.(metric.id)}
             className={cn(
-              "py-4",
+              "group py-4",
               onSelectMetric && "cursor-pointer transition-colors hover:border-primary/50",
               selectedMetric === metric.id && "border-primary",
             )}
@@ -48,9 +56,17 @@ export function SummaryStrip({
                 <RegressionBadge result={regression} />
               </div>
               <p className="mt-1 font-mono text-xl">{formatValue(latest.stats.mean, metric.unit)}</p>
-              <p className="text-xs text-muted-foreground">
-                ± {formatValue(latest.stats.std, metric.unit)} (n={latest.stats.n})
-              </p>
+              <div className="flex items-center justify-between">
+                <p className="text-xs text-muted-foreground">
+                  ± {formatValue(latest.stats.std, metric.unit)} (n={latest.stats.n})
+                </p>
+                {onSelectMetric && (
+                  <span className="flex items-center text-xs text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100">
+                    {selectedMetric === metric.id ? "back to overview" : "details"}
+                    <ChevronRight className="size-3.5" />
+                  </span>
+                )}
+              </div>
             </CardContent>
           </Card>
         );
