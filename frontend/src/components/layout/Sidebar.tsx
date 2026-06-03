@@ -11,10 +11,12 @@ export function Sidebar({
   experiments,
   selected,
   onSelect,
+  className,
 }: {
   experiments: ExperimentDef[];
   selected: string | null;
   onSelect: (id: string | null) => void;
+  className?: string;
 }) {
   const [query, setQuery] = useState("");
 
@@ -32,7 +34,12 @@ export function Sidebar({
   }, [experiments, query]);
 
   return (
-    <aside className="flex h-full w-64 shrink-0 flex-col border-r bg-sidebar text-sidebar-foreground">
+    <aside
+      className={cn(
+        "flex h-full w-64 shrink-0 flex-col border-r bg-sidebar text-sidebar-foreground",
+        className,
+      )}
+    >
       <div className="relative p-3">
         <Search className="pointer-events-none absolute left-6 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
         <input

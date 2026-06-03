@@ -15,18 +15,19 @@ export function DocsSideNav({ items }: { items: DocsNavItem[] }) {
   const isActive = (href: string) =>
     pathname.replace(/\/$/, "") === href.replace(/\/$/, "");
   return (
-    <nav aria-label="Benchmark reference" className="w-52 shrink-0">
-      <h2 className="px-2 pb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+    <nav aria-label="Benchmark reference" className="lg:w-52 lg:shrink-0">
+      <h2 className="hidden px-2 pb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground lg:block">
         Benchmark reference
       </h2>
-      <ul className="space-y-0.5">
+      {/* Horizontally scrollable chip row on mobile; vertical rail on lg+. */}
+      <ul className="-mx-1 flex gap-1 overflow-x-auto px-1 pb-1 lg:mx-0 lg:flex-col lg:gap-0.5 lg:overflow-visible lg:px-0 lg:pb-0">
         {items.map((item) => (
-          <li key={item.href}>
+          <li key={item.href} className="shrink-0 lg:shrink">
             <Link
               href={item.href}
               aria-current={isActive(item.href) ? "page" : undefined}
               className={cn(
-                "block rounded-md px-2 py-1.5 text-sm hover:bg-accent",
+                "block whitespace-nowrap rounded-md border px-2 py-1.5 text-sm hover:bg-accent lg:border-transparent",
                 isActive(item.href) && "bg-accent font-medium",
               )}
             >

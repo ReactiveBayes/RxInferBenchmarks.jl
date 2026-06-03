@@ -8,7 +8,7 @@ export default function HowItWorksLayout({ children }: { children: ReactNode }) 
     ...DESIGN_DOCS.map((doc) => ({ href: `/docs/how-it-works/${doc.slug}/`, title: doc.title })),
   ];
   return (
-    <div className="flex gap-8">
+    <div className="flex flex-col gap-4 lg:flex-row lg:gap-8">
       <DocsSideNav items={items} />
       <div className="min-w-0 flex-1">{children}</div>
     </div>

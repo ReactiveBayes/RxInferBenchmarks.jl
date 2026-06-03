@@ -49,6 +49,19 @@ Query params (via a `useSelection` hook wrapping `useSearchParams` + `router.rep
 
 Always use `next/link` (basePath-aware); never raw `<a href="/...">` for internal links.
 
+## Responsive layout
+
+The dashboard is usable from phone to wide monitor. The persistent left rails
+(benchmark sidebar on `/`, the "Benchmark reference" nav on `/docs/how-it-works`)
+collapse below their breakpoint into a `Menu`-triggered shadcn `Sheet` drawer
+(`MobileNav`); the benchmark sidebar drawer dismisses on selection. The two
+primary nav links live in a shared `PrimaryNavLinks` component reused by the
+desktop `TopBar` nav and every mobile drawer, so they stay reachable on every
+viewport. Wide-only chrome degrades gracefully: tab strips scroll horizontally,
+the docs reference nav becomes a scrollable chip row, content padding tightens,
+and grids reflow to a single column. Charts are width-fluid via Recharts'
+`ResponsiveContainer`.
+
 ## Theme — shadcn defaults with light Julia accents
 
 Stay close to **stock shadcn**: the neutral default palette, default Geist font, no decorative
