@@ -1,11 +1,11 @@
 import type { NextConfig } from "next";
 
-// GitHub Pages serves this app as a *project page* under /RxInferBenchmarks.jl.
-// The base path is enabled only for the Pages build (GITHUB_PAGES=true) so that
-// local dev and local static previews stay at /.
-const isGitHubPages = process.env.GITHUB_PAGES === "true";
-const basePath = "/RxInferBenchmarks.jl";
-
+// The dashboard is served from the custom domain https://benchmarks.rxinfer.com,
+// which maps to the site root ("/"). It is therefore NOT a GitHub Pages *project
+// page* (those live under /<repo>/), so no basePath/assetPrefix is needed: assets
+// and routes resolve from "/" in both local dev and the deployed site.
+// `public/CNAME` pins the custom domain across deploys; `public/.nojekyll`
+// prevents Jekyll from mangling the `_next/` asset directory.
 const nextConfig: NextConfig = {
   // Hard rule (CLAUDE.md): the build must be fully static. `output: "export"`
   // makes `next build` fail on any dynamically rendered page; scripts/check-static.mjs
@@ -13,7 +13,6 @@ const nextConfig: NextConfig = {
   output: "export",
   trailingSlash: true,
   images: { unoptimized: true },
-  ...(isGitHubPages ? { basePath, assetPrefix: `${basePath}/` } : {}),
 };
 
 export default nextConfig;

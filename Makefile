@@ -93,7 +93,7 @@ frontend-dev: ## Dashboard dev server against local data/ (http://localhost:3000
 
 .PHONY: frontend-build
 frontend-build: ## Static export build into frontend/out/
-	GITHUB_PAGES=true $(NPM) run build
+	$(NPM) run build
 
 .PHONY: frontend-check-static
 frontend-check-static: ## Verify the build is fully static (no dynamic pages)
