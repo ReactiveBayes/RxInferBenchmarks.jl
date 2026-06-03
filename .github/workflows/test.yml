@@ -1,0 +1,107 @@
+# Full test suite: harness + every model (Julia version matrix) + frontend.
+# Also reusable (workflow_call) — benchmark.yml runs it as a gate so that
+# benchmarks are never recorded on a red test suite (design/architecture.md).
+name: Test
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "data/results/**" # benchmark bot commits must not trigger CI (loop avoidance)
+  schedule:
+    - cron: "0 6 * * 1" # weekly Monday 06:00 UTC
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  harness:
+    name: Harness (Julia ${{ matrix.julia }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        julia: ["lts", "1"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: ${{ matrix.julia }}
+      - uses: julia-actions/cache@v2
+      - name: Run harness tests (no model subprocesses)
+        env:
+          RXBENCH_SKIP_SMOKE: "1" # smoke runs in the models job below
+        run: julia --project=benchmarks/harness -e 'using Pkg; Pkg.instantiate(); Pkg.test()'
+
+  models:
+    name: ${{ matrix.model }} (Julia ${{ matrix.julia }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        model: [coin_toss, kalman, gaussian_mixture, bsts]
+        julia: ["lts", "1"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: ${{ matrix.julia }}
+      - uses: julia-actions/cache@v2
+      - name: Resolve and test
+        env:
+          JULIA_FASTCHOLESKY_NO_WARN_NON_SYMMETRIC: "1"
+        # Pkg.update() re-resolves the committed Manifest for this Julia version
+        # (manifests are resolved on the latest stable; LTS may need different versions).
+        run: julia --project=models/${{ matrix.model }} -e 'using Pkg; Pkg.update(); Pkg.test()'
+
+  smoke:
+    name: End-to-end smoke (Julia ${{ matrix.julia }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        julia: ["1"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: ${{ matrix.julia }}
+      - uses: julia-actions/cache@v2
+      - name: Instantiate all projects
+        run: |
+          julia --project=benchmarks/harness -e 'using Pkg; Pkg.instantiate()'
+          for m in coin_toss kalman gaussian_mixture bsts; do
+            julia --project=models/$m -e 'using Pkg; Pkg.update()'
+          done
+      - name: Smoke benchmark run (tiny sizes, temp output)
+        env:
+          RXBENCH_SMOKE: "1"
+          RXBENCH_HARDWARE_ID: github-actions-ubuntu
+          JULIA_FASTCHOLESKY_NO_WARN_NON_SYMMETRIC: "1"
+        run: julia --project=benchmarks/harness benchmarks/harness/bin/run_benchmarks.jl
+
+  frontend:
+    name: Frontend (lint, typecheck, tests, static build)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run test
+      - run: npm run build
+        env:
+          GITHUB_PAGES: "true"
+      - name: Verify the build is fully static (hard rule)
+        run: npm run check-static

@@ -1,0 +1,100 @@
+# Scheduled benchmark runs (design/architecture.md).
+#
+# Loop avoidance (this workflow commits to the repo it runs in), three layers:
+#   1. Triggers are schedule + dispatch ONLY — its own commits can never retrigger it.
+#   2. The bot commit message carries [skip ci].
+#   3. test.yml ignores data/results/** on push.
+#
+# Tests gate the benchmarks: if any test fails, nothing is recorded.
+name: Benchmark
+
+on:
+  schedule:
+    - cron: "0 3 * * 1" # Monday 03:00 UTC
+  workflow_dispatch:
+    inputs:
+      smoke:
+        description: "Smoke mode (tiny sizes, validates the pipeline without recording)"
+        type: boolean
+        default: false
+
+concurrency:
+  group: benchmark
+  cancel-in-progress: false
+
+jobs:
+  tests:
+    name: Gate — full test suite
+    uses: ./.github/workflows/test.yml
+    permissions:
+      contents: read
+
+  bench:
+    name: Benchmark (Julia ${{ matrix.julia }})
+    needs: tests
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # pushes result files
+    strategy:
+      fail-fast: false
+      max-parallel: 1 # serialize commits between Julia versions
+      matrix:
+        julia: ["lts", "1"]
+    env:
+      RXBENCH_HARDWARE_ID: github-actions-ubuntu
+      JULIA_FASTCHOLESKY_NO_WARN_NON_SYMMETRIC: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: ${{ matrix.julia }}
+      - uses: julia-actions/cache@v2
+
+      - name: Instantiate harness
+        run: julia --project=benchmarks/harness -e 'using Pkg; Pkg.instantiate()'
+
+      - name: Update models to the latest released RxInfer
+        # The resolved manifests define the environment fingerprint for this run.
+        run: |
+          for m in coin_toss kalman gaussian_mixture bsts; do
+            echo "==> models/$m"
+            julia --project=models/$m -e 'using Pkg; Pkg.update()'
+          done
+
+      - name: Run benchmarks
+        env:
+          RXBENCH_SMOKE: ${{ inputs.smoke && '1' || '0' }}
+        run: |
+          if [ "$RXBENCH_SMOKE" = "1" ]; then
+            # smoke mode writes to a temp dir and records nothing
+            julia --project=benchmarks/harness benchmarks/harness/bin/run_benchmarks.jl
+          else
+            julia --project=benchmarks/harness benchmarks/harness/bin/run_benchmarks.jl
+            julia --project=benchmarks/harness benchmarks/harness/bin/build_index.jl
+          fi
+
+      - name: Commit results
+        if: ${{ !inputs.smoke }}
+        run: |
+          git config user.name "rxinfer-bench-bot"
+          git config user.email "rxinfer-bench-bot@users.noreply.github.com"
+          git add data/results data/experiments.json data/hardware.json data/metrics.json
+          if git diff --staged --quiet; then
+            echo "no new results"
+            exit 0
+          fi
+          git commit -m "bench: results for ${GITHUB_SHA::7} (julia ${{ matrix.julia }}) [skip ci]"
+          # Another matrix leg may have pushed first. Result files live in disjoint
+          # folders, but the regenerated index.json/mirrors can conflict — resolve by
+          # regenerating them from the union (they are wholesale-generated artifacts).
+          if ! git pull --rebase origin main; then
+            julia --project=benchmarks/harness benchmarks/harness/bin/build_index.jl
+            git add data/results/index.json data/experiments.json data/hardware.json data/metrics.json
+            GIT_EDITOR=true git rebase --continue
+          fi
+          julia --project=benchmarks/harness benchmarks/harness/bin/build_index.jl
+          git add data/results/index.json
+          git diff --staged --quiet || git commit --amend --no-edit
+          git push origin HEAD:main
