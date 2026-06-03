@@ -9,8 +9,18 @@ const metricDefs = [
 ];
 
 const rows = [
-  { scenario: "iterations=10__n=1000__seed=42", cold_run_ms: 180, warm_run_min_ms: 1.5 },
-  { scenario: "iterations=10__n=10000__seed=42", cold_run_ms: 380, warm_run_min_ms: 8 },
+  {
+    scenario: "iterations=10__n=1000__seed=42",
+    label: "iterations = 10, n = 1000",
+    cold_run_ms: 180,
+    warm_run_min_ms: 1.5,
+  },
+  {
+    scenario: "iterations=10__n=10000__seed=42",
+    label: "iterations = 10, n = 10000",
+    cold_run_ms: 380,
+    warm_run_min_ms: 8,
+  },
 ];
 
 function renderChart() {
@@ -24,6 +34,13 @@ describe("ScenarioCompareChart", () => {
     expect(screen.getByText(/2 scenarios/i)).toBeInTheDocument();
     expect(screen.getByText(/grouped, log scale/i)).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /grouped/i })).toHaveAttribute("aria-pressed", "false");
+  });
+
+  it("labels scenarios with short letters and a legend list", () => {
+    renderChart();
+    const legend = screen.getByRole("list", { name: /scenario legend/i });
+    expect(legend).toHaveTextContent("Scenario A : iterations = 10, n = 1000");
+    expect(legend).toHaveTextContent("Scenario B : iterations = 10, n = 10000");
   });
 
   it("toggles to stacked bars, which force a linear scale", async () => {

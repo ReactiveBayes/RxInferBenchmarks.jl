@@ -3,6 +3,7 @@ import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import {
   fixtureExperiments,
+  fixtureIndex,
   fixtureMetrics,
   makeNewerResultFile,
   makePiResultFile,
@@ -22,6 +23,8 @@ function renderView(overrides: Partial<Parameters<typeof BenchmarkView>[0]> = {}
       files={files}
       allFiles={allFiles}
       metricDefs={fixtureMetrics.metrics}
+      hardwareList={fixtureIndex.hardware}
+      juliaVersions={["1.10", "1.12"]}
       hardware="github-actions-ubuntu"
       julia="1.12"
       metric="all"
@@ -96,6 +99,27 @@ describe("BenchmarkView", () => {
     await user.click(within(group).getByRole("button", { name: "4" }));
     expect(within(group).getByRole("button", { name: "4" })).toHaveAttribute("aria-pressed", "true");
     expect(three).toHaveAttribute("aria-pressed", "false");
+  });
+
+  it("has hardware and Julia selectors inside the explore tab", async () => {
+    const user = userEvent.setup();
+    const { onSelect } = renderView();
+    expect(screen.getByRole("combobox", { name: /hardware/i })).toHaveTextContent(
+      "GitHub Actions (ubuntu-latest)",
+    );
+    await user.click(screen.getByRole("combobox", { name: /julia version/i }));
+    await user.click(screen.getByRole("option", { name: "Julia 1.10" }));
+    expect(onSelect).toHaveBeenCalledWith({ julia: "1.10" });
+  });
+
+  it("time phases card can switch to a hardware & Julia comparison", async () => {
+    const user = userEvent.setup();
+    renderView();
+    expect(screen.getByRole("figure", { name: /phase breakdown per environment/i })).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: /hardware & julia/i }));
+    expect(screen.getByRole("figure", { name: /hardware and julia comparison/i })).toBeInTheDocument();
+    // both gha and pi combos appear (built from allFiles, ignoring the current filter)
+    expect(screen.getByRole("button", { name: /raspberry-pi-5 · julia 1\.12/i })).toBeInTheDocument();
   });
 
   it("offers a Compare scenarios tab when the benchmark has several scenarios", async () => {

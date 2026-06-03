@@ -1,8 +1,8 @@
 // Pure row-builders feeding the Recharts components — keeping chart components
 // thin and the data logic unit-testable.
-import { formatDate } from "@/lib/format";
+import { formatDate, scenarioLabel } from "@/lib/format";
 import type { ResultFile } from "@/lib/data/types";
-import { buildSeries, listScenarios, type SeriesPoint } from "./series";
+import { buildSeries, juliaMinor, listScenarios, type SeriesPoint } from "./series";
 
 export interface BandRow {
   date: string;
@@ -42,7 +42,11 @@ export function buildPhaseRows(seriesByMetric: Record<string, SeriesPoint[]>): P
   return [...byFingerprint.values()].sort((a, b) => a.date.localeCompare(b.date));
 }
 
-export type ScenarioPhaseRow = { scenario: string } & Partial<Record<string, number | string>>;
+export type ScenarioPhaseRow = {
+  scenario: string;
+  /** Humanized params, e.g. "iterations = 10, n = 1000". */
+  label: string;
+} & Partial<Record<string, number | string>>;
 
 /**
  * Scenario comparison within one benchmark: one row per scenario, each metric
@@ -60,8 +64,8 @@ export function buildScenarioPhaseRows(
 ): ScenarioPhaseRow[] {
   const scenarios = listScenarios(files, query.experimentId);
   const rows: ScenarioPhaseRow[] = [];
-  for (const { scenario_id } of scenarios) {
-    const row: ScenarioPhaseRow = { scenario: scenario_id };
+  for (const { scenario_id, params } of scenarios) {
+    const row: ScenarioPhaseRow = { scenario: scenario_id, label: scenarioLabel(params) };
     let hasData = false;
     for (const metric of query.metrics) {
       const series = buildSeries(files, {
@@ -70,6 +74,55 @@ export function buildScenarioPhaseRows(
         metric,
         hardwareId: query.hardwareId,
         juliaMinor: query.juliaMinor,
+      });
+      const latest = series[series.length - 1];
+      if (latest) {
+        row[metric] = latest.stats.mean;
+        hasData = true;
+      }
+    }
+    if (hasData) rows.push(row);
+  }
+  return rows;
+}
+
+export type EnvironmentPhaseRow = {
+  label: string;
+  hardwareId: string;
+  juliaMinor: string;
+} & Partial<Record<string, number | string>>;
+
+/**
+ * Differences across hardware × Julia versions for one scenario: one row per
+ * combo present in the data, each metric column holding the mean of that
+ * combo's LATEST environment fingerprint.
+ */
+export function buildEnvironmentPhaseRows(
+  files: ResultFile[],
+  query: { experimentId: string; scenarioId: string; metrics: string[] },
+): EnvironmentPhaseRow[] {
+  const combos = new Map<string, { hardwareId: string; juliaMinor: string }>();
+  for (const file of files) {
+    const minor = juliaMinor(file.environment.julia_version);
+    combos.set(`${file.hardware_id}::${minor}`, { hardwareId: file.hardware_id, juliaMinor: minor });
+  }
+  const rows: EnvironmentPhaseRow[] = [];
+  for (const { hardwareId, juliaMinor: minor } of [...combos.values()].sort((a, b) =>
+    `${a.hardwareId}::${a.juliaMinor}`.localeCompare(`${b.hardwareId}::${b.juliaMinor}`),
+  )) {
+    const row: EnvironmentPhaseRow = {
+      label: `${hardwareId} · Julia ${minor}`,
+      hardwareId,
+      juliaMinor: minor,
+    };
+    let hasData = false;
+    for (const metric of query.metrics) {
+      const series = buildSeries(files, {
+        experimentId: query.experimentId,
+        scenarioId: query.scenarioId,
+        metric,
+        hardwareId,
+        juliaMinor: minor,
       });
       const latest = series[series.length - 1];
       if (latest) {

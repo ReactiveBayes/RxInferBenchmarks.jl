@@ -13,14 +13,16 @@ import {
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CompareChart } from "@/components/charts/CompareChart";
+import { EnvironmentCompareChart } from "@/components/charts/EnvironmentCompareChart";
 import { MetricTimeSeriesChart } from "@/components/charts/MetricTimeSeriesChart";
 import { PhaseBreakdownChart } from "@/components/charts/PhaseBreakdownChart";
 import { SampleDistributionChart } from "@/components/charts/SampleDistributionChart";
 import { ScenarioCompareChart } from "@/components/charts/ScenarioCompareChart";
+import { HardwareSwitcher, JuliaSwitcher } from "@/components/layout/Switchers";
 import { scenarioLabel } from "@/lib/format";
-import { buildScenarioPhaseRows } from "@/lib/transform/chartData";
+import { buildEnvironmentPhaseRows, buildScenarioPhaseRows } from "@/lib/transform/chartData";
 import { buildSeries, listMetrics, listScenarios, type SeriesPoint } from "@/lib/transform/series";
-import type { ExperimentDef, MetricDef, ResultFile } from "@/lib/data/types";
+import type { ExperimentDef, IndexHardware, MetricDef, ResultFile } from "@/lib/data/types";
 import { cn } from "@/lib/utils";
 import { DependencyPanel } from "./DependencyPanel";
 import { RecentEntriesTable } from "./RecentEntriesTable";
@@ -33,6 +35,8 @@ export function BenchmarkView({
   files,
   allFiles,
   metricDefs,
+  hardwareList,
+  juliaVersions,
   hardware,
   julia,
   metric,
@@ -45,13 +49,23 @@ export function BenchmarkView({
   /** All files (for hardware/Julia comparison). */
   allFiles: ResultFile[];
   metricDefs: MetricDef[];
+  /** Hardware available in the index (for the explore-tab switcher). */
+  hardwareList: IndexHardware[];
+  /** Julia versions available for the selected hardware. */
+  juliaVersions: string[];
   hardware: string | null;
   julia: string | null;
   metric: string;
   scenario: string;
-  onSelect: (update: { metric?: string | null; scenario?: string | null }) => void;
+  onSelect: (update: {
+    metric?: string | null;
+    scenario?: string | null;
+    hardware?: string | null;
+    julia?: string | null;
+  }) => void;
 }) {
   const [chartColumns, setChartColumns] = useState<2 | 3 | 4>(3);
+  const [phasesMode, setPhasesMode] = useState<"history" | "environments">("history");
   const scenarios = useMemo(() => listScenarios(files, experiment.id), [files, experiment.id]);
   const activeScenario =
     scenario !== "all" && scenarios.some((s) => s.scenario_id === scenario)
@@ -152,36 +166,64 @@ export function BenchmarkView({
           </CardContent>
         </Card>
       ) : (
-        <Tabs defaultValue="explore">
-          <TabsList>
-            <TabsTrigger value="explore">Explore individual scenario</TabsTrigger>
+        <Tabs defaultValue="explore" className="gap-4">
+          <TabsList className="mb-2 gap-2">
+            <TabsTrigger value="explore" className="cursor-pointer px-4">
+              Explore individual scenario
+            </TabsTrigger>
             {scenarios.length > 1 && (
-              <TabsTrigger value="scenarios">Compare scenarios</TabsTrigger>
+              <TabsTrigger value="scenarios" className="cursor-pointer px-4">
+                Compare scenarios
+              </TabsTrigger>
             )}
-            <TabsTrigger value="environment">Environment</TabsTrigger>
+            <TabsTrigger value="environment" className="cursor-pointer px-4">
+              Environment
+            </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="explore" className="space-y-6 pt-3">
-          {scenarios.length > 1 && (
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="text-sm font-medium">Scenario</span>
-              <Select
-                value={activeScenario}
-                onValueChange={(value) => onSelect({ scenario: value })}
-              >
-                <SelectTrigger aria-label="Scenario" className="min-w-56">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {scenarios.map((s) => (
-                    <SelectItem key={s.scenario_id} value={s.scenario_id}>
-                      {scenarioLabel(s.params)}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          )}
+          <TabsContent value="explore" className="space-y-6 pt-1">
+          <div className="flex flex-wrap items-end gap-4">
+            {scenarios.length > 1 && (
+              <div className="space-y-1">
+                <p className="text-xs font-medium text-muted-foreground">Scenario</p>
+                <Select
+                  value={activeScenario}
+                  onValueChange={(value) => onSelect({ scenario: value })}
+                >
+                  <SelectTrigger aria-label="Scenario" className="min-w-56 cursor-pointer">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {scenarios.map((s) => (
+                      <SelectItem key={s.scenario_id} value={s.scenario_id}>
+                        {scenarioLabel(s.params)}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
+            {hardwareList.length > 0 && hardware && (
+              <div className="space-y-1">
+                <p className="text-xs font-medium text-muted-foreground">Hardware</p>
+                <HardwareSwitcher
+                  hardware={hardwareList}
+                  value={hardware}
+                  onChange={(id) => onSelect({ hardware: id, julia: null })}
+                />
+              </div>
+            )}
+            {juliaVersions.length > 0 && julia && (
+              <div className="space-y-1">
+                <p className="text-xs font-medium text-muted-foreground">Julia version</p>
+                <JuliaSwitcher
+                  versions={juliaVersions}
+                  value={julia}
+                  onChange={(version) => onSelect({ julia: version })}
+                />
+              </div>
+            )}
+          </div>
 
           <SummaryStrip
             seriesByMetric={seriesByMetric}
@@ -192,11 +234,11 @@ export function BenchmarkView({
 
           {activeMetric ? (
             <Tabs defaultValue="trend">
-              <TabsList>
-                <TabsTrigger value="trend">Trend</TabsTrigger>
-                <TabsTrigger value="samples">Samples</TabsTrigger>
-                <TabsTrigger value="compare">Compare</TabsTrigger>
-                <TabsTrigger value="entries">Entries</TabsTrigger>
+              <TabsList className="gap-2">
+                <TabsTrigger value="trend" className="cursor-pointer px-4">Trend</TabsTrigger>
+                <TabsTrigger value="samples" className="cursor-pointer px-4">Samples</TabsTrigger>
+                <TabsTrigger value="compare" className="cursor-pointer px-4">Compare</TabsTrigger>
+                <TabsTrigger value="entries" className="cursor-pointer px-4">Entries</TabsTrigger>
               </TabsList>
               <TabsContent value="trend" className="pt-3">
                 <MetricTimeSeriesChart points={seriesByMetric[activeMetric.id] ?? []} metric={activeMetric} />
@@ -267,16 +309,53 @@ export function BenchmarkView({
           )}
 
           <Card>
-            <CardHeader>
+            <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle className="text-sm">Time phases</CardTitle>
+              <div role="group" aria-label="Time phases mode" className="flex items-center gap-1">
+                {(
+                  [
+                    ["history", "history"],
+                    ["environments", "hardware & Julia"],
+                  ] as const
+                ).map(([mode, label]) => (
+                  <Button
+                    key={mode}
+                    variant="outline"
+                    size="sm"
+                    aria-pressed={phasesMode === mode}
+                    onClick={() => setPhasesMode(mode)}
+                    className={cn(
+                      "h-7 cursor-pointer px-2 text-xs",
+                      phasesMode === mode && "border-primary text-primary",
+                    )}
+                  >
+                    {label}
+                  </Button>
+                ))}
+              </div>
             </CardHeader>
             <CardContent>
-              <PhaseBreakdownChart
-                seriesByMetric={Object.fromEntries(
-                  Object.entries(seriesByMetric).filter(([id]) => PHASE_METRICS.includes(id)),
-                )}
-                metricDefs={metricDefs}
-              />
+              {phasesMode === "history" ? (
+                <PhaseBreakdownChart
+                  seriesByMetric={Object.fromEntries(
+                    Object.entries(seriesByMetric).filter(([id]) => PHASE_METRICS.includes(id)),
+                  )}
+                  metricDefs={metricDefs}
+                />
+              ) : (
+                <EnvironmentCompareChart
+                  rows={
+                    activeScenario
+                      ? buildEnvironmentPhaseRows(allFiles, {
+                          experimentId: experiment.id,
+                          scenarioId: activeScenario,
+                          metrics: PHASE_METRICS,
+                        })
+                      : []
+                  }
+                  metricDefs={metricDefs}
+                />
+              )}
             </CardContent>
           </Card>
           </TabsContent>

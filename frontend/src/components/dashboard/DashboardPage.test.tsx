@@ -65,7 +65,8 @@ describe("DashboardPage", () => {
     expect(screen.getByLabelText("Cold run summary")).toBeInTheDocument();
   });
 
-  it("offers hardware and Julia switchers driven by the index", async () => {
+  it("offers hardware and Julia switchers inside the benchmark explore tab", async () => {
+    currentParams = new URLSearchParams("b=basic%2Fcoin_toss");
     renderWithProviders(<DashboardPage />);
     await waitFor(() =>
       expect(screen.getByRole("combobox", { name: /hardware/i })).toHaveTextContent(

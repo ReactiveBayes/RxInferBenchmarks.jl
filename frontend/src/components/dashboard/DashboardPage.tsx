@@ -6,9 +6,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { BenchmarkView } from "@/components/benchmark/BenchmarkView";
 import { LandingExplainer } from "@/components/landing/LandingExplainer";
 import { GlobalOverview } from "@/components/overview/GlobalOverview";
+import { Footer } from "@/components/layout/Footer";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { TopBar } from "@/components/layout/TopBar";
-import { HardwareSwitcher, JuliaSwitcher } from "@/components/layout/Switchers";
 import {
   flattenIndexEntries,
   useExperiments,
@@ -58,22 +58,7 @@ export function DashboardPage() {
 
   return (
     <div className="flex h-screen flex-col">
-      <TopBar>
-        {hardwareList.length > 0 && activeHardware && (
-          <HardwareSwitcher
-            hardware={hardwareList}
-            value={activeHardware}
-            onChange={(id) => selection.select({ hardware: id, julia: null })}
-          />
-        )}
-        {juliaVersions.length > 0 && activeJulia && (
-          <JuliaSwitcher
-            versions={juliaVersions}
-            value={activeJulia}
-            onChange={(version) => selection.select({ julia: version })}
-          />
-        )}
-      </TopBar>
+      <TopBar />
       <div className="flex min-h-0 flex-1">
         <Sidebar
           experiments={experiments.data?.experiments ?? []}
@@ -103,6 +88,8 @@ export function DashboardPage() {
               files={filteredFiles}
               allFiles={results.files}
               metricDefs={metrics.data?.metrics ?? []}
+              hardwareList={hardwareList}
+              juliaVersions={juliaVersions}
               hardware={activeHardware}
               julia={activeJulia}
               metric={selection.metric}
@@ -123,6 +110,7 @@ export function DashboardPage() {
               />
             </div>
           )}
+          <Footer />
         </main>
       </div>
     </div>

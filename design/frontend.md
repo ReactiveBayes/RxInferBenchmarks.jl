@@ -76,25 +76,56 @@ global overview below.
 - Coverage heat-strip: when each hardware × Julia version last ran (visualizes unaligned cadence).
 
 ### Per-benchmark
-- Header: title, description, tags, category breadcrumb.
-- Summary cards per metric: latest value ± std, Δ% badge vs previous fingerprint
-  (`lower_is_better`-aware coloring).
-- All-metrics small-multiples; single-metric deep dive:
-  - **Time series**: x = environment changes (`first_seen_utc`), error bands from pooled samples,
-    hover = commit/RxInfer/Julia versions.
-  - **Phase breakdown**: stacked/grouped bars (ttfx / model creation / cold / warm) per fingerprint.
-  - **Sample distribution**: box/strip of pooled samples for the latest fingerprints (shows noise).
-  - **Allocation tracking**: allocation *count* + bytes charts; count regressions flagged like
-    timing regressions (counts are near-deterministic — small increases are meaningful).
-  - **Recent entries table**: fingerprint, RxInfer ver, Julia ver, n samples, value ± std, Δ%.
-  - **Dependency panel**: full dependency list of the selected fingerprint + **diff vs the
-    previous fingerprint** — answers "what changed?".
 
-### Comparison
-- Hardware overlay: same metric/scenario across ≥2 hardware targets, each on its own actual
-  timestamps (gaps where a hardware didn't run — never fabricate alignment).
-- Julia version overlay: same hardware, e.g. 1.10 vs 1.12.
-- Latest-snapshot grouped bars across hardware / Julia versions; hardware metadata cards.
+Tab navigation per benchmark: **Explore individual scenario | Compare scenarios | Environment**
+(the scenarios tab appears only when the benchmark has several scenarios).
+
+**Explore individual scenario**
+- Selector row: scenario (humanized labels — `n = 1000, iterations = 10`, never raw ids),
+  hardware, and Julia version — all shadcn Selects. Hardware/Julia selection lives in query
+  params, so it **persists when jumping between benchmarks**.
+- Metric tiles: compact squares with a per-metric lucide icon in the metric's chart color,
+  centered label + latest value ± std (n), Δ% badge vs the previous fingerprint
+  (`lower_is_better`-aware). Hover float; selected tile is highlighted with a persistent
+  "back to overview". Sized so a wide monitor fits all metrics on one row.
+- All-metrics small-multiples grid with a 2/3/4 column toggle (default 3); single-metric deep
+  dive tabs:
+  - **Trend**: x = environment changes (`first_seen_utc`), min–max error band from pooled
+    samples, hover = commit/RxInfer/Julia versions.
+  - **Samples**: every pooled sample as a dot per fingerprint (shows noise).
+  - **Compare**: line overlays across hardware and across Julia versions (union timelines,
+    gaps preserved).
+  - **Entries**: fingerprint, RxInfer ver, Julia ver, n samples, value ± std, Δ% table.
+- **Time phases** card with a mode toggle:
+  - *history* — bars per environment fingerprint over time;
+  - *hardware & Julia* — bars per hardware × Julia combination (latest environment each),
+    with combo include/exclude toggles. Extends the same bar chart rather than adding a page.
+
+**Compare scenarios**
+- Time phases across scenarios (latest environment each). Scenarios get short bold letters on
+  the axis ("A", "B", …) with a legend list above mapping each letter to its parameters — raw
+  scenario ids are too long for axis ticks.
+
+**Environment**
+- Dependency panel: full manifest of the latest fingerprint + **diff vs the previous one** —
+  answers "what changed?".
+
+### Shared phase bar chart (`PhaseBars`)
+
+All phase bar charts (history, scenario comparison, hardware × Julia comparison) share one
+component with uniform controls: per-phase chip toggles (colored swatches), stacked/grouped
+toggle, log/linear toggle. Defaults: grouped, log, all phases on. **Stacked forces a linear
+scale** — log-stacked bars misrepresent totals. **Shift-click on a phase chip isolates that
+phase**; shift-click again restores all.
+
+**Interaction-help rule**: whenever a chart has non-obvious interactions (shift-click,
+isolation, etc.), they MUST be documented in a small help line directly under the chart. A
+hidden shortcut is considered a UI bug.
+
+### Footer
+
+Every page carries a footer: "Created and maintained by the ReactiveBayes team (GitHub link) ·
+made with Claude".
 
 ### Docs pages
 - **How it works**: the pipeline end-to-end (models → harness → fingerprints → pooling → CI →

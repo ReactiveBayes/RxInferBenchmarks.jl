@@ -74,6 +74,40 @@ describe("buildScenarioPhaseRows", () => {
   });
 });
 
+describe("buildEnvironmentPhaseRows", () => {
+  it("produces one row per (hardware, julia) combo from each combo's latest fingerprint", async () => {
+    const { makeResultFile, makeNewerResultFile, makePiResultFile } = await import("@/test/fixtures");
+    const { buildEnvironmentPhaseRows } = await import("./chartData");
+    const rows = buildEnvironmentPhaseRows(
+      [makeResultFile(), makeNewerResultFile(), makePiResultFile()],
+      {
+        experimentId: "basic/coin_toss",
+        scenarioId: "iterations=10__n=1000__seed=42",
+        metrics: ["cold_run_ms", "warm_run_min_ms"],
+      },
+    );
+    expect(rows).toHaveLength(2); // gha/1.12 and pi/1.12
+    const gha = rows.find((r) => r.hardwareId === "github-actions-ubuntu");
+    expect(gha?.juliaMinor).toBe("1.12");
+    expect(gha?.cold_run_ms).toBeCloseTo(205); // latest fingerprint wins
+    const pi = rows.find((r) => r.hardwareId === "raspberry-pi-5");
+    expect(pi?.cold_run_ms).toBeCloseTo(900);
+    expect(pi?.label).toContain("Julia 1.12");
+  });
+
+  it("returns empty when the scenario is unknown", async () => {
+    const { makeResultFile } = await import("@/test/fixtures");
+    const { buildEnvironmentPhaseRows } = await import("./chartData");
+    expect(
+      buildEnvironmentPhaseRows([makeResultFile()], {
+        experimentId: "basic/coin_toss",
+        scenarioId: "nope",
+        metrics: ["cold_run_ms"],
+      }),
+    ).toEqual([]);
+  });
+});
+
 describe("buildDistributionRows", () => {
   it("flattens every sample with its date label", () => {
     const rows = buildDistributionRows([point([1, 2], "2026-06-01"), point([3], "2026-06-08")]);
