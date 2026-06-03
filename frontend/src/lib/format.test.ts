@@ -1,5 +1,16 @@
 import { describe, expect, it } from "vitest";
-import { formatDate, formatPct, formatValue, shortCommit } from "./format";
+import { formatDate, formatPct, formatValue, scenarioLabel, shortCommit } from "./format";
+
+describe("scenarioLabel", () => {
+  it("formats params sorted, without the seed", () => {
+    expect(scenarioLabel({ n: 1000, iterations: 10, seed: 42 })).toBe("iterations = 10, n = 1000");
+    expect(scenarioLabel({ mode: "filtering", n: 1000, seed: 42 })).toBe("mode = filtering, n = 1000");
+  });
+
+  it("falls back for empty params", () => {
+    expect(scenarioLabel({ seed: 42 })).toBe("default");
+  });
+});
 
 describe("formatValue", () => {
   it("formats milliseconds with unit scaling", () => {

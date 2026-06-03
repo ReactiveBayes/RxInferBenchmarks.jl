@@ -17,6 +17,7 @@ import { MetricTimeSeriesChart } from "@/components/charts/MetricTimeSeriesChart
 import { PhaseBreakdownChart } from "@/components/charts/PhaseBreakdownChart";
 import { SampleDistributionChart } from "@/components/charts/SampleDistributionChart";
 import { ScenarioCompareChart } from "@/components/charts/ScenarioCompareChart";
+import { scenarioLabel } from "@/lib/format";
 import { buildScenarioPhaseRows } from "@/lib/transform/chartData";
 import { buildSeries, listMetrics, listScenarios, type SeriesPoint } from "@/lib/transform/series";
 import type { ExperimentDef, MetricDef, ResultFile } from "@/lib/data/types";
@@ -144,27 +145,6 @@ export function BenchmarkView({
         </div>
       </header>
 
-      {scenarios.length > 0 && (
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="text-sm text-muted-foreground">Scenario</span>
-          <Select
-            value={activeScenario}
-            onValueChange={(value) => onSelect({ scenario: value })}
-          >
-            <SelectTrigger size="sm" aria-label="Scenario" className="font-mono text-xs">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {scenarios.map((s) => (
-                <SelectItem key={s.scenario_id} value={s.scenario_id} className="font-mono text-xs">
-                  {s.scenario_id}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-      )}
-
       {Object.keys(seriesByMetric).length === 0 ? (
         <Card>
           <CardContent className="py-10 text-center text-sm text-muted-foreground">
@@ -172,7 +152,37 @@ export function BenchmarkView({
           </CardContent>
         </Card>
       ) : (
-        <>
+        <Tabs defaultValue="explore">
+          <TabsList>
+            <TabsTrigger value="explore">Explore individual scenario</TabsTrigger>
+            {scenarios.length > 1 && (
+              <TabsTrigger value="scenarios">Compare scenarios</TabsTrigger>
+            )}
+            <TabsTrigger value="environment">Environment</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="explore" className="space-y-6 pt-3">
+          {scenarios.length > 1 && (
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-sm font-medium">Scenario</span>
+              <Select
+                value={activeScenario}
+                onValueChange={(value) => onSelect({ scenario: value })}
+              >
+                <SelectTrigger aria-label="Scenario" className="min-w-56">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {scenarios.map((s) => (
+                    <SelectItem key={s.scenario_id} value={s.scenario_id}>
+                      {scenarioLabel(s.params)}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          )}
+
           <SummaryStrip
             seriesByMetric={seriesByMetric}
             metricDefs={metricDefs}
@@ -269,41 +279,48 @@ export function BenchmarkView({
               />
             </CardContent>
           </Card>
+          </TabsContent>
 
           {scenarios.length > 1 && (
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-sm">Scenario comparison</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ScenarioCompareChart
-                  rows={buildScenarioPhaseRows(files, {
-                    experimentId: experiment.id,
-                    metrics: PHASE_METRICS,
-                    hardwareId: hardware ?? undefined,
-                    juliaMinor: julia ?? undefined,
-                  })}
-                  metricDefs={metricDefs}
-                />
-              </CardContent>
-            </Card>
+            <TabsContent value="scenarios" className="pt-3">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-sm">Time phases across scenarios</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ScenarioCompareChart
+                    rows={buildScenarioPhaseRows(files, {
+                      experimentId: experiment.id,
+                      metrics: PHASE_METRICS,
+                      hardwareId: hardware ?? undefined,
+                      juliaMinor: julia ?? undefined,
+                    })}
+                    metricDefs={metricDefs}
+                  />
+                </CardContent>
+              </Card>
+            </TabsContent>
           )}
 
-          {latestEnv && (
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-sm">What changed?</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <DependencyPanel
-                  current={latestEnv.current}
-                  previous={latestEnv.previous}
-                  currentLabel={latestEnv.label}
-                />
-              </CardContent>
-            </Card>
-          )}
-        </>
+          <TabsContent value="environment" className="pt-3">
+            {latestEnv ? (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-sm">What changed?</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <DependencyPanel
+                    current={latestEnv.current}
+                    previous={latestEnv.previous}
+                    currentLabel={latestEnv.label}
+                  />
+                </CardContent>
+              </Card>
+            ) : (
+              <p className="text-sm text-muted-foreground">No environment recorded yet.</p>
+            )}
+          </TabsContent>
+        </Tabs>
       )}
     </div>
   );

@@ -36,3 +36,12 @@ export function formatPct(pct: number): string {
   const sign = pct > 0 ? "+" : "";
   return `${sign}${pct.toFixed(1)}%`;
 }
+
+/** Human-readable scenario label from its params: "mode = filtering, n = 1000" (seed omitted). */
+export function scenarioLabel(params: Record<string, unknown>): string {
+  const entries = Object.entries(params)
+    .filter(([key]) => key !== "seed")
+    .sort(([a], [b]) => a.localeCompare(b));
+  if (entries.length === 0) return "default";
+  return entries.map(([key, value]) => `${key} = ${String(value)}`).join(", ");
+}

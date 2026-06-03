@@ -60,17 +60,26 @@ describe("BenchmarkView", () => {
     const user = userEvent.setup();
     renderView({ metric: "cold_run_ms" });
     expect(screen.getByRole("figure", { name: /cold run over time/i })).toBeInTheDocument();
-    await user.click(screen.getByRole("tab", { name: /compare/i }));
+    await user.click(screen.getByRole("tab", { name: "Compare" }));
     expect(screen.getByText(/across hardware/i)).toBeInTheDocument();
     expect(screen.getByText(/across julia versions/i)).toBeInTheDocument();
     await user.click(screen.getByRole("tab", { name: /entries/i }));
     expect(screen.getByRole("table", { name: /recent cold run entries/i })).toBeInTheDocument();
   });
 
-  it("renders the dependency panel for the latest environment", () => {
+  it("renders the dependency panel under the Environment tab", async () => {
+    const user = userEvent.setup();
     renderView();
+    await user.click(screen.getByRole("tab", { name: /environment/i }));
     expect(screen.getByText(/what changed\?/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/dependency changes/i)).toBeInTheDocument();
+  });
+
+  it("uses a readable shadcn scenario picker with humanized labels", () => {
+    renderView();
+    expect(screen.getByRole("combobox", { name: /scenario/i })).toHaveTextContent(
+      "iterations = 10, n = 1000",
+    );
   });
 
   it("shows an empty state when there is no data for the selection", () => {
@@ -89,9 +98,11 @@ describe("BenchmarkView", () => {
     expect(three).toHaveAttribute("aria-pressed", "false");
   });
 
-  it("shows a scenario comparison when the benchmark has several scenarios", () => {
+  it("offers a Compare scenarios tab when the benchmark has several scenarios", async () => {
+    const user = userEvent.setup();
     renderView();
-    expect(screen.getByText(/scenario comparison/i)).toBeInTheDocument();
+    await user.click(screen.getByRole("tab", { name: /compare scenarios/i }));
+    expect(screen.getByText(/time phases across scenarios/i)).toBeInTheDocument();
     expect(screen.getByRole("figure", { name: /scenario comparison/i })).toBeInTheDocument();
   });
 });
