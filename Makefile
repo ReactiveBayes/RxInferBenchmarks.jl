@@ -62,33 +62,38 @@ test-frontend: ## Frontend lint + typecheck + vitest suite
 # ---------------------------------------------------------------- benchmarks
 
 .PHONY: bench
-bench: ## Full local benchmark run (writes into data/results/)
+bench: ## Full local benchmark run — FAKE seed data into data/seed/ (never the public dataset)
 	$(JULIA) --project=$(HARNESS) $(HARNESS)/bin/run_benchmarks.jl
-	$(MAKE) index
+	$(MAKE) seed-index
 
 .PHONY: bench-smoke
 bench-smoke: ## Tiny end-to-end benchmark run into a temp dir (~seconds)
 	RXBENCH_SMOKE=1 $(JULIA) --project=$(HARNESS) $(HARNESS)/bin/run_benchmarks.jl
 
 .PHONY: bench-quick
-bench-quick: ## Real scenarios, minimal sampling — fast local UI seed data (~minutes)
+bench-quick: ## Real scenarios, minimal sampling — fast local UI seed data into data/seed/ (~minutes)
 	RXBENCH_QUICK=1 $(JULIA) --project=$(HARNESS) $(HARNESS)/bin/run_benchmarks.jl
-	$(MAKE) index
+	$(MAKE) seed-index
 
 .PHONY: bench-model
-bench-model: ## Benchmark a single model, e.g. make bench-model MODEL=coin_toss
+bench-model: ## Benchmark a single model into data/seed/, e.g. make bench-model MODEL=coin_toss
 	@test -n "$(MODEL)" || { echo "usage: make bench-model MODEL=<name>"; exit 1; }
 	$(JULIA) --project=$(HARNESS) $(HARNESS)/bin/run_benchmarks.jl --model $(MODEL)
-	$(MAKE) index
+	$(MAKE) seed-index
 
 .PHONY: index
-index: ## Regenerate data/*.json mirrors + data/results/index.json
-	$(JULIA) --project=$(HARNESS) $(HARNESS)/bin/build_index.jl
+index: ## Refresh data/*.json mirrors + rebuild the seed tree (leaves the CI-owned data/results/index.json untouched)
+	$(JULIA) --project=$(HARNESS) $(HARNESS)/bin/build_index.jl --mirrors-only
+	$(MAKE) seed-index
+
+.PHONY: seed-index
+seed-index: ## Rebuild the FAKE seed tree under data/seed/ (mirrors + results index)
+	$(JULIA) --project=$(HARNESS) $(HARNESS)/bin/build_index.jl --out data/seed
 
 # ---------------------------------------------------------------- frontend
 
 .PHONY: frontend-dev
-frontend-dev: ## Dashboard dev server against local data/ (http://localhost:3000)
+frontend-dev: ## Dashboard dev server against the FAKE seed data in data/seed/ (http://localhost:3000)
 	$(NPM) run dev
 
 .PHONY: frontend-build

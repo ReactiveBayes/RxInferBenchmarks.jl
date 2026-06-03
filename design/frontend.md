@@ -22,11 +22,17 @@ and contains **no server runtime remnants**. Builds that render dynamic pages ar
   pins the domain across deploys and `public/.nojekyll` prevents Jekyll from mangling `_next/`.
   `npm run check-static` guards against a project-page basePath regression (which would 404 every
   asset on the custom domain and leave the page unstyled).
-- **Data is not bundled.** The app fetches JSON at runtime:
-  - prod: `https://raw.githubusercontent.com/<owner>/RxInferBenchmarks.jl/main/data`
-  - dev: `/local-data` — a gitignored symlink `frontend/public/local-data → ../../data`,
-    created by the `predev` script.
-  - switched via `NEXT_PUBLIC_DATA_BASE_URL` in `.env.development` / `.env.production`.
+- **Data is not bundled.** The app fetches JSON at runtime. A single env var,
+  `NEXT_PUBLIC_DATA_BASE_URL`, selects the dataset (see [data.md](data.md) for the REAL vs.
+  FAKE-seed split):
+  - prod (`.env.production`): `https://raw.githubusercontent.com/<owner>/RxInferBenchmarks.jl/main/data`
+    — the **REAL** public CI dataset. The deployed site **always** reads this.
+  - dev (`.env.development`): `/local-data/seed` — the **FAKE seed** dataset under `data/seed/`,
+    reached via the gitignored symlink `frontend/public/local-data → ../../data` created by the
+    `predev` script. Lets the UI be developed against representative data without the real
+    results, and without ever writing them. To preview the real dataset locally, override
+    `NEXT_PUBLIC_DATA_BASE_URL` per run.
+  - The built-in fallback in `data/urls.ts` mirrors the production (REAL) source.
 - New benchmark results appear on the live site **without redeploying** (runtime fetch).
 - The browser parses **JSON only**; the YAML sources are mirrored to JSON by `make index`.
 

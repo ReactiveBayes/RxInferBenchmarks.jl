@@ -30,8 +30,11 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# env files — local overrides stay ignored, but the committed dev/prod
+# data-source config (design/frontend.md) is opted in below.
 .env*
+!.env.development
+!.env.production
 
 # vercel
 .vercel
