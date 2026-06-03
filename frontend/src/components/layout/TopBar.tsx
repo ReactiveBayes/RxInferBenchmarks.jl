@@ -13,9 +13,8 @@ const RXINFER_REPO = "https://github.com/ReactiveBayes/RxInfer.jl";
 export function TopBar({ children }: { children?: ReactNode }) {
   return (
     <header className="flex items-center gap-3 border-b px-4 py-2">
-      <Link href="/" className="flex items-baseline gap-2">
-        <span className="text-lg font-semibold text-primary">RxInfer</span>
-        <span className="text-lg font-light text-muted-foreground">Benchmarks</span>
+      <Link href="/" className="text-base font-semibold">
+        RxInfer Benchmarks
       </Link>
       <nav className="ml-2 hidden items-center gap-1 text-sm sm:flex">
         <Button asChild variant="ghost" size="sm">

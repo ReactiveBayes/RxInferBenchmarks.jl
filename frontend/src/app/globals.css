@@ -56,10 +56,9 @@
 }
 
 /*
- * Julia-flavored palette (design/frontend.md).
- * Brand colors from the Julia logo: purple #9558B2, green #389826,
- * blue #4063D8, red #CB3C33 — plus their lighter "logo dot" fills for dark mode
- * (purple #AA79C1, green #60AD51, blue #6B85DD, red #D5635C).
+ * shadcn default neutral theme, accented with the Julia brand colors
+ * (purple #9558B2, green #389826, blue #4063D8, red #CB3C33): only `primary`
+ * and the chart palette deviate from the defaults (design/frontend.md).
  */
 :root {
   --julia-purple: #9558b2;
@@ -68,39 +67,39 @@
   --julia-red: #cb3c33;
 
   --background: oklch(1 0 0);
-  --foreground: oklch(0.18 0.01 310);
+  --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.18 0.01 310);
+  --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.18 0.01 310);
+  --popover-foreground: oklch(0.145 0 0);
   --primary: var(--julia-purple);
-  --primary-foreground: oklch(0.99 0 0);
-  --secondary: oklch(0.96 0.012 310);
-  --secondary-foreground: oklch(0.3 0.04 310);
-  --muted: oklch(0.965 0.008 310);
-  --muted-foreground: oklch(0.5 0.02 310);
-  --accent: oklch(0.945 0.02 310);
-  --accent-foreground: oklch(0.3 0.05 310);
-  --destructive: var(--julia-red);
-  --border: oklch(0.91 0.012 310);
-  --input: oklch(0.91 0.012 310);
-  --ring: var(--julia-purple);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
   --chart-1: var(--julia-purple);
   --chart-2: var(--julia-green);
   --chart-3: var(--julia-blue);
   --chart-4: var(--julia-red);
-  --chart-5: #b3700e;
+  --chart-5: oklch(0.646 0.13 80);
   --signal-improve: var(--julia-green);
   --signal-regress: var(--julia-red);
   --radius: 0.625rem;
-  --sidebar: oklch(0.98 0.006 310);
-  --sidebar-foreground: oklch(0.18 0.01 310);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: var(--julia-purple);
-  --sidebar-primary-foreground: oklch(0.99 0 0);
-  --sidebar-accent: oklch(0.94 0.02 310);
-  --sidebar-accent-foreground: oklch(0.3 0.05 310);
-  --sidebar-border: oklch(0.91 0.012 310);
-  --sidebar-ring: var(--julia-purple);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
 }
 
 .dark {
@@ -110,39 +109,39 @@
   --julia-blue: #6b85dd;
   --julia-red: #d5635c;
 
-  --background: oklch(0.16 0.012 310);
-  --foreground: oklch(0.96 0.005 310);
-  --card: oklch(0.21 0.015 310);
-  --card-foreground: oklch(0.96 0.005 310);
-  --popover: oklch(0.21 0.015 310);
-  --popover-foreground: oklch(0.96 0.005 310);
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
   --primary: var(--julia-purple);
-  --primary-foreground: oklch(0.15 0.02 310);
-  --secondary: oklch(0.27 0.02 310);
-  --secondary-foreground: oklch(0.96 0.005 310);
-  --muted: oklch(0.27 0.02 310);
-  --muted-foreground: oklch(0.7 0.015 310);
-  --accent: oklch(0.3 0.03 310);
-  --accent-foreground: oklch(0.96 0.005 310);
-  --destructive: var(--julia-red);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: var(--julia-purple);
+  --ring: oklch(0.556 0 0);
   --chart-1: var(--julia-purple);
   --chart-2: var(--julia-green);
   --chart-3: var(--julia-blue);
   --chart-4: var(--julia-red);
-  --chart-5: #d99a3d;
+  --chart-5: oklch(0.75 0.13 80);
   --signal-improve: var(--julia-green);
   --signal-regress: var(--julia-red);
-  --sidebar: oklch(0.19 0.015 310);
-  --sidebar-foreground: oklch(0.96 0.005 310);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: var(--julia-purple);
-  --sidebar-primary-foreground: oklch(0.15 0.02 310);
-  --sidebar-accent: oklch(0.3 0.03 310);
-  --sidebar-accent-foreground: oklch(0.96 0.005 310);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: var(--julia-purple);
+  --sidebar-ring: oklch(0.556 0 0);
 }
 
 @layer base {

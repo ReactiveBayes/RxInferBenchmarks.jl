@@ -7,9 +7,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 export function LandingExplainer() {
   return (
     <section className="space-y-6">
-      <div className="rounded-xl bg-gradient-to-br from-primary/15 via-background to-background p-8">
+      <div className="rounded-xl border p-8">
         <h1 className="text-3xl font-semibold tracking-tight">
-          How fast is <span className="text-primary">RxInfer.jl</span> — and is it getting faster?
+          How fast is RxInfer.jl — and is it getting faster?
         </h1>
         <p className="mt-3 max-w-3xl text-muted-foreground">
           <a className="font-medium text-primary underline-offset-4 hover:underline" href="https://github.com/ReactiveBayes/RxInfer.jl" target="_blank" rel="noreferrer">
