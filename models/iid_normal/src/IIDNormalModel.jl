@@ -17,6 +17,9 @@ export run_benchmark
 
 const TRUE_MEAN = 3.0
 const TRUE_PRECISION = 4.0 # std = 0.5
+# Fixed per model (design/benchmarks.md): per-iteration time is reported
+# separately, so an iterations axis would only burn CI cycles.
+const ITERATIONS = 25
 
 @model function iid_normal(y)
     μ ~ Normal(mean = 0.0, variance = 1.0)
@@ -54,7 +57,7 @@ function run_benchmark(scenario::AbstractDict; callbacks = nothing)
         data = (y = y,),
         constraints = meanfield_constraints,
         initialization = meanfield_initialization,
-        iterations = get(params, "iterations", 10),
+        iterations = get(params, "iterations", ITERATIONS),
         free_energy = true,
         callbacks = callbacks,
     )

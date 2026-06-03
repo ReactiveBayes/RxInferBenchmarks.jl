@@ -60,9 +60,10 @@ results appear without a rebuild. `pages.yml` only reacts to `frontend/**` chang
   `RXBENCH_HARDWARE_ID` env var. GitHub Actions runners now; self-hosted (Raspberry Pi, etc.)
   later — each gets its own results folder, runs on its own schedule, and the data format never
   assumes aligned timelines.
-- Benchmarks run for multiple Julia versions (matrix: LTS + latest stable), always against the
-  **latest released RxInfer**. Each (hardware, Julia minor) pair has its own results subfolder;
-  the dashboard lets users switch and compare.
+- Benchmarks run for a **fixed list of Julia versions** (currently 1.10, 1.11, 1.12 — extend the
+  matrix in `.github/workflows/` when a new minor lands), always against the **latest released
+  RxInfer**. Each (hardware, Julia minor) pair has its own results subfolder; the dashboard lets
+  users switch and compare.
 
 ## Repository conventions
 

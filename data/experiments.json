@@ -7,8 +7,7 @@
                 "n": [
                     100,
                     1000,
-                    10000,
-                    100000
+                    10000
                 ]
             },
             "title": "Coin Toss Model",
@@ -18,16 +17,12 @@
                 "iid"
             ],
             "category": "Basic Examples",
-            "description": "Beta-Bernoulli inference with IID observations. Closed-form conjugate update — converges in a single pass, so no iterations dimension."
+            "description": "Beta-Bernoulli inference with IID observations. Closed-form conjugate update — converges in a single pass."
         },
         {
             "model": "iid_normal",
             "id": "basic/iid_normal",
             "matrix": {
-                "iterations": [
-                    10,
-                    25
-                ],
                 "n": [
                     100,
                     1000,
@@ -47,10 +42,6 @@
             "model": "linear_regression",
             "id": "basic/linear_regression",
             "matrix": {
-                "iterations": [
-                    5,
-                    20
-                ],
                 "n": [
                     100,
                     1000,
@@ -74,7 +65,6 @@
                     "smoothing"
                 ],
                 "n": [
-                    10,
                     100,
                     1000,
                     10000
@@ -87,7 +77,7 @@
                 "smoothing"
             ],
             "category": "Basic Examples",
-            "description": "Linear Gaussian state-space inference in filtering and smoothing modes. Exact belief propagation — converges in a single pass, so no iterations dimension."
+            "description": "Linear Gaussian state-space inference in filtering and smoothing modes. Exact belief propagation — converges in a single pass."
         },
         {
             "model": "gaussian_mixture",
@@ -96,19 +86,13 @@
                 "n": [
                     1000
                 ],
-                "iterations": [
+                "dimension": [
                     1,
-                    10,
-                    100
-                ],
-                "type": [
-                    "univariate",
-                    "multivariate"
+                    5
                 ],
                 "n_components": [
                     2,
-                    3,
-                    4
+                    3
                 ]
             },
             "title": "Gaussian Mixture",
@@ -118,15 +102,12 @@
                 "clustering"
             ],
             "category": "Problem Specific",
-            "description": "Variational inference for finite Gaussian mixtures, univariate and multivariate, with varying component counts."
+            "description": "Variational inference for finite Gaussian mixtures; dimension 1 runs the univariate model, higher dimensions the multivariate one."
         },
         {
             "model": "bsts",
             "id": "advanced/bsts",
             "matrix": {
-                "iterations": [
-                    20
-                ],
                 "period": [
                     7
                 ],

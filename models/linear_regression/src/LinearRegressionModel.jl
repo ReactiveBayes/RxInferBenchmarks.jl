@@ -17,6 +17,9 @@ export run_benchmark
 const TRUE_SLOPE = 0.5
 const TRUE_INTERCEPT = 25.0
 const NOISE_VARIANCE = 1.0
+# Fixed per model (design/benchmarks.md): per-iteration time is reported
+# separately, so an iterations axis would only burn CI cycles.
+const ITERATIONS = 20
 
 @model function linear_regression(x, y)
     a ~ Normal(mean = 0.0, variance = 1.0)
@@ -52,7 +55,7 @@ function run_benchmark(scenario::AbstractDict; callbacks = nothing)
         data = (y = data.y, x = data.x),
         initialization = regression_initialization,
         returnvars = (a = KeepLast(), b = KeepLast()),
-        iterations = get(params, "iterations", 20),
+        iterations = get(params, "iterations", ITERATIONS),
         free_energy = true,
         callbacks = callbacks,
     )

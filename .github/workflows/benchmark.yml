@@ -39,7 +39,7 @@ jobs:
       fail-fast: false
       max-parallel: 1 # serialize commits between Julia versions
       matrix:
-        julia: ["lts", "1"]
+        julia: ["1.10", "1.11", "1.12"]
     env:
       RXBENCH_HARDWARE_ID: github-actions-ubuntu
       USE_DEV: "false"
