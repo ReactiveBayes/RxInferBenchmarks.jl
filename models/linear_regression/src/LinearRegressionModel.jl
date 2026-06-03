@@ -57,6 +57,9 @@ function run_benchmark(scenario::AbstractDict; callbacks = nothing)
         returnvars = (a = KeepLast(), b = KeepLast()),
         iterations = get(params, "iterations", ITERATIONS),
         free_energy = true,
+        # large n builds a deep dependency graph — without this the factor
+        # graph construction overflows the stack around n ~ 10000
+        options = (limit_stack_depth = 500,),
         callbacks = callbacks,
     )
 end

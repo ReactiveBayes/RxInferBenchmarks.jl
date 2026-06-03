@@ -1,0 +1,960 @@
+{
+    "fingerprint": "1d48acac711a16c70ceac62e211d78defbbe92fa3836167b0c819ad73f159004",
+    "experiments": [
+        {
+            "scenarios": [
+                {
+                    "status": "ok",
+                    "samples": {
+                        "iteration_median_ms": [
+                            0.240917
+                        ],
+                        "cold_run_ms": [
+                            5132.588250000001
+                        ],
+                        "model_creation_ms": [
+                            1.266
+                        ],
+                        "warm_run_min_ms": [
+                            1.290291
+                        ],
+                        "warm_run_median_ms": [
+                            1.498416
+                        ],
+                        "gc_time_ms": [
+                            0
+                        ],
+                        "allocations": [
+                            27264
+                        ],
+                        "ttfx_ms": [
+                            6575.03225
+                        ],
+                        "allocated_bytes": [
+                            1333440
+                        ]
+                    },
+                    "scenario_id": "n=100__seed=42",
+                    "params": {
+                        "seed": 42,
+                        "n": 100
+                    }
+                },
+                {
+                    "status": "ok",
+                    "samples": {
+                        "iteration_median_ms": [
+                            2.084875
+                        ],
+                        "cold_run_ms": [
+                            5183.449375
+                        ],
+                        "model_creation_ms": [
+                            11.598625
+                        ],
+                        "warm_run_min_ms": [
+                            12.214542
+                        ],
+                        "warm_run_median_ms": [
+                            12.3063335
+                        ],
+                        "gc_time_ms": [
+                            0
+                        ],
+                        "allocations": [
+                            266584
+                        ],
+                        "ttfx_ms": [
+                            6700.277166
+                        ],
+                        "allocated_bytes": [
+                            12367248
+                        ]
+                    },
+                    "scenario_id": "n=1000__seed=42",
+                    "params": {
+                        "seed": 42,
+                        "n": 1000
+                    }
+                },
+                {
+                    "status": "ok",
+                    "samples": {
+                        "iteration_median_ms": [
+                            21.381084
+                        ],
+                        "cold_run_ms": [
+                            5153.3211249999995
+                        ],
+                        "model_creation_ms": [
+                            154.862708
+                        ],
+                        "warm_run_min_ms": [
+                            126.421334
+                        ],
+                        "warm_run_median_ms": [
+                            126.5670005
+                        ],
+                        "gc_time_ms": [
+                            0
+                        ],
+                        "allocations": [
+                            2657858
+                        ],
+                        "ttfx_ms": [
+                            6706.214666999999
+                        ],
+                        "allocated_bytes": [
+                            125161248
+                        ]
+                    },
+                    "scenario_id": "n=10000__seed=42",
+                    "params": {
+                        "seed": 42,
+                        "n": 10000
+                    }
+                }
+            ],
+            "experiment_id": "basic/coin_toss"
+        },
+        {
+            "scenarios": [
+                {
+                    "status": "ok",
+                    "samples": {
+                        "iteration_median_ms": [
+                            0.396084
+                        ],
+                        "cold_run_ms": [
+                            7414.728042
+                        ],
+                        "model_creation_ms": [
+                            1.818958
+                        ],
+                        "warm_run_min_ms": [
+                            3.594875
+                        ],
+                        "warm_run_median_ms": [
+                            3.8197705
+                        ],
+                        "gc_time_ms": [
+                            0
+                        ],
+                        "allocations": [
+                            103241
+                        ],
+                        "ttfx_ms": [
+                            8848.304583000001
+                        ],
+                        "allocated_bytes": [
+                            4211600
+                        ]
+                    },
+                    "scenario_id": "n=100__seed=42",
+                    "params": {
+                        "seed": 42,
+                        "n": 100
+                    }
+                },
+                {
+                    "status": "ok",
+                    "samples": {
+                        "iteration_median_ms": [
+                            3.858583
+                        ],
+                        "cold_run_ms": [
+                            7873.02725
+                        ],
+                        "model_creation_ms": [
+                            16.809083
+                        ],
+                        "warm_run_min_ms": [
+                            30.812667
+                        ],
+                        "warm_run_median_ms": [
+                            30.8344165
+                        ],
+                        "gc_time_ms": [
+                            0
+                        ],
+                        "allocations": [
+                            1004389
+                        ],
+                        "ttfx_ms": [
+                            9294.646499999999
+                        ],
+                        "allocated_bytes": [
+                            40427296
+                        ]
+                    },
+                    "scenario_id": "n=1000__seed=42",
+                    "params": {
+                        "seed": 42,
+                        "n": 1000
+                    }
+                },
+                {
+                    "status": "ok",
+                    "samples": {
+                        "iteration_median_ms": [
+                            45.646833
+                        ],
+                        "cold_run_ms": [
+                            9029.260958
+                        ],
+                        "model_creation_ms": [
+                            183.136875
+                        ],
+                        "warm_run_min_ms": [
+                            512.892083
+                        ],
+                        "warm_run_median_ms": [
+                            570.0568745
+                        ],
+                        "gc_time_ms": [
+                            85.370979
+                        ],
+                        "allocations": [
+                            10010587
+                        ],
+                        "ttfx_ms": [
+                            10466.661375000001
+                        ],
+                        "allocated_bytes": [
+                            401016608
+                        ]
+                    },
+                    "scenario_id": "n=10000__seed=42",
+                    "params": {
+                        "seed": 42,
+                        "n": 10000
+                    }
+                }
+            ],
+            "experiment_id": "basic/iid_normal"
+        },
+        {
+            "scenarios": [
+                {
+                    "status": "ok",
+                    "samples": {
+                        "autostart_ms": [
+                            6.041417
+                        ],
+                        "cold_run_ms": [
+                            8052.852166999999
+                        ],
+                        "model_creation_ms": [
+                            0.18
+                        ],
+                        "warm_run_min_ms": [
+                            1.469042
+                        ],
+                        "warm_run_median_ms": [
+                            1.6063545
+                        ],
+                        "gc_time_ms": [
+                            0
+                        ],
+                        "allocations": [
+                            30328
+                        ],
+                        "ttfx_ms": [
+                            9481.854917
+                        ],
+                        "allocated_bytes": [
+                            1424304
+                        ]
+                    },
+                    "scenario_id": "mode=filtering__n=100__seed=42",
+                    "params": {
+                        "mode": "filtering",
+                        "seed": 42,
+                        "n": 100
+                    }
+                },
+                {
+                    "status": "ok",
+                    "samples": {
+                        "iteration_median_ms": [
+                            6.8345
+                        ],
+                        "cold_run_ms": [
+                            12436.720916
+                        ],
+                        "model_creation_ms": [
+                            5.782334
+                        ],
+                        "warm_run_min_ms": [
+                            10.44175
+                        ],
+                        "warm_run_median_ms": [
+                            127.6486455
+                        ],
+                        "gc_time_ms": [
+                            0
+                        ],
+                        "allocations": [
+                            272957
+                        ],
+                        "ttfx_ms": [
+                            13861.492083
+                        ],
+                        "allocated_bytes": [
+                            13609616
+                        ]
+                    },
+                    "scenario_id": "mode=smoothing__n=100__seed=42",
+                    "params": {
+                        "mode": "smoothing",
+                        "seed": 42,
+                        "n": 100
+                    }
+                },
+                {
+                    "status": "ok",
+                    "samples": {
+                        "autostart_ms": [
+                            61.060041
+                        ],
+                        "cold_run_ms": [
+                            8288.9955
+                        ],
+                        "model_creation_ms": [
+                            0.262167
+                        ],
+                        "warm_run_min_ms": [
+                            13.210208
+                        ],
+                        "warm_run_median_ms": [
+                            13.320708
+                        ],
+                        "gc_time_ms": [
+                            0
+                        ],
+                        "allocations": [
+                            279715
+                        ],
+                        "ttfx_ms": [
+                            9751.827125
+                        ],
+                        "allocated_bytes": [
+                            12960768
+                        ]
+                    },
+                    "scenario_id": "mode=filtering__n=1000__seed=42",
+                    "params": {
+                        "mode": "filtering",
+                        "seed": 42,
+                        "n": 1000
+                    }
+                },
+                {
+                    "status": "ok",
+                    "samples": {
+                        "iteration_median_ms": [
+                            77.011833
+                        ],
+                        "cold_run_ms": [
+                            13655.936416999999
+                        ],
+                        "model_creation_ms": [
+                            68.898292
+                        ],
+                        "warm_run_min_ms": [
+                            126.805834
+                        ],
+                        "warm_run_median_ms": [
+                            130.6603335
+                        ],
+                        "gc_time_ms": [
+                            0
+                        ],
+                        "allocations": [
+                            2729891
+                        ],
+                        "ttfx_ms": [
+                            15080.174958999998
+                        ],
+                        "allocated_bytes": [
+                            138452240
+                        ]
+                    },
+                    "scenario_id": "mode=smoothing__n=1000__seed=42",
+                    "params": {
+                        "mode": "smoothing",
+                        "seed": 42,
+                        "n": 1000
+                    }
+                },
+                {
+                    "status": "ok",
+                    "samples": {
+                        "autostart_ms": [
+                            623.187958
+                        ],
+                        "cold_run_ms": [
+                            8866.039
+                        ],
+                        "model_creation_ms": [
+                            0.352167
+                        ],
+                        "warm_run_min_ms": [
+                            111.723625
+                        ],
+                        "warm_run_median_ms": [
+                            115.608271
+                        ],
+                        "gc_time_ms": [
+                            0
+                        ],
+                        "allocations": [
+                            2781715
+                        ],
+                        "ttfx_ms": [
+                            10291.859166
+                        ],
+                        "allocated_bytes": [
+                            128557440
+                        ]
+                    },
+                    "scenario_id": "mode=filtering__n=10000__seed=42",
+                    "params": {
+                        "mode": "filtering",
+                        "seed": 42,
+                        "n": 10000
+                    }
+                },
+                {
+                    "status": "ok",
+                    "samples": {
+                        "iteration_median_ms": [
+                            800.955833
+                        ],
+                        "cold_run_ms": [
+                            18618.457875
+                        ],
+                        "model_creation_ms": [
+                            740.124583
+                        ],
+                        "warm_run_min_ms": [
+                            1775.513875
+                        ],
+                        "warm_run_median_ms": [
+                            1792.3467915
+                        ],
+                        "gc_time_ms": [
+                            385.7986455
+                        ],
+                        "allocations": [
+                            27269594
+                        ],
+                        "ttfx_ms": [
+                            20051.479625
+                        ],
+                        "allocated_bytes": [
+                            1340691104
+                        ]
+                    },
+                    "scenario_id": "mode=smoothing__n=10000__seed=42",
+                    "params": {
+                        "mode": "smoothing",
+                        "seed": 42,
+                        "n": 10000
+                    }
+                }
+            ],
+            "experiment_id": "basic/kalman"
+        },
+        {
+            "scenarios": [
+                {
+                    "status": "ok",
+                    "samples": {
+                        "iteration_median_ms": [
+                            5.1890625,
+                            5.2649375
+                        ],
+                        "cold_run_ms": [
+                            8591.011290999999,
+                            9355.521917
+                        ],
+                        "model_creation_ms": [
+                            4.933042,
+                            4.438417
+                        ],
+                        "warm_run_min_ms": [
+                            19.267416,
+                            20.648292
+                        ],
+                        "warm_run_median_ms": [
+                            19.491125,
+                            20.7581875
+                        ],
+                        "gc_time_ms": [
+                            0,
+                            0
+                        ],
+                        "allocations": [
+                            491965,
+                            507739
+                        ],
+                        "ttfx_ms": [
+                            10051.669291,
+                            16479.939125
+                        ],
+                        "allocated_bytes": [
+                            23084992,
+                            24917424
+                        ]
+                    },
+                    "scenario_id": "n=100__seed=42",
+                    "params": {
+                        "seed": 42,
+                        "n": 100
+                    }
+                },
+                {
+                    "status": "ok",
+                    "samples": {
+                        "iteration_median_ms": [
+                            57.0576255,
+                            60.4465
+                        ],
+                        "cold_run_ms": [
+                            9735.006584,
+                            12886.008667
+                        ],
+                        "model_creation_ms": [
+                            50.303,
+                            45.937166
+                        ],
+                        "warm_run_min_ms": [
+                            219.499375,
+                            309.529875
+                        ],
+                        "warm_run_median_ms": [
+                            251.2180835,
+                            317.982646
+                        ],
+                        "gc_time_ms": [
+                            17.5207705,
+                            20.059625
+                        ],
+                        "allocations": [
+                            4934674,
+                            5094052
+                        ],
+                        "ttfx_ms": [
+                            11181.896584,
+                            14358.393917000001
+                        ],
+                        "allocated_bytes": [
+                            228486848,
+                            246904592
+                        ]
+                    },
+                    "scenario_id": "n=1000__seed=42",
+                    "params": {
+                        "seed": 42,
+                        "n": 1000
+                    }
+                },
+                {
+                    "status": "ok",
+                    "samples": {
+                        "iteration_median_ms": [
+                            600.118541
+                        ],
+                        "cold_run_ms": [
+                            25950.233292
+                        ],
+                        "model_creation_ms": [
+                            701.463583
+                        ],
+                        "warm_run_min_ms": [
+                            4534.901625
+                        ],
+                        "warm_run_median_ms": [
+                            4738.2319375
+                        ],
+                        "gc_time_ms": [
+                            1201.0369165
+                        ],
+                        "allocations": [
+                            51250453
+                        ],
+                        "ttfx_ms": [
+                            27433.051334
+                        ],
+                        "allocated_bytes": [
+                            2477470032
+                        ]
+                    },
+                    "scenario_id": "n=10000__seed=42",
+                    "params": {
+                        "seed": 42,
+                        "n": 10000
+                    }
+                }
+            ],
+            "experiment_id": "basic/linear_regression"
+        },
+        {
+            "scenarios": [
+                {
+                    "status": "ok",
+                    "samples": {
+                        "iteration_median_ms": [
+                            21.580125
+                        ],
+                        "cold_run_ms": [
+                            13050.37325
+                        ],
+                        "model_creation_ms": [
+                            32.715625
+                        ],
+                        "warm_run_min_ms": [
+                            175.270375
+                        ],
+                        "warm_run_median_ms": [
+                            176.7649375
+                        ],
+                        "gc_time_ms": [
+                            0
+                        ],
+                        "allocations": [
+                            4390769
+                        ],
+                        "ttfx_ms": [
+                            14999.071582999999
+                        ],
+                        "allocated_bytes": [
+                            198426496
+                        ]
+                    },
+                    "scenario_id": "dimension=1__n=1000__n_components=2__seed=42",
+                    "params": {
+                        "n_components": 2,
+                        "dimension": 1,
+                        "seed": 42,
+                        "n": 1000
+                    }
+                },
+                {
+                    "status": "ok",
+                    "samples": {
+                        "iteration_median_ms": [
+                            29.529917
+                        ],
+                        "cold_run_ms": [
+                            13923.264167
+                        ],
+                        "model_creation_ms": [
+                            34.6185
+                        ],
+                        "warm_run_min_ms": [
+                            412.954958
+                        ],
+                        "warm_run_median_ms": [
+                            432.304333
+                        ],
+                        "gc_time_ms": [
+                            62.8619165
+                        ],
+                        "allocations": [
+                            7490401
+                        ],
+                        "ttfx_ms": [
+                            15370.161417
+                        ],
+                        "allocated_bytes": [
+                            490770208
+                        ]
+                    },
+                    "scenario_id": "dimension=5__n=1000__n_components=2__seed=42",
+                    "params": {
+                        "n_components": 2,
+                        "dimension": 5,
+                        "seed": 42,
+                        "n": 1000
+                    }
+                },
+                {
+                    "status": "ok",
+                    "samples": {
+                        "iteration_median_ms": [
+                            38.418625
+                        ],
+                        "cold_run_ms": [
+                            16441.158708
+                        ],
+                        "model_creation_ms": [
+                            50.331958
+                        ],
+                        "warm_run_min_ms": [
+                            367.462584
+                        ],
+                        "warm_run_median_ms": [
+                            415.477771
+                        ],
+                        "gc_time_ms": [
+                            39.22575
+                        ],
+                        "allocations": [
+                            5105819
+                        ],
+                        "ttfx_ms": [
+                            17943.561542
+                        ],
+                        "allocated_bytes": [
+                            237349712
+                        ]
+                    },
+                    "scenario_id": "dimension=1__n=1000__n_components=3__seed=42",
+                    "params": {
+                        "n_components": 3,
+                        "dimension": 1,
+                        "seed": 42,
+                        "n": 1000
+                    }
+                },
+                {
+                    "status": "ok",
+                    "samples": {
+                        "iteration_median_ms": [
+                            31.45575
+                        ],
+                        "cold_run_ms": [
+                            16279.418541
+                        ],
+                        "model_creation_ms": [
+                            34.177667
+                        ],
+                        "warm_run_min_ms": [
+                            413.880541
+                        ],
+                        "warm_run_median_ms": [
+                            510.5398125
+                        ],
+                        "gc_time_ms": [
+                            155.375417
+                        ],
+                        "allocations": [
+                            9752079
+                        ],
+                        "ttfx_ms": [
+                            18588.625791
+                        ],
+                        "allocated_bytes": [
+                            675421136
+                        ]
+                    },
+                    "scenario_id": "dimension=5__n=1000__n_components=3__seed=42",
+                    "params": {
+                        "n_components": 3,
+                        "dimension": 5,
+                        "seed": 42,
+                        "n": 1000
+                    }
+                }
+            ],
+            "experiment_id": "problem_specific/gaussian_mixture"
+        }
+    ],
+    "hardware_id": "local-dev",
+    "last_seen_utc": "2026-06-03T14:39:48Z",
+    "runs": [
+        {
+            "timestamp_utc": "2026-06-03T14:36:36Z",
+            "commit": "5abb030",
+            "processes": 1
+        },
+        {
+            "timestamp_utc": "2026-06-03T14:39:48Z",
+            "commit": "5abb030",
+            "processes": 1
+        }
+    ],
+    "environment": {
+        "dependencies": {
+            "Pkg": "1.12.1",
+            "ForwardDiff": "1.3.3",
+            "SuiteSparse": "stdlib",
+            "GaussQuadrature": "0.5.8",
+            "DomainIntegrals": "0.5.4",
+            "Graphs": "1.14.0",
+            "ConstructionBase": "1.6.0",
+            "EnumX": "1.0.7",
+            "HTTP": "1.11.0",
+            "IrrationalConstants": "0.2.6",
+            "MatrixCorrectionTools": "1.2.0",
+            "OrderedCollections": "1.8.2",
+            "LazyArrays": "2.9.7",
+            "DataStructures": "0.19.5",
+            "Compat": "4.18.1",
+            "Base64": "1.11.0",
+            "Unrolled": "0.1.5",
+            "HCubature": "1.8.0",
+            "StatsFuns": "1.5.2",
+            "CompilerSupportLibraries_jll": "1.3.0+1",
+            "Dictionaries": "0.4.6",
+            "JLD2": "0.6.4",
+            "Future": "1.11.0",
+            "Sockets": "1.11.0",
+            "HashArrayMappedTries": "0.2.0",
+            "SpecialFunctions": "2.8.0",
+            "Requires": "1.3.1",
+            "BitFlags": "0.1.10",
+            "Zstd_jll": "1.5.7+1",
+            "Markdown": "1.11.0",
+            "CompositeTypes": "0.1.4",
+            "Tullio": "0.3.9",
+            "Adapt": "4.6.0",
+            "TranscodingStreams": "0.11.3",
+            "Tar": "1.10.0",
+            "HypergeometricFunctions": "0.3.28",
+            "CoinTossModel": "0.1.0",
+            "Distributions": "0.25.125",
+            "JSON3": "1.14.3",
+            "LogExpFunctions": "0.3.29",
+            "ScopedValues": "1.6.2",
+            "StructTypes": "1.11.0",
+            "TupleTools": "1.6.0",
+            "UUIDs": "1.11.0",
+            "FastGaussQuadrature": "1.2.0",
+            "ArrayLayouts": "1.12.2",
+            "OpenSpecFun_jll": "0.5.6+0",
+            "Rocket": "1.8.5",
+            "SHA": "0.7.0",
+            "StyledStrings": "1.11.0",
+            "LinearAlgebra": "1.12.0",
+            "Missings": "1.2.0",
+            "ChunkCodecCore": "1.0.1",
+            "LoggingExtras": "1.2.0",
+            "ArgTools": "1.1.2",
+            "TinyHugeNumbers": "1.0.3",
+            "CodecZlib": "0.7.8",
+            "Combinatorics": "1.1.0",
+            "ChunkCodecLibZlib": "1.0.0",
+            "FixedArguments": "0.1.1",
+            "JLLWrappers": "1.8.0",
+            "ArnoldiMethod": "0.4.0",
+            "LibGit2": "1.11.0",
+            "ReactiveMP": "6.1.1",
+            "ExceptionUnwrapping": "0.1.11",
+            "ArrayInterface": "7.25.0",
+            "Artifacts": "1.11.0",
+            "MbedTLS": "1.1.10",
+            "ProgressMeter": "1.11.0",
+            "FileIO": "1.19.0",
+            "Dates": "1.11.0",
+            "MbedTLS_jll": "2.28.1010+0",
+            "OpenSSL_jll": "3.5.4+0",
+            "SciMLPublic": "1.0.1",
+            "NetworkOptions": "1.3.0",
+            "NamedTupleTools": "0.14.3",
+            "Printf": "1.11.0",
+            "RxInfer": "5.3.4",
+            "OpenLibm_jll": "0.8.7+0",
+            "AliasTables": "1.1.3",
+            "nghttp2_jll": "1.64.0+1",
+            "LinearRegressionModel": "0.1.0",
+            "PDMats": "0.11.37",
+            "Test": "1.11.0",
+            "Random": "1.11.0",
+            "URIs": "1.6.1",
+            "Libdl": "1.11.0",
+            "BenchmarkTools": "1.8.0",
+            "FiniteDiff": "2.31.0",
+            "Inflate": "0.1.5",
+            "Optim": "2.1.0",
+            "SimpleTraits": "0.9.6",
+            "SortingAlgorithms": "1.2.2",
+            "Serialization": "1.11.0",
+            "PrecompileTools": "1.3.4",
+            "BayesBase": "1.5.9",
+            "KalmanModel": "0.1.0",
+            "PolyaGammaHybridSamplers": "1.2.6",
+            "FunctionMaps": "0.1.2",
+            "StructUtils": "2.8.2",
+            "SuiteSparse_jll": "7.8.3+2",
+            "CommonSubexpressions": "0.3.1",
+            "JSON": "1.6.1",
+            "MozillaCACerts_jll": "2025.11.4",
+            "ConcurrentUtilities": "2.5.1",
+            "ExponentialFamily": "2.4.0",
+            "IfElse": "0.1.1",
+            "Static": "1.4.0",
+            "StatsBase": "0.34.11",
+            "Mmap": "1.11.0",
+            "Profile": "1.11.0",
+            "Rmath_jll": "0.5.1+0",
+            "DocStringExtensions": "0.9.5",
+            "NLSolversBase": "8.0.0",
+            "OpenSSL": "1.6.1",
+            "Preferences": "1.5.2",
+            "libblastrampoline_jll": "5.15.0+0",
+            "QuadGK": "2.11.3",
+            "StaticArrays": "1.9.18",
+            "DataAPI": "1.16.0",
+            "LibCURL_jll": "8.15.0+0",
+            "ADTypes": "1.22.0",
+            "PositiveFactorizations": "0.2.4",
+            "Parsers": "2.8.4",
+            "Logging": "1.11.0",
+            "TOML": "1.0.3",
+            "Reexport": "1.2.2",
+            "SimpleBufferStream": "1.2.0",
+            "CommonWorldInvalidations": "1.0.0",
+            "Downloads": "1.7.0",
+            "Indexing": "1.1.1",
+            "LibSSH2_jll": "1.11.3+1",
+            "BitSetTuples": "1.1.5",
+            "IntervalSets": "0.7.14",
+            "NaNMath": "1.1.3",
+            "OpenBLAS_jll": "0.3.29+0",
+            "StaticArraysCore": "1.4.4",
+            "Statistics": "1.11.1",
+            "LibGit2_jll": "1.9.0+0",
+            "Zlib_jll": "1.3.1+2",
+            "Rmath": "0.9.0",
+            "Distributed": "1.11.0",
+            "GaussianMixtureModel": "0.1.0",
+            "DiffResults": "1.1.0",
+            "DifferentiationInterface": "0.7.18",
+            "DomainSets": "0.7.18",
+            "LineSearches": "7.7.1",
+            "JuliaSyntaxHighlighting": "1.12.0",
+            "StableRNGs": "1.0.4",
+            "FileWatching": "1.11.0",
+            "GraphPPL": "4.7.0",
+            "LibCURL": "0.6.4",
+            "MetaGraphsNext": "0.7.5",
+            "StatsAPI": "1.8.0",
+            "SparseArrays": "1.12.0",
+            "DiffRules": "1.16.0",
+            "Unicode": "1.11.0",
+            "IIDNormalModel": "0.1.0",
+            "MacroTools": "0.5.16",
+            "FastCholesky": "1.4.3",
+            "BlockArrays": "1.9.3",
+            "InteractiveUtils": "1.11.0",
+            "ChunkCodecLibZstd": "1.0.0",
+            "p7zip_jll": "17.7.0+0",
+            "Setfield": "1.1.2",
+            "FillArrays": "1.16.0",
+            "PtrArrays": "1.4.0"
+        },
+        "cpu_model": "Apple M4 Max",
+        "julia_version": "1.12.6",
+        "arch": "aarch64",
+        "total_memory_bytes": 38654705664,
+        "hardware_id": "local-dev",
+        "rxinfer_version": "5.3.4",
+        "os": "macos",
+        "cpu_threads": 10
+    },
+    "schema_version": 2,
+    "first_seen_utc": "2026-06-03T14:36:36Z"
+}

@@ -43,6 +43,11 @@ make_scenario(; n = 250, iterations = 20, seed = 42) = Dict{String,Any}(
         @test length(last(callbacks.before_iteration_ts)) == 3
     end
 
+    @testset "large n runs (limited stack depth)" begin
+        result = LinearRegressionModel.run_benchmark(make_scenario(n = 10000, iterations = 2))
+        @test isfinite(mean(result.posteriors[:a]))
+    end
+
     @testset "tiny smoke scenario runs" begin
         result = LinearRegressionModel.run_benchmark(make_scenario(n = 8, iterations = 2))
         @test result.posteriors[:a] isa UnivariateDistribution
