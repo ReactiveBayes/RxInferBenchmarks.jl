@@ -1,0 +1,12 @@
+# Hardware registry — human-edited.
+# Runners self-identify via the RXBENCH_HARDWARE_ID env var, validated against this file.
+# After editing, run `make index` to regenerate the JSON mirrors.
+version: 1
+
+hardware:
+  - id: github-actions-ubuntu
+    label: GitHub Actions (ubuntu-latest)
+    kind: ci
+    os: linux
+    arch: x86_64
+    notes: Shared CI runner; absolute numbers are noisy, trends are meaningful.

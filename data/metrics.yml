@@ -1,0 +1,42 @@
+# Metric definitions — human-edited.
+# Metric ids must match the keys emitted by models/<name>/benchmark.jl sample blocks.
+# After editing, run `make index` to regenerate the JSON mirrors.
+version: 1
+
+metrics:
+  - id: ttfx_ms
+    label: Time to first inference
+    unit: ms
+    lower_is_better: true
+  - id: model_creation_ms
+    label: Model creation
+    unit: ms
+    lower_is_better: true
+  - id: cold_run_ms
+    label: Cold run
+    unit: ms
+    lower_is_better: true
+  - id: warm_run_min_ms
+    label: Warm run (min)
+    unit: ms
+    lower_is_better: true
+  - id: warm_run_median_ms
+    label: Warm run (median)
+    unit: ms
+    lower_is_better: true
+  - id: iteration_median_ms
+    label: Iteration (median)
+    unit: ms
+    lower_is_better: true
+  - id: allocations
+    label: Allocations
+    unit: count
+    lower_is_better: true
+  - id: allocated_bytes
+    label: Allocated memory
+    unit: bytes
+    lower_is_better: true
+  - id: gc_time_ms
+    label: GC time
+    unit: ms
+    lower_is_better: true

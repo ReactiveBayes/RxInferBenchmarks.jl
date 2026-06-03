@@ -42,7 +42,7 @@ frontend/ (Next.js static export on GitHub Pages)
 | Workflow        | Trigger                                                        | Does                                                                   |
 | --------------- | -------------------------------------------------------------- | ---------------------------------------------------------------------- |
 | `test.yml`      | PR, push to main (ignoring `data/results/**`), weekly cron, manual | Harness tests, model tests (Julia version × model matrix), frontend lint+test |
-| `benchmark.yml` | Monday cron, manual **only**                                    | For each Julia version: `Pkg.update()` models (latest RxInfer), run harness, merge/commit results as bot |
+| `benchmark.yml` | Monday cron, manual **only**                                    | **First runs the full test suite — if any test fails, no benchmarks are recorded.** Then, for each Julia version: `Pkg.update()` models (latest RxInfer), run harness, merge/commit results as bot |
 | `pages.yml`     | Push to main touching `frontend/**`, manual                     | Lint + test + static-export build + verify-fully-static + deploy to GitHub Pages |
 
 **Infinite-loop avoidance** (benchmark CI commits to the repo it runs in), three layers:

@@ -1,0 +1,51 @@
+# Experiment matrix — human-edited source of truth.
+# After editing, run `make index` to regenerate the JSON mirrors.
+# Schema: see design/data.md
+version: 1
+
+defaults:
+  processes: 3
+  seed: 42
+
+experiments:
+  - id: basic/coin_toss
+    model: coin_toss
+    category: Basic Examples
+    title: Coin Toss Model
+    description: Beta-Bernoulli inference with IID observations.
+    tags: [basic, conjugate, iid]
+    matrix:
+      n: [1000, 10000]
+      iterations: [10]
+
+  - id: basic/kalman
+    model: kalman
+    category: Basic Examples
+    title: Kalman Filtering and Smoothing
+    description: Linear Gaussian state-space inference in filtering and smoothing modes.
+    tags: [state space, filtering, smoothing]
+    scenarios:
+      - params: { mode: filtering, n: 1000 }
+      - params: { mode: smoothing, n: 1000, iterations: 10 }
+
+  - id: problem_specific/gaussian_mixture
+    model: gaussian_mixture
+    category: Problem Specific
+    title: Gaussian Mixture
+    description: Variational inference for a finite Gaussian mixture model.
+    tags: [mixture, variational, clustering]
+    matrix:
+      k: [2]
+      n: [2000]
+      iterations: [25]
+
+  - id: advanced/bsts
+    model: bsts
+    category: Advanced Examples
+    title: Bayesian Structural Time Series
+    description: Structured time-series model with trend and seasonal latent components.
+    tags: [time series, structured, large]
+    matrix:
+      n: [365]
+      period: [7]
+      iterations: [20]

@@ -1,0 +1,12 @@
+version: 1
+hardware:
+  - id: github-actions-ubuntu
+    label: GitHub Actions (ubuntu-latest)
+    kind: ci
+    os: linux
+    arch: x86_64
+  - id: raspberry-pi-5
+    label: Raspberry Pi 5
+    kind: self-hosted
+    os: linux
+    arch: aarch64

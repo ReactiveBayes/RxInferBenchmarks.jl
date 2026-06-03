@@ -1,0 +1,6 @@
+version: 1
+hardware:
+  - id: github-actions-ubuntu
+    label: One
+  - id: github-actions-ubuntu
+    label: Two
