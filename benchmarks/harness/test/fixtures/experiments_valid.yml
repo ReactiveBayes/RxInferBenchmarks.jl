@@ -1,0 +1,23 @@
+version: 1
+defaults:
+  processes: 3
+  seed: 42
+experiments:
+  - id: basic/coin_toss
+    model: coin_toss
+    category: Basic Examples
+    title: Coin Toss Model
+    description: Beta-Bernoulli inference with IID observations.
+    tags: [basic, conjugate, iid]
+    matrix:
+      n: [1000, 10000]
+      iterations: [10]
+  - id: basic/kalman
+    model: kalman
+    category: Basic Examples
+    title: Kalman Filtering and Smoothing
+    description: Linear Gaussian state-space inference.
+    tags: [state space]
+    scenarios:
+      - params: { mode: filtering, n: 1000 }
+      - params: { mode: smoothing, n: 1000, iterations: 10 }

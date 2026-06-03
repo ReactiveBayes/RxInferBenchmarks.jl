@@ -1,0 +1,61 @@
+# Experiment matrix — human-edited source of truth.
+# After editing, run `make index` to regenerate the JSON mirrors.
+# Schema: see design/data.md
+#
+# Iteration counts are FIXED per model (inside models/<name>) — we already
+# report per-iteration time, so an iterations axis only burns CI cycles.
+# Matrices are kept small (<= 3 values per axis) for the same reason.
+version: 1
+
+defaults:
+  processes: 3
+  seed: 42
+
+experiments:
+  - id: basic/coin_toss
+    model: coin_toss
+    category: Basic Examples
+    title: Coin Toss Model
+    description: Beta-Bernoulli inference with IID observations. Closed-form conjugate update — converges in a single pass.
+    tags: [basic, conjugate, iid]
+    matrix:
+      n: [100, 1000, 10000]
+
+  - id: basic/iid_normal
+    model: iid_normal
+    category: Basic Examples
+    title: Gaussian Parameter Estimation
+    description: Mean and precision of an IID Gaussian with mean-field variational constraints q(mu)q(tau).
+    tags: [basic, variational, mean-field]
+    matrix:
+      n: [100, 1000, 10000]
+
+  - id: basic/linear_regression
+    model: linear_regression
+    category: Basic Examples
+    title: Bayesian Linear Regression
+    description: Univariate linear regression with message-passing inference, ported from the official example.
+    tags: [basic, regression]
+    matrix:
+      n: [100, 1000, 10000]
+
+  - id: basic/kalman
+    model: kalman
+    category: Basic Examples
+    title: Kalman Filtering and Smoothing
+    description: Linear Gaussian state-space inference in filtering and smoothing modes. Exact belief propagation — converges in a single pass.
+    tags: [state space, filtering, smoothing]
+    matrix:
+      mode: [filtering, smoothing]
+      n: [100, 1000, 10000]
+
+  - id: problem_specific/gaussian_mixture
+    model: gaussian_mixture
+    category: Problem Specific
+    title: Gaussian Mixture
+    description: Variational inference for finite Gaussian mixtures; dimension 1 runs the univariate model, higher dimensions the multivariate one.
+    tags: [mixture, variational, clustering]
+    matrix:
+      dimension: [1, 5]
+      n_components: [2, 3]
+      n: [1000]

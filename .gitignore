@@ -1,0 +1,21 @@
+# Node / Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/public/local-data
+frontend/coverage/
+*.tsbuildinfo
+
+# Julia
+*.jl.cov
+*.jl.mem
+LocalPreferences.toml
+
+# OS / editors
+.DS_Store
+*.swp
+
+# Julia manifests are version-specific (resolved per Julia minor) — never committed.
+# CI resolves fresh per Julia version; the benchmark fingerprint reads the manifest
+# resolved at run time.
+Manifest.toml

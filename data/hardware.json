@@ -1,0 +1,19 @@
+{
+    "version": 1,
+    "hardware": [
+        {
+            "label": "GitHub Actions (ubuntu-latest)",
+            "kind": "ci",
+            "arch": "x86_64",
+            "id": "github-actions-ubuntu",
+            "notes": "Shared CI runner; absolute numbers are noisy, trends are meaningful.",
+            "os": "linux"
+        },
+        {
+            "label": "Local development machine",
+            "kind": "local",
+            "id": "local-dev",
+            "notes": "Results produced by `make bench` on a developer machine; for development and seeding only."
+        }
+    ]
+}

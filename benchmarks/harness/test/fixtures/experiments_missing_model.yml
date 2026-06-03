@@ -1,0 +1,5 @@
+version: 1
+defaults: { processes: 3, seed: 42 }
+experiments:
+  - id: basic/coin_toss
+    matrix: { n: [1000] }

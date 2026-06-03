@@ -1,0 +1,9 @@
+version: 1
+defaults: { processes: 3, seed: 42 }
+experiments:
+  - id: basic/coin_toss
+    model: coin_toss
+    matrix: { n: [1000] }
+  - id: basic/coin_toss
+    model: coin_toss
+    matrix: { n: [10000] }
