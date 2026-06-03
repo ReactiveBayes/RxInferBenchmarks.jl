@@ -42,7 +42,10 @@ jobs:
         julia: ["lts", "1"]
     env:
       RXBENCH_HARDWARE_ID: github-actions-ubuntu
-      JULIA_FASTCHOLESKY_NO_WARN_NON_SYMMETRIC: "1"
+      USE_DEV: "false"
+      LOG_USING_RXINFER: "false"
+      JULIA_FASTCHOLESKY_THROW_ERROR_NON_SYMMETRIC: "1"
+      THROW_ON_INFERENCE_ERROR_HINT: "true"
     steps:
       - uses: actions/checkout@v4
         with:
@@ -58,7 +61,7 @@ jobs:
       - name: Update models to the latest released RxInfer
         # The resolved manifests define the environment fingerprint for this run.
         run: |
-          for m in coin_toss kalman gaussian_mixture bsts; do
+          for d in models/*/; do m=$(basename "$d");
             echo "==> models/$m"
             julia --project=models/$m -e 'using Pkg; Pkg.update()'
           done

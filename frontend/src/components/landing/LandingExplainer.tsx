@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, BookOpen } from "lucide-react";
 import { GitHubIcon } from "@/components/icons/GitHubIcon";
@@ -8,6 +9,22 @@ export function LandingExplainer() {
   return (
     <section className="space-y-6">
       <div className="rounded-xl border p-8">
+        <Image
+          src="/biglogo.svg"
+          alt="RxInfer"
+          width={240}
+          height={76}
+          priority
+          className="mb-5 h-auto w-60 dark:hidden"
+        />
+        <Image
+          src="/biglogo-blacktheme.svg"
+          alt="RxInfer"
+          width={240}
+          height={76}
+          priority
+          className="mb-5 hidden h-auto w-60 dark:block"
+        />
         <h1 className="text-3xl font-semibold tracking-tight">
           How fast is RxInfer.jl — and is it getting faster?
         </h1>

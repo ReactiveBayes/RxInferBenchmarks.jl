@@ -42,7 +42,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        model: [coin_toss, kalman, gaussian_mixture, bsts]
+        model: [coin_toss, iid_normal, linear_regression, kalman, gaussian_mixture, bsts]
         julia: ["lts", "1"]
     steps:
       - uses: actions/checkout@v4
@@ -52,7 +52,10 @@ jobs:
       - uses: julia-actions/cache@v2
       - name: Resolve and test
         env:
-          JULIA_FASTCHOLESKY_NO_WARN_NON_SYMMETRIC: "1"
+          USE_DEV: "false"
+          LOG_USING_RXINFER: "false"
+          JULIA_FASTCHOLESKY_THROW_ERROR_NON_SYMMETRIC: "1"
+          THROW_ON_INFERENCE_ERROR_HINT: "true"
         # Pkg.update() re-resolves the committed Manifest for this Julia version
         # (manifests are resolved on the latest stable; LTS may need different versions).
         run: julia --project=models/${{ matrix.model }} -e 'using Pkg; Pkg.update(); Pkg.test()'
@@ -73,14 +76,17 @@ jobs:
       - name: Instantiate all projects
         run: |
           julia --project=benchmarks/harness -e 'using Pkg; Pkg.instantiate()'
-          for m in coin_toss kalman gaussian_mixture bsts; do
+          for d in models/*/; do m=$(basename "$d");
             julia --project=models/$m -e 'using Pkg; Pkg.update()'
           done
       - name: Smoke benchmark run (tiny sizes, temp output)
         env:
           RXBENCH_SMOKE: "1"
           RXBENCH_HARDWARE_ID: github-actions-ubuntu
-          JULIA_FASTCHOLESKY_NO_WARN_NON_SYMMETRIC: "1"
+          USE_DEV: "false"
+          LOG_USING_RXINFER: "false"
+          JULIA_FASTCHOLESKY_THROW_ERROR_NON_SYMMETRIC: "1"
+          THROW_ON_INFERENCE_ERROR_HINT: "true"
         run: julia --project=benchmarks/harness benchmarks/harness/bin/run_benchmarks.jl
 
   frontend:

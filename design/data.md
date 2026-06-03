@@ -147,10 +147,13 @@ experiments:
       iterations: [10]
   - id: basic/kalman
     model: kalman
-    # ... explicit scenarios when modes differ:
-    scenarios:
-      - { params: { mode: filtering, n: 1000 } }
-      - { params: { mode: smoothing, n: 1000, iterations: 10 } }
+    # categorical axes work in the matrix too:
+    matrix:
+      mode: [filtering, smoothing]
+      n: [10, 100, 1000, 10000]
+    # an explicit `scenarios:` list is also supported when combinations are irregular:
+    # scenarios:
+    #   - { params: { mode: filtering, n: 1000 } }
 ```
 
 `scenario_id` is a deterministic slug built from sorted params — the stable join key across

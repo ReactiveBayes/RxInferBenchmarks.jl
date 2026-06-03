@@ -12,32 +12,52 @@ experiments:
     model: coin_toss
     category: Basic Examples
     title: Coin Toss Model
-    description: Beta-Bernoulli inference with IID observations.
+    description: Beta-Bernoulli inference with IID observations. Closed-form conjugate update — converges in a single pass, so no iterations dimension.
     tags: [basic, conjugate, iid]
     matrix:
-      n: [1000, 10000]
-      iterations: [10]
+      n: [100, 1000, 10000, 100000]
+
+  - id: basic/iid_normal
+    model: iid_normal
+    category: Basic Examples
+    title: Gaussian Parameter Estimation
+    description: Mean and precision of an IID Gaussian with mean-field variational constraints q(mu)q(tau).
+    tags: [basic, variational, mean-field]
+    matrix:
+      n: [100, 1000, 10000]
+      iterations: [10, 25]
+
+  - id: basic/linear_regression
+    model: linear_regression
+    category: Basic Examples
+    title: Bayesian Linear Regression
+    description: Univariate linear regression with message-passing inference, ported from the official example.
+    tags: [basic, regression]
+    matrix:
+      n: [100, 1000, 10000]
+      iterations: [5, 20]
 
   - id: basic/kalman
     model: kalman
     category: Basic Examples
     title: Kalman Filtering and Smoothing
-    description: Linear Gaussian state-space inference in filtering and smoothing modes.
+    description: Linear Gaussian state-space inference in filtering and smoothing modes. Exact belief propagation — converges in a single pass, so no iterations dimension.
     tags: [state space, filtering, smoothing]
-    scenarios:
-      - params: { mode: filtering, n: 1000 }
-      - params: { mode: smoothing, n: 1000, iterations: 10 }
+    matrix:
+      mode: [filtering, smoothing]
+      n: [10, 100, 1000, 10000]
 
   - id: problem_specific/gaussian_mixture
     model: gaussian_mixture
     category: Problem Specific
     title: Gaussian Mixture
-    description: Variational inference for a finite Gaussian mixture model.
+    description: Variational inference for finite Gaussian mixtures, univariate and multivariate, with varying component counts.
     tags: [mixture, variational, clustering]
     matrix:
-      k: [2]
-      n: [2000]
-      iterations: [25]
+      type: [univariate, multivariate]
+      n_components: [2, 3, 4]
+      iterations: [1, 10, 100]
+      n: [1000]
 
   - id: advanced/bsts
     model: bsts

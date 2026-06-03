@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ScenarioCompareChart } from "./ScenarioCompareChart";
 
@@ -10,14 +10,23 @@ const metricDefs = [
 
 const rows = [
   {
-    scenario: "iterations=10__n=1000__seed=42",
-    label: "iterations = 10, n = 1000",
+    scenario: "mode=filtering__n=100__seed=42",
+    label: "mode = filtering, n = 100",
+    params: { mode: "filtering", n: 100, seed: 42 },
+    cold_run_ms: 90,
+    warm_run_min_ms: 1.1,
+  },
+  {
+    scenario: "mode=filtering__n=1000__seed=42",
+    label: "mode = filtering, n = 1000",
+    params: { mode: "filtering", n: 1000, seed: 42 },
     cold_run_ms: 180,
     warm_run_min_ms: 1.5,
   },
   {
-    scenario: "iterations=10__n=10000__seed=42",
-    label: "iterations = 10, n = 10000",
+    scenario: "mode=smoothing__n=1000__seed=42",
+    label: "mode = smoothing, n = 1000",
+    params: { mode: "smoothing", n: 1000, seed: 42 },
     cold_run_ms: 380,
     warm_run_min_ms: 8,
   },
@@ -28,41 +37,54 @@ function renderChart() {
 }
 
 describe("ScenarioCompareChart", () => {
-  it("renders a figure with one group per scenario, grouped + log by default", () => {
-    renderChart();
-    expect(screen.getByRole("figure", { name: /scenario comparison/i })).toBeInTheDocument();
-    expect(screen.getByText(/2 scenarios/i)).toBeInTheDocument();
-    expect(screen.getByText(/grouped, log scale/i)).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /grouped/i })).toHaveAttribute("aria-pressed", "false");
-  });
-
-  it("labels scenarios with short letters and a legend list", () => {
+  it("renders the legend component above the chart, mapping letters to params", () => {
     renderChart();
     const legend = screen.getByRole("list", { name: /scenario legend/i });
-    expect(legend).toHaveTextContent("Scenario A : iterations = 10, n = 1000");
-    expect(legend).toHaveTextContent("Scenario B : iterations = 10, n = 10000");
+    expect(legend).toHaveTextContent("Scenario A : mode = filtering, n = 100");
+    expect(legend).toHaveTextContent("Scenario C : mode = smoothing, n = 1000");
+    expect(screen.getByText(/3\/3 scenarios/i)).toBeInTheDocument();
   });
 
-  it("toggles to stacked bars, which force a linear scale", async () => {
+  it("toggles individual scenarios from the legend", async () => {
     const user = userEvent.setup();
     renderChart();
-    await user.click(screen.getByRole("button", { name: /grouped/i }));
-    expect(screen.getByText(/stacked, linear scale/i)).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /linear scale/i })).toBeDisabled();
+    await user.click(screen.getByRole("button", { name: /scenario a/i }));
+    expect(screen.getByText(/2\/3 scenarios/i)).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: /scenario a/i }));
+    expect(screen.getByText(/3\/3 scenarios/i)).toBeInTheDocument();
   });
 
-  it("toggles individual phases", async () => {
+  it("shift-click isolates a scenario", async () => {
     const user = userEvent.setup();
     renderChart();
-    await user.click(screen.getByRole("button", { name: "Cold run" }));
-    expect(screen.getByText(/1\/2 phases shown/i)).toBeInTheDocument();
+    await user.keyboard("{Shift>}");
+    await user.click(screen.getByRole("button", { name: /scenario b/i }));
+    await user.keyboard("{/Shift}");
+    expect(screen.getByText(/1\/3 scenarios/i)).toBeInTheDocument();
   });
 
-  it("toggles between log and linear when grouped", async () => {
+  it("groups scenarios by parameter keyword (e.g. only mode=smoothing)", async () => {
     const user = userEvent.setup();
     renderChart();
-    await user.click(screen.getByRole("button", { name: /log scale/i }));
-    expect(screen.getByText(/grouped, linear scale/i)).toBeInTheDocument();
+    await user.click(screen.getByRole("combobox", { name: /filter by mode/i }));
+    await user.click(screen.getByRole("option", { name: "smoothing" }));
+    expect(screen.getByText(/1\/3 scenarios/i)).toBeInTheDocument();
+    // filtered-out scenarios are disabled in the legend
+    expect(screen.getByRole("button", { name: /scenario a/i })).toBeDisabled();
+  });
+
+  it("offers numeric filters too (e.g. only n=1000)", async () => {
+    const user = userEvent.setup();
+    renderChart();
+    await user.click(screen.getByRole("combobox", { name: /filter by n/i }));
+    await user.click(screen.getByRole("option", { name: "1000" }));
+    expect(screen.getByText(/2\/3 scenarios/i)).toBeInTheDocument();
+  });
+
+  it("documents the legend interactions", () => {
+    renderChart();
+    const legend = screen.getByLabelText(/scenario legend and filters/i);
+    expect(within(legend).getByText(/help:/i)).toHaveTextContent(/shift/i);
   });
 
   it("renders an empty state without rows", () => {

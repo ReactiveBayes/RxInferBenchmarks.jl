@@ -2,7 +2,7 @@
 
 julia_version = "1.12.6"
 manifest_format = "2.0"
-project_hash = "cd0c29f878ea8e2e1bd15a304903f45c8f47b3c7"
+project_hash = "af803555eb4bc8c77bb4085b6513eece00357cdd"
 
 [[deps.ADTypes]]
 git-tree-sha1 = "bbc22a9a08a0ef6460041086d8a7b27940ed4ffd"
@@ -466,12 +466,6 @@ git-tree-sha1 = "eb6f1f48aa994f3018cbd029a17863c6535a266d"
 uuid = "d54b0c1a-921d-58e0-8e36-89d8069c0969"
 version = "0.5.8"
 
-[[deps.GaussianMixtureModel]]
-deps = ["BenchmarkTools", "Distributions", "JSON3", "Random", "RxInfer", "StableRNGs", "Statistics"]
-path = "."
-uuid = "6135a3a9-c365-4888-9f52-565b7d778c51"
-version = "0.1.0"
-
 [[deps.GraphPPL]]
 deps = ["BitSetTuples", "DataStructures", "Dictionaries", "MacroTools", "MetaGraphsNext", "NamedTupleTools", "Static", "StaticArrays", "TupleTools", "Unrolled"]
 git-tree-sha1 = "9a3302d7555b91c02d8b1973c39622824e2ef5aa"
@@ -524,6 +518,12 @@ deps = ["LinearAlgebra", "OpenLibm_jll", "SpecialFunctions"]
 git-tree-sha1 = "68c173f4f449de5b438ee67ed0c9c748dc31a2ec"
 uuid = "34004b35-14d8-5ef3-9330-4cdb6864b03a"
 version = "0.3.28"
+
+[[deps.IIDNormalModel]]
+deps = ["BenchmarkTools", "Distributions", "JSON3", "RxInfer", "StableRNGs", "Statistics"]
+path = "."
+uuid = "b1baf175-c419-4d6f-a286-be12952b1273"
+version = "0.1.0"
 
 [[deps.IfElse]]
 git-tree-sha1 = "debdd00ffef04665ccbb3e150747a77560e8fad1"

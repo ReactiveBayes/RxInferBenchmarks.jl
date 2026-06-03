@@ -42,11 +42,15 @@ export function buildPhaseRows(seriesByMetric: Record<string, SeriesPoint[]>): P
   return [...byFingerprint.values()].sort((a, b) => a.date.localeCompare(b.date));
 }
 
-export type ScenarioPhaseRow = {
+export interface ScenarioPhaseRow {
   scenario: string;
   /** Humanized params, e.g. "iterations = 10, n = 1000". */
   label: string;
-} & Partial<Record<string, number | string>>;
+  /** Raw scenario params — drives the keyword filters in the scenario legend. */
+  params: Record<string, unknown>;
+  /** Metric id -> latest mean (plus the fixed fields above). */
+  [key: string]: unknown;
+}
 
 /**
  * Scenario comparison within one benchmark: one row per scenario, each metric
@@ -65,7 +69,7 @@ export function buildScenarioPhaseRows(
   const scenarios = listScenarios(files, query.experimentId);
   const rows: ScenarioPhaseRow[] = [];
   for (const { scenario_id, params } of scenarios) {
-    const row: ScenarioPhaseRow = { scenario: scenario_id, label: scenarioLabel(params) };
+    const row: ScenarioPhaseRow = { scenario: scenario_id, label: scenarioLabel(params), params };
     let hasData = false;
     for (const metric of query.metrics) {
       const series = buildSeries(files, {

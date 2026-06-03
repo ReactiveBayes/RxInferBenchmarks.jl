@@ -4,12 +4,11 @@
             "model": "coin_toss",
             "id": "basic/coin_toss",
             "matrix": {
-                "iterations": [
-                    10
-                ],
                 "n": [
+                    100,
                     1000,
-                    10000
+                    10000,
+                    100000
                 ]
             },
             "title": "Coin Toss Model",
@@ -19,26 +18,68 @@
                 "iid"
             ],
             "category": "Basic Examples",
-            "description": "Beta-Bernoulli inference with IID observations."
+            "description": "Beta-Bernoulli inference with IID observations. Closed-form conjugate update — converges in a single pass, so no iterations dimension."
         },
         {
-            "scenarios": [
-                {
-                    "params": {
-                        "mode": "filtering",
-                        "n": 1000
-                    }
-                },
-                {
-                    "params": {
-                        "iterations": 10,
-                        "mode": "smoothing",
-                        "n": 1000
-                    }
-                }
+            "model": "iid_normal",
+            "id": "basic/iid_normal",
+            "matrix": {
+                "iterations": [
+                    10,
+                    25
+                ],
+                "n": [
+                    100,
+                    1000,
+                    10000
+                ]
+            },
+            "title": "Gaussian Parameter Estimation",
+            "tags": [
+                "basic",
+                "variational",
+                "mean-field"
             ],
+            "category": "Basic Examples",
+            "description": "Mean and precision of an IID Gaussian with mean-field variational constraints q(mu)q(tau)."
+        },
+        {
+            "model": "linear_regression",
+            "id": "basic/linear_regression",
+            "matrix": {
+                "iterations": [
+                    5,
+                    20
+                ],
+                "n": [
+                    100,
+                    1000,
+                    10000
+                ]
+            },
+            "title": "Bayesian Linear Regression",
+            "tags": [
+                "basic",
+                "regression"
+            ],
+            "category": "Basic Examples",
+            "description": "Univariate linear regression with message-passing inference, ported from the official example."
+        },
+        {
             "model": "kalman",
             "id": "basic/kalman",
+            "matrix": {
+                "mode": [
+                    "filtering",
+                    "smoothing"
+                ],
+                "n": [
+                    10,
+                    100,
+                    1000,
+                    10000
+                ]
+            },
             "title": "Kalman Filtering and Smoothing",
             "tags": [
                 "state space",
@@ -46,20 +87,28 @@
                 "smoothing"
             ],
             "category": "Basic Examples",
-            "description": "Linear Gaussian state-space inference in filtering and smoothing modes."
+            "description": "Linear Gaussian state-space inference in filtering and smoothing modes. Exact belief propagation — converges in a single pass, so no iterations dimension."
         },
         {
             "model": "gaussian_mixture",
             "id": "problem_specific/gaussian_mixture",
             "matrix": {
-                "iterations": [
-                    25
-                ],
-                "k": [
-                    2
-                ],
                 "n": [
-                    2000
+                    1000
+                ],
+                "iterations": [
+                    1,
+                    10,
+                    100
+                ],
+                "type": [
+                    "univariate",
+                    "multivariate"
+                ],
+                "n_components": [
+                    2,
+                    3,
+                    4
                 ]
             },
             "title": "Gaussian Mixture",
@@ -69,7 +118,7 @@
                 "clustering"
             ],
             "category": "Problem Specific",
-            "description": "Variational inference for a finite Gaussian mixture model."
+            "description": "Variational inference for finite Gaussian mixtures, univariate and multivariate, with varying component counts."
         },
         {
             "model": "bsts",

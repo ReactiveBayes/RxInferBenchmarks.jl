@@ -499,7 +499,15 @@ function run_scenario(model_dir::AbstractString, scenario::AbstractDict; julia::
     payload = mktempdir() do tmp
         scenario_file = joinpath(tmp, "scenario.json")
         write_json(scenario_file, scenario)
-        cmd = `$(julia) --startup-file=no --project=$(model_dir) $(benchmark_script) $(scenario_file)`
+        # Numerically invalid inference must never produce benchmark numbers:
+        # non-symmetric FastCholesky inputs are hard errors, matching RxInfer CI.
+        strict_env = copy(ENV)
+        get!(strict_env, "JULIA_FASTCHOLESKY_THROW_ERROR_NON_SYMMETRIC", "1")
+        get!(strict_env, "THROW_ON_INFERENCE_ERROR_HINT", "true")
+        cmd = setenv(
+            `$(julia) --startup-file=no --project=$(model_dir) $(benchmark_script) $(scenario_file)`,
+            strict_env,
+        )
         out = IOBuffer()
         err = IOBuffer()
         wall = @elapsed proc = run(pipeline(ignorestatus(cmd); stdout = out, stderr = err))

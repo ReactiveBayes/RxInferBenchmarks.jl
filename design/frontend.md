@@ -32,11 +32,12 @@ Static content pages are real routes; all *dashboard* state lives in **query par
 benchmark/hardware universe is runtime-fetched, so dynamic segments cannot be enumerated at
 build time):
 
-| Route                  | Content                                                              |
-| ---------------------- | -------------------------------------------------------------------- |
-| `/`                    | Dashboard. No `b` param → landing explainer + global overview        |
-| `/docs/how-it-works`   | Static page: how the benchmark pipeline works end-to-end             |
-| `/docs/adding-a-model` | Static page: comprehensive tutorial for adding a new model           |
+| Route                         | Content                                                                  |
+| ----------------------------- | ------------------------------------------------------------------------ |
+| `/`                           | Dashboard. No `b` param → landing explainer + global overview            |
+| `/docs/how-it-works`          | Reference section index: pipeline overview, with a left "Benchmark reference" legend |
+| `/docs/how-it-works/<slug>`   | The repository's **living design documents** (`IDEA.md`, `design/*.md`) rendered as pages via react-markdown at build time (`generateStaticParams`); repo-relative `.md` links are rewritten to reference routes |
+| `/docs/adding-a-model`        | Static page: comprehensive tutorial for adding a new model               |
 
 Query params (via a `useSelection` hook wrapping `useSearchParams` + `router.replace`):
 `?b=<experiment_id>&m=<metric|all>&s=<scenario|all>&hw=<hardware_id>&jl=<julia-minor>`
@@ -103,8 +104,11 @@ Tab navigation per benchmark: **Explore individual scenario | Compare scenarios 
 
 **Compare scenarios**
 - Time phases across scenarios (latest environment each). Scenarios get short bold letters on
-  the axis ("A", "B", …) with a legend list above mapping each letter to its parameters — raw
-  scenario ids are too long for axis ticks.
+  the axis ("A", "B", …) — raw scenario ids are too long for axis ticks.
+- A dedicated **scenario legend** component above the chart maps letters to parameters and is
+  interactive: click a scenario to toggle it, shift-click to isolate it, and "group by" selects
+  (one per parameter that varies across scenarios) keep only scenarios matching a value — e.g.
+  only `mode=smoothing`, or only `n=1000`. Letters stay stable while filtering.
 
 **Environment**
 - Dependency panel: full manifest of the latest fingerprint + **diff vs the previous one** —

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { BookOpen } from "lucide-react";
 import { GitHubIcon } from "@/components/icons/GitHubIcon";
@@ -13,7 +14,21 @@ const RXINFER_REPO = "https://github.com/ReactiveBayes/RxInfer.jl";
 export function TopBar({ children }: { children?: ReactNode }) {
   return (
     <header className="flex items-center gap-3 border-b px-4 py-2">
-      <Link href="/" className="text-base font-semibold">
+      <Link href="/" className="flex items-center gap-2 text-base font-semibold">
+        <Image
+          src="/smalllogo.svg"
+          alt="RxInfer logo"
+          width={24}
+          height={24}
+          className="h-6 w-auto dark:hidden"
+        />
+        <Image
+          src="/smalllogo-dark.svg"
+          alt="RxInfer logo"
+          width={24}
+          height={24}
+          className="hidden h-6 w-auto dark:block"
+        />
         RxInfer Benchmarks
       </Link>
       <nav className="ml-2 hidden items-center gap-1 text-sm sm:flex">

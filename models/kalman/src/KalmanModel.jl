@@ -57,10 +57,12 @@ end
 
 function run_smoothing(y, params; callbacks)
     x0 = MvNormalMeanCovariance(zeros(2), 100.0 * diageye(2))
+    # Exact belief propagation: converges in a single pass — `iterations` is
+    # only honored when a scenario explicitly asks for it.
     return infer(
         model = rotate_ssm(x0 = x0, A = A, B = B, P = P, Q = Q),
         data = (y = y,),
-        iterations = get(params, "iterations", 1),
+        iterations = get(params, "iterations", nothing),
         free_energy = true,
         options = (limit_stack_depth = 500,),
         callbacks = callbacks,

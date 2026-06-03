@@ -38,10 +38,12 @@ Uniform benchmark contract (design/benchmarks.md): generate data from
 function run_benchmark(scenario::AbstractDict; callbacks = nothing)
     params = scenario["params"]
     y = generate_data(params)
+    # Conjugate Beta-Bernoulli: closed form, converges in a single pass —
+    # `iterations` is only honored when a scenario explicitly asks for it.
     return infer(
         model = coin_toss(a = 2.0, b = 7.0),
         data = (y = y,),
-        iterations = get(params, "iterations", 10),
+        iterations = get(params, "iterations", nothing),
         callbacks = callbacks,
     )
 end

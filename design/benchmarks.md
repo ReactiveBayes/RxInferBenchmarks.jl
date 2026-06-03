@@ -92,11 +92,27 @@ Environment variables:
 - `RXBENCH_SMOKE=1` — overrides matrices with tiny sizes and 1 process; used by tests and CI
   smoke runs (results are written to a temp dir, never committed).
 
+## Numerical validity is a hard gate
+
+Benchmarks of numerically invalid inference are worthless. Model subprocesses always run with
+
+- `JULIA_FASTCHOLESKY_THROW_ERROR_NON_SYMMETRIC=1` — a non-symmetric matrix reaching
+  `FastCholesky` is a hard error, never a silent warning,
+- `THROW_ON_INFERENCE_ERROR_HINT=true`,
+
+matching RxInfer's own CI (which also sets `USE_DEV=false`, `LOG_USING_RXINFER=false`). The
+harness injects these into every benchmark subprocess; CI sets them for model tests too. A model
+that cannot run cleanly under these flags must have its data/priors fixed — or be removed.
+
 ## Scenarios and experiments
 
 `data/experiments.yml` defines experiments referencing models, either as a cartesian `matrix:`
-(e.g. sizes × iterations) or an explicit `scenarios:` list when modes differ (e.g. Kalman
-filtering vs smoothing). See [data.md](data.md) for the schema.
+(e.g. sizes × modes) or an explicit `scenarios:` list. See [data.md](data.md) for the schema.
+
+**The `iterations` dimension only exists where it is meaningful**: variational/VMP models
+(mixtures, mean-field Gaussian, BSTS, linear regression with init messages) iterate; closed-form
+conjugate models (coin toss) and exact belief propagation (Kalman) converge in a single pass and
+have no iterations axis.
 
 ## ⚠️ Open questions
 
