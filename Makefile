@@ -70,6 +70,11 @@ bench: ## Full local benchmark run (writes into data/results/)
 bench-smoke: ## Tiny end-to-end benchmark run into a temp dir (~seconds)
 	RXBENCH_SMOKE=1 $(JULIA) --project=$(HARNESS) $(HARNESS)/bin/run_benchmarks.jl
 
+.PHONY: bench-quick
+bench-quick: ## Real scenarios, minimal sampling — fast local UI seed data (~minutes)
+	RXBENCH_QUICK=1 $(JULIA) --project=$(HARNESS) $(HARNESS)/bin/run_benchmarks.jl
+	$(MAKE) index
+
 .PHONY: bench-model
 bench-model: ## Benchmark a single model, e.g. make bench-model MODEL=coin_toss
 	@test -n "$(MODEL)" || { echo "usage: make bench-model MODEL=<name>"; exit 1; }

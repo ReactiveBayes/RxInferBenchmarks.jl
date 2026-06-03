@@ -14,3 +14,8 @@ LocalPreferences.toml
 # OS / editors
 .DS_Store
 *.swp
+
+# Julia manifests are version-specific (resolved per Julia minor) — never committed.
+# CI resolves fresh per Julia version; the benchmark fingerprint reads the manifest
+# resolved at run time.
+Manifest.toml

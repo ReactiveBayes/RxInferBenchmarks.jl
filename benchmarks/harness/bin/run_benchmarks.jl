@@ -6,6 +6,7 @@
 # Environment:
 #   RXBENCH_HARDWARE_ID  hardware id (must exist in data/hardware.yml); default: local-dev
 #   RXBENCH_SMOKE=1      tiny scenarios, 1 process, results to a temp dir — validates the pipeline
+#   RXBENCH_QUICK=1      REAL scenarios with 1 process + minimal warm sampling — fast UI seed data
 #
 # Results are merged into data/results/<hardware>/<julia-minor>/<fingerprint12>.json
 # (sample pooling when the environment fingerprint is unchanged — design/data.md).
@@ -45,6 +46,7 @@ end
 function main()
     (; model_filter, output) = parse_args(ARGS)
     smoke = get(ENV, "RXBENCH_SMOKE", "0") == "1"
+    quick = get(ENV, "RXBENCH_QUICK", "0") == "1"
     hardware_id = get(ENV, "RXBENCH_HARDWARE_ID", "local-dev")
 
     hardware = Harness.load_hardware(joinpath(DATA_DIR, "hardware.yml"))
@@ -59,7 +61,7 @@ function main()
     end
 
     defaults = cfg["defaults"]
-    processes = smoke ? 1 : get(defaults, "processes", 3)
+    processes = (smoke || quick) ? 1 : get(defaults, "processes", 3)
     results_dir = something(output, smoke ? mktempdir(; prefix = "rxbench-smoke-") : joinpath(DATA_DIR, "results"))
 
     # The fingerprint covers ALL model projects (the environment identity),

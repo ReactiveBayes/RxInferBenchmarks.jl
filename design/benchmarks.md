@@ -30,7 +30,7 @@ Each `models/<name>/` is a standalone Julia project:
 ```
 models/<name>/
 ├── Project.toml          # deps: RxInfer, BenchmarkTools, JSON3, + model-specific
-├── Manifest.toml         # committed (pins for tests); benchmark CI runs Pkg.update() first
+├── Manifest.toml         # NOT committed (julia-version-specific); CI resolves fresh per version
 ├── src/<Name>Model.jl    # the model module
 ├── benchmark.jl          # shared wrapper (identical across models except module name)
 └── test/runtests.jl      # statistical correctness tests on tiny data
@@ -114,13 +114,6 @@ that cannot run cleanly under these flags must have its data/priors fixed — or
 **fixed per model** (per-iteration time is already a reported metric, an axis would only burn CI
 cycles); closed-form conjugate models (coin toss) and exact belief propagation (Kalman) converge
 in a single pass and have no iterations parameter at all.
-
-## Removed models
-
-- **BSTS** (Bayesian Structural Time Series, `ContinuousTransition` + Wishart): removed — its
-  inference was numerically unstable across Julia versions (posterior drift on 1.10) and
-  platforms (non-symmetric FastCholesky failures on linux x64 only), violating the
-  numerical-validity gate above. It can return once the model is stabilized.
 
 ## ⚠️ Open questions
 

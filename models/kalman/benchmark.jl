@@ -26,7 +26,9 @@ catch err
 end
 
 model_name = Symbol(TOML.parsefile(joinpath(@__DIR__, "Project.toml"))["name"])
-smoke = get(ENV, "RXBENCH_SMOKE", "0") == "1"
+# smoke: tiny scenarios for pipeline validation; quick: real scenarios with
+# minimal sampling (UI seed data) — both shrink the BenchmarkTools budget.
+smoke = get(ENV, "RXBENCH_SMOKE", "0") == "1" || get(ENV, "RXBENCH_QUICK", "0") == "1"
 
 ns_to_ms(x) = Float64(x) / 1.0e6
 

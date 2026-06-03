@@ -57,10 +57,11 @@ Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 [targets]
 test = ["Test"]`}</CodeBlock>
         <p>
-          Each model is isolated: its own <code>Project.toml</code> and committed{" "}
-          <code>Manifest.toml</code> (created by <code>Pkg.instantiate()</code>). Benchmark CI
-          updates dependencies to the latest released RxInfer before running and records the
-          resolved versions in the environment fingerprint.
+          Each model is isolated: its own <code>Project.toml</code>. The{" "}
+          <code>Manifest.toml</code> is <em>not</em> committed — it is Julia-version-specific, and
+          CI resolves it fresh per Julia version. Benchmark CI updates dependencies to the latest
+          released RxInfer before running and records the resolved versions in the environment
+          fingerprint.
         </p>
       </DocSection>
 
