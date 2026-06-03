@@ -16,8 +16,12 @@ and contains **no server runtime remnants**. Builds that render dynamic pages ar
 
 ## Deployment & data loading
 
-- GitHub Pages **project page** → `basePath`/`assetPrefix` `/RxInferBenchmarks.jl`, enabled when
-  `GITHUB_PAGES=true` (CI); local dev stays at `/`. `public/.nojekyll` prevents Jekyll mangling.
+- Served from the **custom domain** `https://benchmarks.rxinfer.com`, which maps to the site
+  **root** (`/`) — *not* a GitHub Pages project page. So **no `basePath`/`assetPrefix`**: assets
+  and routes resolve from `/` in both local dev and prod. `public/CNAME` (`benchmarks.rxinfer.com`)
+  pins the domain across deploys and `public/.nojekyll` prevents Jekyll from mangling `_next/`.
+  `npm run check-static` guards against a project-page basePath regression (which would 404 every
+  asset on the custom domain and leave the page unstyled).
 - **Data is not bundled.** The app fetches JSON at runtime:
   - prod: `https://raw.githubusercontent.com/<owner>/RxInferBenchmarks.jl/main/data`
   - dev: `/local-data` — a gitignored symlink `frontend/public/local-data → ../../data`,
