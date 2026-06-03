@@ -83,8 +83,13 @@ orchestration (`run_scenario`, `run_all`).
 CLIs:
 
 - `bin/run_benchmarks.jl` — run all (or selected) experiments, write/merge the result file.
-- `bin/build_index.jl` — regenerate `data/results/index.json` and the `data/*.json` mirrors of
-  the YAML sources.
+  Writes to the **FAKE seed** tree (`data/seed/results/`) by default; the public **REAL**
+  dataset (`data/results/`) is written only with `--output data/results` (CI does this). See the
+  REAL vs. seed split in [data.md](data.md).
+- `bin/build_index.jl` — regenerate the `data/*.json` mirrors of the YAML sources and a
+  `results/index.json` manifest. `--out <dir>` targets an alternate tree (e.g. `data/seed`);
+  `--mirrors-only` refreshes just the mirrors, leaving the CI-owned `data/results/index.json`
+  untouched (safe to run locally).
 
 Environment variables:
 

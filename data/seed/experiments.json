@@ -1,0 +1,113 @@
+{
+    "experiments": [
+        {
+            "model": "coin_toss",
+            "id": "basic/coin_toss",
+            "matrix": {
+                "n": [
+                    100,
+                    1000,
+                    10000
+                ]
+            },
+            "title": "Coin Toss Model",
+            "tags": [
+                "basic",
+                "conjugate",
+                "iid"
+            ],
+            "category": "Basic Examples",
+            "description": "Beta-Bernoulli inference with IID observations. Closed-form conjugate update — converges in a single pass."
+        },
+        {
+            "model": "iid_normal",
+            "id": "basic/iid_normal",
+            "matrix": {
+                "n": [
+                    100,
+                    1000,
+                    10000
+                ]
+            },
+            "title": "Gaussian Parameter Estimation",
+            "tags": [
+                "basic",
+                "variational",
+                "mean-field"
+            ],
+            "category": "Basic Examples",
+            "description": "Mean and precision of an IID Gaussian with mean-field variational constraints q(mu)q(tau)."
+        },
+        {
+            "model": "linear_regression",
+            "id": "basic/linear_regression",
+            "matrix": {
+                "n": [
+                    100,
+                    1000,
+                    10000
+                ]
+            },
+            "title": "Bayesian Linear Regression",
+            "tags": [
+                "basic",
+                "regression"
+            ],
+            "category": "Basic Examples",
+            "description": "Univariate linear regression with message-passing inference, ported from the official example."
+        },
+        {
+            "model": "kalman",
+            "id": "basic/kalman",
+            "matrix": {
+                "mode": [
+                    "filtering",
+                    "smoothing"
+                ],
+                "n": [
+                    100,
+                    1000,
+                    10000
+                ]
+            },
+            "title": "Kalman Filtering and Smoothing",
+            "tags": [
+                "state space",
+                "filtering",
+                "smoothing"
+            ],
+            "category": "Basic Examples",
+            "description": "Linear Gaussian state-space inference in filtering and smoothing modes. Exact belief propagation — converges in a single pass."
+        },
+        {
+            "model": "gaussian_mixture",
+            "id": "problem_specific/gaussian_mixture",
+            "matrix": {
+                "n": [
+                    1000
+                ],
+                "dimension": [
+                    1,
+                    5
+                ],
+                "n_components": [
+                    2,
+                    3
+                ]
+            },
+            "title": "Gaussian Mixture",
+            "tags": [
+                "mixture",
+                "variational",
+                "clustering"
+            ],
+            "category": "Problem Specific",
+            "description": "Variational inference for finite Gaussian mixtures; dimension 1 runs the univariate model, higher dimensions the multivariate one."
+        }
+    ],
+    "version": 1,
+    "defaults": {
+        "seed": 42,
+        "processes": 3
+    }
+}

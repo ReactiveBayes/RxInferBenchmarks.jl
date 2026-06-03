@@ -8,8 +8,11 @@
 #   RXBENCH_SMOKE=1      tiny scenarios, 1 process, results to a temp dir — validates the pipeline
 #   RXBENCH_QUICK=1      REAL scenarios with 1 process + minimal warm sampling — fast UI seed data
 #
-# Results are merged into data/results/<hardware>/<julia-minor>/<fingerprint12>.json
-# (sample pooling when the environment fingerprint is unchanged — design/data.md).
+# Output (design/data.md): by DEFAULT results are merged into the FAKE seed tree
+#   data/seed/results/<hardware>/<julia-minor>/<fingerprint12>.json
+# so a local run can never pollute the public CI dataset. The public REAL dataset
+# (data/results/) is written ONLY when CI passes `--output data/results` explicitly.
+# (Sample pooling when the environment fingerprint is unchanged.)
 
 using Harness
 using Dates
@@ -62,7 +65,10 @@ function main()
 
     defaults = cfg["defaults"]
     processes = (smoke || quick) ? 1 : get(defaults, "processes", 3)
-    results_dir = something(output, smoke ? mktempdir(; prefix = "rxbench-smoke-") : joinpath(DATA_DIR, "results"))
+    # Default to the seed tree; the public REAL dataset is opt-in via `--output data/results`
+    # (only CI does this). Smoke runs always go to a throwaway temp dir.
+    default_results_dir = smoke ? mktempdir(; prefix = "rxbench-smoke-") : joinpath(DATA_DIR, "seed", "results")
+    results_dir = something(output, default_results_dir)
 
     # The fingerprint covers ALL model projects (the environment identity),
     # regardless of which experiments run in this invocation.

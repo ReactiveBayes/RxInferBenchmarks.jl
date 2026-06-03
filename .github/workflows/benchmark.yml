@@ -74,7 +74,9 @@ jobs:
             # smoke mode writes to a temp dir and records nothing
             julia --project=benchmarks/harness benchmarks/harness/bin/run_benchmarks.jl
           else
-            julia --project=benchmarks/harness benchmarks/harness/bin/run_benchmarks.jl
+            # --output data/results is the ONLY path that writes the public REAL dataset;
+            # without it a run defaults to the local seed tree (design/data.md).
+            julia --project=benchmarks/harness benchmarks/harness/bin/run_benchmarks.jl --output data/results
             julia --project=benchmarks/harness benchmarks/harness/bin/build_index.jl
           fi
 

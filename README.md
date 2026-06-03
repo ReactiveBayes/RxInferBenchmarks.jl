@@ -48,13 +48,14 @@ Run `make help` (the default target) for the live list. Summary:
 | `make test-models`           | Every model's correctness tests                                    |
 | `make test-model MODEL=x`    | One model's tests (e.g. `MODEL=coin_toss`)                         |
 | `make test-frontend`         | Frontend lint + typecheck + vitest suite                           |
-| `make bench`                 | Full local benchmark run (writes into `data/results/`)             |
+| `make bench`                 | Full local benchmark run — FAKE seed data into `data/seed/` (never the public dataset) |
 | `make bench-smoke`           | Tiny benchmark run into a temp dir — validates the whole pipeline  |
-| `make bench-model MODEL=x`   | Benchmark a single model                                           |
-| `make index`                 | Regenerate `data/*.json` mirrors + `data/results/index.json`       |
+| `make bench-model MODEL=x`   | Benchmark a single model (into `data/seed/`)                       |
+| `make index`                 | Refresh `data/*.json` mirrors + rebuild the seed tree (`data/seed/`) |
+| `make seed-index`            | Rebuild just the FAKE seed tree under `data/seed/`                  |
 | `make instantiate`           | `Pkg.instantiate()` for harness + all models                       |
 | `make frontend-install`      | `npm ci` in `frontend/`                                            |
-| `make frontend-dev`          | Dev server against local `data/` (auto-symlinks + converts YAML)   |
+| `make frontend-dev`          | Dev server against the FAKE seed data in `data/seed/` (auto-symlinks) |
 | `make frontend-build`        | Static export build (`frontend/out/`)                              |
 | `make frontend-check-static` | Verify the build is fully static (no dynamic pages)                |
 | `make frontend-preview`      | Serve the static export locally                                    |

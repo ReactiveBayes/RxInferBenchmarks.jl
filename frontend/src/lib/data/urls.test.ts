@@ -14,6 +14,14 @@ describe("urls", () => {
     expect(dataBaseUrl()).toContain("raw.githubusercontent.com/ReactiveBayes/RxInferBenchmarks.jl/main/data");
   });
 
+  it("resolves the local seed dataset paths in dev", () => {
+    // dev points the base at the FAKE seed tree (data/seed via /local-data/seed)
+    vi.stubEnv("NEXT_PUBLIC_DATA_BASE_URL", "/local-data/seed");
+    expect(dataBaseUrl()).toBe("/local-data/seed");
+    expect(dataUrl("results/index.json")).toBe("/local-data/seed/results/index.json");
+    expect(dataUrl("hardware.json")).toBe("/local-data/seed/hardware.json");
+  });
+
   it("joins paths without duplicate slashes", () => {
     vi.stubEnv("NEXT_PUBLIC_DATA_BASE_URL", "/local-data/");
     expect(dataUrl("/results/index.json")).toBe("/local-data/results/index.json");

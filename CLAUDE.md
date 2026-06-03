@@ -31,8 +31,12 @@ Run `make help` for all commands.
      exempt — they are tested upstream).
    - Every Julia function in the harness and models has a test.
    - See [design/testing.md](design/testing.md).
-3. **Never edit generated files**: `data/*.json` are generated from the `.yml` sources;
-   `data/results/**` is owned by benchmark CI. Edit the `.yml` files and run `make index`.
+3. **Never edit generated files**: `data/*.json` (and their `data/seed/*.json` mirrors) are
+   generated from the `.yml` sources; `data/results/**` is the **REAL** public dataset owned by
+   benchmark CI. Edit the `.yml` files and run `make index`. Local benchmark runs (`make bench*`)
+   write **only** to the **FAKE seed** tree `data/seed/results/**` — never the public dataset.
+   The frontend picks REAL vs. seed via `NEXT_PUBLIC_DATA_BASE_URL`. See
+   [design/data.md](design/data.md).
 4. **Models follow the uniform contract**: each `models/<name>/` is a standalone Julia project
    exposing a single `run_benchmark(scenario; callbacks)` function, invoked through the shared
    `benchmark.jl` wrapper. See [design/benchmarks.md](design/benchmarks.md).
@@ -53,5 +57,5 @@ Run `make help` for all commands.
 make test            # everything: harness + models + frontend
 make bench-smoke     # tiny end-to-end benchmark run (seconds)
 make frontend-dev    # dashboard dev server against local data/
-make index           # regenerate data/*.json + data/results/index.json
+make index           # regenerate data/*.json mirrors + rebuild the seed tree (data/seed/)
 ```

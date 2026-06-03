@@ -12,15 +12,36 @@ data/
 ├── experiments.json    # generated mirror (frontend reads JSON only)
 ├── hardware.json       # generated mirror
 ├── metrics.json        # generated mirror
-└── results/
-    ├── index.json      # generated manifest — regenerated wholesale, never appended
-    └── <hardware-id>/
-        └── <julia-minor>/            # e.g. 1.12/
-            └── <fingerprint12>.json  # one file per environment fingerprint
+├── results/            # REAL data — public CI results, owned by benchmark CI
+│   ├── index.json      # generated manifest — regenerated wholesale, never appended
+│   └── <hardware-id>/
+│       └── <julia-minor>/            # e.g. 1.12/
+│           └── <fingerprint12>.json  # one file per environment fingerprint
+└── seed/               # FAKE seed data — produced locally for UI development only
+    ├── experiments.json  # mirrors of the same YAML sources (kept in sync by `make index`)
+    ├── hardware.json
+    ├── metrics.json
+    └── results/          # same shape as data/results/, but never the public dataset
+        ├── index.json
+        └── <hardware-id>/<julia-minor>/<fingerprint12>.json
 ```
 
-Humans edit YAML; machines (and the frontend) read JSON. `make index` regenerates all generated
-files. Generated files are committed (the deployed frontend fetches them raw from GitHub).
+Humans edit the YAML; machines (and the frontend) read JSON.
+
+**Two datasets, one shape.** `data/` is the **REAL** dataset — the public benchmark results,
+written only by CI (`benchmark.yml`) and fetched by the deployed site. `data/seed/` is a
+self-contained **FAKE seed** dataset (same schema) used to develop the UI locally without the
+real results, and without ever polluting them. Which one the frontend fetches is chosen by a
+single env var, `NEXT_PUBLIC_DATA_BASE_URL` (see [frontend.md](frontend.md)).
+
+- **Local benchmark runs never touch the public dataset.** `make bench` / `bench-quick` /
+  `bench-model` (and `run_benchmarks.jl` with no `--output`) write into `data/seed/results/`.
+  The public `data/results/` is written **only** when CI passes `--output data/results`.
+- `make index` refreshes the YAML→JSON mirrors (`--mirrors-only`, leaving the CI-owned
+  `data/results/index.json` untouched) and rebuilds the whole seed tree (`build_index.jl --out
+  data/seed`). `make seed-index` rebuilds just the seed tree.
+- All generated files in both trees are committed (the deployed frontend fetches them raw from
+  GitHub; the seed serves local dev and frontend test fixtures).
 
 ## Environment fingerprint — the unit of data
 
@@ -182,7 +203,7 @@ metrics:
 version: 1
 hardware:
   - id: github-actions-ubuntu
-    label: GitHub Actions (ubuntu-latest)
+    label: Default GitHub CI runner
     kind: ci                     # ci | self-hosted
     os: linux
     arch: x86_64

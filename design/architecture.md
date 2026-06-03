@@ -32,10 +32,13 @@ frontend/ (Next.js static export on GitHub Pages)
   benchmarked model. See [benchmarks.md](benchmarks.md).
 - **`benchmarks/harness/`** — Julia orchestrator project. Knows nothing about RxInfer; it only
   spawns subprocesses and assembles/merges JSON. See [benchmarks.md](benchmarks.md).
-- **`data/`** — YAML sources (human-edited) + generated JSON (machine-read) + results.
-  See [data.md](data.md).
-- **`frontend/`** — Next.js dashboard, static export, fetches `data/` at runtime from
-  `raw.githubusercontent.com` (prod) or a local symlink (dev). See [frontend.md](frontend.md).
+- **`data/`** — YAML sources (human-edited) + generated JSON (machine-read) + results. Holds two
+  datasets of identical shape: the **REAL** public results (`data/results/`, CI-owned) and a
+  **FAKE seed** dataset (`data/seed/`) for local UI development. See [data.md](data.md).
+- **`frontend/`** — Next.js dashboard, static export. Fetches one dataset at runtime, chosen by
+  `NEXT_PUBLIC_DATA_BASE_URL`: the deployed site reads the REAL data from
+  `raw.githubusercontent.com`; local dev reads the FAKE seed via a symlink. See
+  [frontend.md](frontend.md).
 
 ## CI topology (`.github/workflows/`)
 

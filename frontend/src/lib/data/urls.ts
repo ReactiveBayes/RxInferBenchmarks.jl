@@ -1,7 +1,11 @@
-// Data base-URL resolution (design/frontend.md):
-//   dev:  NEXT_PUBLIC_DATA_BASE_URL=/local-data  (public/local-data symlink -> repo data/)
-//   prod: raw.githubusercontent.com — the live site picks up new benchmark
-//         results without a redeploy.
+// Data base-URL resolution (design/frontend.md, design/data.md). A single env
+// var, NEXT_PUBLIC_DATA_BASE_URL, selects which dataset the app fetches:
+//   prod (.env.production): raw.githubusercontent.com/.../main/data — the REAL
+//         public CI dataset; the live site picks up new results without a redeploy.
+//   dev  (.env.development): /local-data/seed — the FAKE seed dataset under
+//         data/seed/, via the public/local-data symlink -> repo data/. Lets the
+//         UI be developed against representative data without touching real results.
+// The built-in fallback below mirrors the production (REAL) source.
 const PROD_DATA_URL =
   "https://raw.githubusercontent.com/ReactiveBayes/RxInferBenchmarks.jl/main/data";
 
