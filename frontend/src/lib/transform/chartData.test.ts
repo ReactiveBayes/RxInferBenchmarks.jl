@@ -43,6 +43,37 @@ describe("buildPhaseRows", () => {
   });
 });
 
+describe("buildScenarioPhaseRows", () => {
+  it("produces one row per scenario with the latest mean per metric", async () => {
+    const { makeResultFile, makeNewerResultFile } = await import("@/test/fixtures");
+    const { buildScenarioPhaseRows } = await import("./chartData");
+    const rows = buildScenarioPhaseRows([makeResultFile(), makeNewerResultFile()], {
+      experimentId: "basic/coin_toss",
+      metrics: ["cold_run_ms", "warm_run_min_ms"],
+    });
+    expect(rows).toHaveLength(2); // n=1000 and n=10000 scenarios
+    const small = rows.find((r) => r.scenario.includes("n=1000_"));
+    // newest fingerprint (aaaa00000002) wins for the n=1000 scenario
+    expect(small?.cold_run_ms).toBeCloseTo(205);
+    expect(small?.warm_run_min_ms).toBeCloseTo(2);
+    // n=10000 only exists in the older file — falls back to its latest available
+    const large = rows.find((r) => r.scenario.includes("n=10000"));
+    expect(large?.cold_run_ms).toBeCloseTo(380);
+  });
+
+  it("filters by hardware", async () => {
+    const { makeResultFile, makePiResultFile } = await import("@/test/fixtures");
+    const { buildScenarioPhaseRows } = await import("./chartData");
+    const rows = buildScenarioPhaseRows([makeResultFile(), makePiResultFile()], {
+      experimentId: "basic/coin_toss",
+      metrics: ["cold_run_ms"],
+      hardwareId: "raspberry-pi-5",
+    });
+    expect(rows).toHaveLength(1);
+    expect(rows[0].cold_run_ms).toBeCloseTo(900);
+  });
+});
+
 describe("buildDistributionRows", () => {
   it("flattens every sample with its date label", () => {
     const rows = buildDistributionRows([point([1, 2], "2026-06-01"), point([3], "2026-06-08")]);

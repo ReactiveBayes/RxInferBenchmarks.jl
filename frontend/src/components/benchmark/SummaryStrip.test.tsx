@@ -60,6 +60,38 @@ describe("SummaryStrip", () => {
     expect(onSelectMetric).toHaveBeenCalledWith("cold_run_ms");
   });
 
+  it("highlights the selected card and always shows 'back to overview' on it", () => {
+    render(
+      <SummaryStrip
+        seriesByMetric={seriesByMetric}
+        metricDefs={metricDefs}
+        selectedMetric="cold_run_ms"
+        onSelectMetric={() => {}}
+      />,
+    );
+    const selected = screen.getByLabelText("Cold run summary");
+    expect(selected.className).toContain("border-primary");
+    expect(selected.className).toContain("shadow");
+    expect(screen.getByText("back to overview")).toBeInTheDocument();
+    expect(screen.getByText("back to overview").className).not.toContain("opacity-0");
+    // unselected cards keep the hover-only hint
+    expect(screen.getByText("details").className).toContain("opacity-0");
+  });
+
+  it("renders square tiles with a metric icon and hover-float styling", () => {
+    render(
+      <SummaryStrip
+        seriesByMetric={seriesByMetric}
+        metricDefs={metricDefs}
+        onSelectMetric={() => {}}
+      />,
+    );
+    const tile = screen.getByLabelText("Cold run summary");
+    expect(tile.className).toContain("aspect-square");
+    expect(tile.className).toContain("hover:-translate-y-1");
+    expect(tile.querySelector("svg")).not.toBeNull(); // lucide icon
+  });
+
   it("shows an empty state without data", () => {
     render(<SummaryStrip seriesByMetric={{}} metricDefs={metricDefs} />);
     expect(screen.getByText(/no measurements yet/i)).toBeInTheDocument();

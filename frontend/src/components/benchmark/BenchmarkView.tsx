@@ -1,7 +1,8 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Select,
@@ -15,8 +16,11 @@ import { CompareChart } from "@/components/charts/CompareChart";
 import { MetricTimeSeriesChart } from "@/components/charts/MetricTimeSeriesChart";
 import { PhaseBreakdownChart } from "@/components/charts/PhaseBreakdownChart";
 import { SampleDistributionChart } from "@/components/charts/SampleDistributionChart";
+import { ScenarioCompareChart } from "@/components/charts/ScenarioCompareChart";
+import { buildScenarioPhaseRows } from "@/lib/transform/chartData";
 import { buildSeries, listMetrics, listScenarios, type SeriesPoint } from "@/lib/transform/series";
 import type { ExperimentDef, MetricDef, ResultFile } from "@/lib/data/types";
+import { cn } from "@/lib/utils";
 import { DependencyPanel } from "./DependencyPanel";
 import { RecentEntriesTable } from "./RecentEntriesTable";
 import { SummaryStrip } from "./SummaryStrip";
@@ -46,6 +50,7 @@ export function BenchmarkView({
   scenario: string;
   onSelect: (update: { metric?: string | null; scenario?: string | null }) => void;
 }) {
+  const [chartColumns, setChartColumns] = useState<2 | 3 | 4>(3);
   const scenarios = useMemo(() => listScenarios(files, experiment.id), [files, experiment.id]);
   const activeScenario =
     scenario !== "all" && scenarios.some((s) => s.scenario_id === scenario)
@@ -204,19 +209,50 @@ export function BenchmarkView({
               </TabsContent>
             </Tabs>
           ) : (
-            <div className="grid gap-4 lg:grid-cols-2">
-              {presentMetrics
-                .filter((m) => seriesByMetric[m.id])
-                .map((m) => (
-                  <Card key={m.id}>
-                    <CardHeader className="pb-0">
-                      <CardTitle className="text-sm">{m.label}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <MetricTimeSeriesChart points={seriesByMetric[m.id]} metric={m} height={180} />
-                    </CardContent>
-                  </Card>
+            <div>
+              <div
+                role="group"
+                aria-label="Chart columns"
+                className="mb-2 flex items-center justify-end gap-1"
+              >
+                <span className="mr-1 text-xs text-muted-foreground">columns</span>
+                {([2, 3, 4] as const).map((columns) => (
+                  <Button
+                    key={columns}
+                    variant="outline"
+                    size="sm"
+                    aria-pressed={chartColumns === columns}
+                    onClick={() => setChartColumns(columns)}
+                    className={cn(
+                      "h-7 w-7 px-0 text-xs",
+                      chartColumns === columns && "border-primary text-primary",
+                    )}
+                  >
+                    {columns}
+                  </Button>
                 ))}
+              </div>
+              <div
+                className={cn(
+                  "grid gap-4",
+                  chartColumns === 2 && "lg:grid-cols-2",
+                  chartColumns === 3 && "lg:grid-cols-2 xl:grid-cols-3",
+                  chartColumns === 4 && "lg:grid-cols-2 xl:grid-cols-4",
+                )}
+              >
+                {presentMetrics
+                  .filter((m) => seriesByMetric[m.id])
+                  .map((m) => (
+                    <Card key={m.id}>
+                      <CardHeader className="pb-0">
+                        <CardTitle className="text-sm">{m.label}</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <MetricTimeSeriesChart points={seriesByMetric[m.id]} metric={m} height={180} />
+                      </CardContent>
+                    </Card>
+                  ))}
+              </div>
             </div>
           )}
 
@@ -233,6 +269,25 @@ export function BenchmarkView({
               />
             </CardContent>
           </Card>
+
+          {scenarios.length > 1 && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm">Scenario comparison</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ScenarioCompareChart
+                  rows={buildScenarioPhaseRows(files, {
+                    experimentId: experiment.id,
+                    metrics: PHASE_METRICS,
+                    hardwareId: hardware ?? undefined,
+                    juliaMinor: julia ?? undefined,
+                  })}
+                  metricDefs={metricDefs}
+                />
+              </CardContent>
+            </Card>
+          )}
 
           {latestEnv && (
             <Card>

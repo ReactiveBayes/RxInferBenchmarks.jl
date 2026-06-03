@@ -1,5 +1,19 @@
-// Stable Julia-palette colors per metric/series (design/frontend.md):
-// a metric keeps the same color in every view.
+// Stable Julia-palette colors and icons per metric/series (design/frontend.md):
+// a metric keeps the same color and icon in every view.
+import {
+  Activity,
+  Boxes,
+  Flame,
+  Gauge,
+  Hammer,
+  MemoryStick,
+  Play,
+  Recycle,
+  Repeat,
+  Rocket,
+  Snowflake,
+  type LucideIcon,
+} from "lucide-react";
 
 const PALETTE_SIZE = 5;
 
@@ -26,4 +40,21 @@ export function metricColor(metricId: string): string {
   let hash = 0;
   for (const char of metricId) hash = (hash * 31 + char.charCodeAt(0)) % 997;
   return seriesColor(hash);
+}
+
+const ICONS: Record<string, LucideIcon> = {
+  ttfx_ms: Rocket,
+  model_creation_ms: Hammer,
+  cold_run_ms: Snowflake,
+  warm_run_min_ms: Flame,
+  warm_run_median_ms: Gauge,
+  iteration_median_ms: Repeat,
+  allocations: Boxes,
+  allocated_bytes: MemoryStick,
+  gc_time_ms: Recycle,
+  autostart_ms: Play,
+};
+
+export function metricIcon(metricId: string): LucideIcon {
+  return ICONS[metricId] ?? Activity;
 }

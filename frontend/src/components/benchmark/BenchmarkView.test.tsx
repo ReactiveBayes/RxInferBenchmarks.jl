@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import {
   fixtureExperiments,
@@ -76,5 +76,22 @@ describe("BenchmarkView", () => {
   it("shows an empty state when there is no data for the selection", () => {
     renderView({ files: [] });
     expect(screen.getByText(/no benchmark data for this selection/i)).toBeInTheDocument();
+  });
+
+  it("offers a 2/3/4 chart-column toggle defaulting to 3", async () => {
+    const user = userEvent.setup();
+    renderView();
+    const group = screen.getByRole("group", { name: /chart columns/i });
+    const three = within(group).getByRole("button", { name: "3" });
+    expect(three).toHaveAttribute("aria-pressed", "true");
+    await user.click(within(group).getByRole("button", { name: "4" }));
+    expect(within(group).getByRole("button", { name: "4" })).toHaveAttribute("aria-pressed", "true");
+    expect(three).toHaveAttribute("aria-pressed", "false");
+  });
+
+  it("shows a scenario comparison when the benchmark has several scenarios", () => {
+    renderView();
+    expect(screen.getByText(/scenario comparison/i)).toBeInTheDocument();
+    expect(screen.getByRole("figure", { name: /scenario comparison/i })).toBeInTheDocument();
   });
 });

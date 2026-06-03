@@ -1,7 +1,8 @@
 "use client";
 
 import { ChevronRight } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
+import { metricColor, metricIcon } from "@/lib/chartTheme";
 import { formatValue } from "@/lib/format";
 import { detectRegression } from "@/lib/transform/regression";
 import type { SeriesPoint } from "@/lib/transform/series";
@@ -9,7 +10,11 @@ import type { MetricDef } from "@/lib/data/types";
 import { RegressionBadge } from "./RegressionBadge";
 import { cn } from "@/lib/utils";
 
-/** One card per metric: latest value ± std (n) and Δ% vs the previous fingerprint. */
+/**
+ * Compact square metric tiles: icon + label + latest value ± std (n) and the
+ * Δ% badge vs the previous fingerprint. Sized so a wide monitor fits all
+ * metrics on one row; overflow wraps. Clicking a tile opens the deep dive.
+ */
 export function SummaryStrip({
   seriesByMetric,
   metricDefs,
@@ -26,11 +31,13 @@ export function SummaryStrip({
     return <p className="text-sm text-muted-foreground">No measurements yet.</p>;
   }
   return (
-    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <div className="grid grid-cols-[repeat(auto-fill,minmax(9.5rem,1fr))] gap-3">
       {metrics.map((metric) => {
         const points = seriesByMetric[metric.id];
         const latest = points[points.length - 1];
         const regression = detectRegression(points, { lowerIsBetter: metric.lower_is_better });
+        const selected = selectedMetric === metric.id;
+        const Icon = metricIcon(metric.id);
         return (
           <Card
             key={metric.id}
@@ -38,36 +45,43 @@ export function SummaryStrip({
             aria-label={`${metric.label} summary`}
             title={
               onSelectMetric
-                ? selectedMetric === metric.id
+                ? selected
                   ? "Click to go back to the all-metrics overview"
                   : `Click to open the detailed ${metric.label} view`
                 : undefined
             }
             onClick={() => onSelectMetric?.(metric.id)}
             className={cn(
-              "group py-4",
-              onSelectMetric && "cursor-pointer transition-colors hover:border-primary/50",
-              selectedMetric === metric.id && "border-primary",
+              "group relative aspect-square justify-center gap-1 p-3 text-center",
+              onSelectMetric &&
+                "cursor-pointer transition-all duration-150 hover:-translate-y-1 hover:shadow-lg hover:border-primary/40",
+              selected && "border-primary shadow-md ring-1 ring-primary/30",
             )}
           >
-            <CardContent className="px-4">
-              <div className="flex items-start justify-between gap-2">
-                <p className="text-xs font-medium text-muted-foreground">{metric.label}</p>
-                <RegressionBadge result={regression} />
-              </div>
-              <p className="mt-1 font-mono text-xl">{formatValue(latest.stats.mean, metric.unit)}</p>
-              <div className="flex items-center justify-between">
-                <p className="text-xs text-muted-foreground">
-                  ± {formatValue(latest.stats.std, metric.unit)} (n={latest.stats.n})
-                </p>
-                {onSelectMetric && (
-                  <span className="flex items-center text-xs text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100">
-                    {selectedMetric === metric.id ? "back to overview" : "details"}
-                    <ChevronRight className="size-3.5" />
-                  </span>
+            <div className="absolute right-2 top-2">
+              <RegressionBadge result={regression} />
+            </div>
+            <Icon aria-hidden className="mx-auto size-6" style={{ color: metricColor(metric.id) }} />
+            <p className="mt-1 text-xs font-medium text-muted-foreground">{metric.label}</p>
+            <p className="font-mono text-lg leading-tight">
+              {formatValue(latest.stats.mean, metric.unit)}
+            </p>
+            <p className="text-[11px] text-muted-foreground">
+              ± {formatValue(latest.stats.std, metric.unit)} (n={latest.stats.n})
+            </p>
+            {onSelectMetric && (
+              <span
+                className={cn(
+                  "mx-auto flex items-center text-[11px] transition-opacity",
+                  selected
+                    ? "text-primary" // selected: always visible
+                    : "text-muted-foreground opacity-0 group-hover:opacity-100",
                 )}
-              </div>
-            </CardContent>
+              >
+                {selected ? "back to overview" : "details"}
+                <ChevronRight className="size-3" />
+              </span>
+            )}
           </Card>
         );
       })}
