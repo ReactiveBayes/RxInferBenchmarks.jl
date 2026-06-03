@@ -1,0 +1,103 @@
+{
+    "experiments": [
+        {
+            "model": "coin_toss",
+            "id": "basic/coin_toss",
+            "matrix": {
+                "iterations": [
+                    10
+                ],
+                "n": [
+                    1000,
+                    10000
+                ]
+            },
+            "title": "Coin Toss Model",
+            "tags": [
+                "basic",
+                "conjugate",
+                "iid"
+            ],
+            "category": "Basic Examples",
+            "description": "Beta-Bernoulli inference with IID observations."
+        },
+        {
+            "scenarios": [
+                {
+                    "params": {
+                        "mode": "filtering",
+                        "n": 1000
+                    }
+                },
+                {
+                    "params": {
+                        "iterations": 10,
+                        "mode": "smoothing",
+                        "n": 1000
+                    }
+                }
+            ],
+            "model": "kalman",
+            "id": "basic/kalman",
+            "title": "Kalman Filtering and Smoothing",
+            "tags": [
+                "state space",
+                "filtering",
+                "smoothing"
+            ],
+            "category": "Basic Examples",
+            "description": "Linear Gaussian state-space inference in filtering and smoothing modes."
+        },
+        {
+            "model": "gaussian_mixture",
+            "id": "problem_specific/gaussian_mixture",
+            "matrix": {
+                "iterations": [
+                    25
+                ],
+                "k": [
+                    2
+                ],
+                "n": [
+                    2000
+                ]
+            },
+            "title": "Gaussian Mixture",
+            "tags": [
+                "mixture",
+                "variational",
+                "clustering"
+            ],
+            "category": "Problem Specific",
+            "description": "Variational inference for a finite Gaussian mixture model."
+        },
+        {
+            "model": "bsts",
+            "id": "advanced/bsts",
+            "matrix": {
+                "iterations": [
+                    20
+                ],
+                "period": [
+                    7
+                ],
+                "n": [
+                    365
+                ]
+            },
+            "title": "Bayesian Structural Time Series",
+            "tags": [
+                "time series",
+                "structured",
+                "large"
+            ],
+            "category": "Advanced Examples",
+            "description": "Structured time-series model with trend and seasonal latent components."
+        }
+    ],
+    "version": 1,
+    "defaults": {
+        "seed": 42,
+        "processes": 3
+    }
+}

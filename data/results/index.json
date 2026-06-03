@@ -1,0 +1,25 @@
+{
+    "generated_utc": "2026-06-03T11:50:43Z",
+    "schema_version": 2,
+    "hardware": [
+        {
+            "label": "Local development machine",
+            "julia_versions": [
+                "1.12"
+            ],
+            "id": "local-dev",
+            "entries": [
+                {
+                    "fingerprint": "223533a0c09da8edd30121cc7c14d56650cee2413a9403769c2b1ebfbfebfc31",
+                    "julia_version": "1.12.6",
+                    "file": "local-dev/1.12/223533a0c09d.json",
+                    "last_seen_utc": "2026-06-03T11:50:09Z",
+                    "rxinfer_version": "5.3.4",
+                    "first_seen_utc": "2026-06-03T11:50:09Z",
+                    "run_count": 1,
+                    "sample_count": 3
+                }
+            ]
+        }
+    ]
+}

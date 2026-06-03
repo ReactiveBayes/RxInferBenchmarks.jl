@@ -1,0 +1,59 @@
+{
+    "metrics": [
+        {
+            "label": "Time to first inference",
+            "lower_is_better": true,
+            "id": "ttfx_ms",
+            "unit": "ms"
+        },
+        {
+            "label": "Model creation",
+            "lower_is_better": true,
+            "id": "model_creation_ms",
+            "unit": "ms"
+        },
+        {
+            "label": "Cold run",
+            "lower_is_better": true,
+            "id": "cold_run_ms",
+            "unit": "ms"
+        },
+        {
+            "label": "Warm run (min)",
+            "lower_is_better": true,
+            "id": "warm_run_min_ms",
+            "unit": "ms"
+        },
+        {
+            "label": "Warm run (median)",
+            "lower_is_better": true,
+            "id": "warm_run_median_ms",
+            "unit": "ms"
+        },
+        {
+            "label": "Iteration (median)",
+            "lower_is_better": true,
+            "id": "iteration_median_ms",
+            "unit": "ms"
+        },
+        {
+            "label": "Allocations",
+            "lower_is_better": true,
+            "id": "allocations",
+            "unit": "count"
+        },
+        {
+            "label": "Allocated memory",
+            "lower_is_better": true,
+            "id": "allocated_bytes",
+            "unit": "bytes"
+        },
+        {
+            "label": "GC time",
+            "lower_is_better": true,
+            "id": "gc_time_ms",
+            "unit": "ms"
+        }
+    ],
+    "version": 1
+}
