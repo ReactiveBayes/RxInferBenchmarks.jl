@@ -3,7 +3,7 @@
 Performance benchmarks for [RxInfer.jl](https://github.com/ReactiveBayes/RxInfer.jl), tracked
 over time across Julia versions and hardware targets, visualized on a static dashboard:
 
-**https://reactivebayes.github.io/RxInferBenchmarks.jl/**
+**https://benchmarks.rxinfer.com**
 
 What's measured per model: time to first inference (compilation), model creation, cold run,
 warm run (via [BenchmarkTools.jl](https://github.com/JuliaCI/BenchmarkTools.jl)), per-iteration
