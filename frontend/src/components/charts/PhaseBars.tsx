@@ -133,8 +133,8 @@ export function PhaseBars({
             fontSize={11}
             tickLine={false}
             width={70}
-            scale={effectiveLog ? "log" : "linear"}
-            domain={effectiveLog ? ["auto", "auto"] : [0, "auto"]}
+            scale={effectiveLog ? "symlog" : "linear"}
+            domain={[0, "auto"]}
             tickFormatter={(value: number) => formatValue(value, "ms")}
           />
           <Tooltip
