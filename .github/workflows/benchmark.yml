@@ -22,6 +22,11 @@ concurrency:
   group: benchmark
   cancel-in-progress: false
 
+# Run JS-based actions (checkout, setup-julia, and the actions/cache + pyTooling
+# steps vendored inside julia-actions/cache) on Node 24 — Node 20 is deprecated.
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
 jobs:
   tests:
     name: Gate — full test suite
