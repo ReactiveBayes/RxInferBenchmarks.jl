@@ -11,6 +11,13 @@ hardware:
     arch: x86_64
     notes: Shared CI runner; absolute numbers are noisy, trends are meaningful.
 
+  - id: rpi5-8gb
+    label: Raspberry Pi 5 (8GB)
+    kind: self-hosted
+    os: linux
+    arch: aarch64
+    notes: Self-hosted Raspberry Pi 5 (8GB) ARM64 runner; tracks RxInfer performance on embedded/ARM hardware.
+
   - id: local-dev
     label: Local development machine
     kind: local

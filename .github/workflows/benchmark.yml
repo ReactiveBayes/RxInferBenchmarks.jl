@@ -30,18 +30,24 @@ jobs:
       contents: read
 
   bench:
-    name: Benchmark (Julia ${{ matrix.julia }})
+    name: Benchmark (${{ matrix.hardware }} · Julia ${{ matrix.julia }})
     needs: tests
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.runner }}
     permissions:
       contents: write # pushes result files
     strategy:
       fail-fast: false
-      max-parallel: 1 # serialize commits between Julia versions
+      max-parallel: 1 # serialize commits across every hardware/Julia leg
       matrix:
-        julia: ["1.10", "1.11", "1.12"]
+        include:
+          - { julia: "1.10", runner: ubuntu-latest, hardware: github-actions-ubuntu }
+          - { julia: "1.11", runner: ubuntu-latest, hardware: github-actions-ubuntu }
+          - { julia: "1.12", runner: ubuntu-latest, hardware: github-actions-ubuntu }
+          - { julia: "1.10", runner: [self-hosted, ARM64, pi5], hardware: rpi5-8gb }
+          - { julia: "1.11", runner: [self-hosted, ARM64, pi5], hardware: rpi5-8gb }
+          - { julia: "1.12", runner: [self-hosted, ARM64, pi5], hardware: rpi5-8gb }
     env:
-      RXBENCH_HARDWARE_ID: github-actions-ubuntu
+      RXBENCH_HARDWARE_ID: ${{ matrix.hardware }}
       USE_DEV: "false"
       LOG_USING_RXINFER: "false"
       JULIA_FASTCHOLESKY_THROW_ERROR_NON_SYMMETRIC: "1"
@@ -90,7 +96,7 @@ jobs:
             echo "no new results"
             exit 0
           fi
-          git commit -m "bench: results for ${GITHUB_SHA::7} (julia ${{ matrix.julia }}) [skip ci]"
+          git commit -m "bench: results for ${GITHUB_SHA::7} (${{ matrix.hardware }} julia ${{ matrix.julia }}) [skip ci]"
           # Another matrix leg may have pushed first. Result files live in disjoint
           # folders, but the regenerated index.json/mirrors can conflict — resolve by
           # regenerating them from the union (they are wholesale-generated artifacts).

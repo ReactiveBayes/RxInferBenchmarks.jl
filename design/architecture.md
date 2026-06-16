@@ -60,9 +60,11 @@ results appear without a rebuild. `pages.yml` only reacts to `frontend/**` chang
 ## Multi-hardware, multi-Julia
 
 - Hardware targets are registered in `data/hardware.yml`; a runner identifies itself via the
-  `RXBENCH_HARDWARE_ID` env var. GitHub Actions runners now; self-hosted (Raspberry Pi, etc.)
-  later — each gets its own results folder, runs on its own schedule, and the data format never
-  assumes aligned timelines.
+  `RXBENCH_HARDWARE_ID` env var. Two targets are live today: the shared GitHub Actions runner
+  (`github-actions-ubuntu`, x86_64) and a self-hosted Raspberry Pi 5 (`rpi5-8gb`, ARM64,
+  targeted in `benchmark.yml` via the `[self-hosted, ARM64, pi5]` labels). Each gets its own
+  results folder, runs on its own schedule, and the data format never assumes aligned timelines —
+  so adding further self-hosted hardware is purely additive.
 - Benchmarks run for a **fixed list of Julia versions** (currently 1.10, 1.11, 1.12 — extend the
   matrix in `.github/workflows/` when a new minor lands), always against the **latest released
   RxInfer**. Each (hardware, Julia minor) pair has its own results subfolder; the dashboard lets

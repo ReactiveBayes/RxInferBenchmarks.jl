@@ -60,6 +60,9 @@ const REPO_ROOT = normpath(joinpath(@__DIR__, "..", "..", ".."))
     @testset "hardware: real repo file parses" begin
         hw = Harness.load_hardware(joinpath(REPO_ROOT, "data", "hardware.yml"))
         @test haskey(hw, "github-actions-ubuntu")
+        @test haskey(hw, "rpi5-8gb")
+        @test hw["rpi5-8gb"]["label"] == "Raspberry Pi 5 (8GB)"
+        @test hw["rpi5-8gb"]["arch"] == "aarch64"
     end
 
     @testset "hardware: duplicate ids rejected" begin
