@@ -17,6 +17,11 @@ on:
 permissions:
   contents: read
 
+# Run JS-based actions (checkout, setup-julia, setup-node, and the actions/cache +
+# pyTooling steps vendored inside julia-actions/cache) on Node 24 — Node 20 is deprecated.
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
 jobs:
   harness:
     name: Harness (Julia ${{ matrix.julia }})

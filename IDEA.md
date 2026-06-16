@@ -45,9 +45,10 @@ pooled samples.
 
 **CI** (`.github/workflows/`): every Monday, benchmarks run on GitHub Actions for several Julia
 versions (always against the latest released RxInfer via `Pkg.update()`), and a bot commits the
-new/merged result files. Weekly tests keep everything honest. Later, self-hosted runners
-(Raspberry Pi and other hardware) add their own result folders — different hardware runs at
-different times, and the data format doesn't care.
+new/merged result files. Weekly tests keep everything honest. A self-hosted Raspberry Pi 5
+(`rpi5-8gb`, ARM64) runs the same suite on the same schedule into its own result folder — and
+further self-hosted hardware can be added the same way; different hardware runs at different
+times, and the data format doesn't care.
 
 **Dashboard** (`frontend/`): Next.js + Tailwind + shadcn (static export, Julia-colored theme),
 fetching the data at runtime from this repo's `data/` folder on GitHub — so new benchmark results

@@ -10,6 +10,14 @@
             "os": "linux"
         },
         {
+            "label": "Raspberry Pi 5 (8GB)",
+            "kind": "self-hosted",
+            "arch": "aarch64",
+            "id": "rpi5-8gb",
+            "notes": "Self-hosted Raspberry Pi 5 (8GB) ARM64 runner; tracks RxInfer performance on embedded/ARM hardware.",
+            "os": "linux"
+        },
+        {
             "label": "Local development machine",
             "kind": "local",
             "id": "local-dev",
