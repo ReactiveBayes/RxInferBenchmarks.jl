@@ -1,21 +1,29 @@
-import { describe, expect, it, vi, beforeEach } from "vitest";
+import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
 import { renderHook, act } from "@testing-library/react";
 
-const replaceMock = vi.fn();
 let currentParams = new URLSearchParams();
 
 vi.mock("next/navigation", () => ({
-  useRouter: () => ({ replace: replaceMock }),
   usePathname: () => "/",
   useSearchParams: () => currentParams,
 }));
 
 import { useSelection } from "./useSelection";
 
+// Selections are committed via the native History API (Next.js syncs useSearchParams
+// with window.history.replaceState) rather than the router's navigation machinery,
+// which breaks on deep-linked static-export loads.
+const replaceState = vi.spyOn(window.history, "replaceState");
+const replacedUrl = () => replaceState.mock.calls[0][2] as string;
+
 describe("useSelection", () => {
   beforeEach(() => {
-    replaceMock.mockClear();
+    replaceState.mockClear();
     currentParams = new URLSearchParams();
+  });
+
+  afterEach(() => {
+    replaceState.mockReset();
   });
 
   it("exposes defaults when no params are set", () => {
@@ -39,11 +47,11 @@ describe("useSelection", () => {
     expect(result.current.julia).toBe("1.12");
   });
 
-  it("select() writes params via router.replace and drops defaults", () => {
+  it("select() writes params via history.replaceState and drops defaults", () => {
     const { result } = renderHook(() => useSelection());
     act(() => result.current.select({ benchmark: "basic/coin_toss", metric: "all" }));
-    expect(replaceMock).toHaveBeenCalledTimes(1);
-    const url = replaceMock.mock.calls[0][0] as string;
+    expect(replaceState).toHaveBeenCalledTimes(1);
+    const url = replacedUrl();
     expect(url).toContain("b=basic%2Fcoin_toss");
     expect(url).not.toContain("m="); // "all" is the default -> omitted
   });
@@ -52,7 +60,7 @@ describe("useSelection", () => {
     currentParams = new URLSearchParams("b=basic%2Fkalman&m=cold_run_ms");
     const { result } = renderHook(() => useSelection());
     act(() => result.current.select({ benchmark: null }));
-    const url = replaceMock.mock.calls[0][0] as string;
+    const url = replacedUrl();
     expect(url).not.toContain("b=");
     expect(url).toContain("m=cold_run_ms"); // untouched params survive
   });
