@@ -3,7 +3,7 @@
 // All dashboard state lives in query params (design/frontend.md): the
 // benchmark universe is runtime-fetched, so static-export dynamic routes are
 // impossible — and query params make every view a shareable link.
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 
 export interface Selection {
@@ -40,7 +40,6 @@ const PARAM_KEYS = {
 } as const;
 
 export function useSelection() {
-  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -71,9 +70,14 @@ export function useSelection() {
         else params.delete(PARAM_KEYS.compare);
       }
       const query = params.toString();
-      router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
+      // Commit via the native History API, not router.replace: Next.js syncs
+      // useSearchParams/usePathname with pushState/replaceState, and this avoids the
+      // App Router navigation/transition machinery, which fails to update the URL on
+      // deep-linked static-export loads (most visibly in Safari) — freezing every switch.
+      const url = query ? `${pathname}?${query}` : pathname;
+      window.history.replaceState(null, "", url);
     },
-    [router, pathname, searchParams],
+    [pathname, searchParams],
   );
 
   return { ...selection, select };

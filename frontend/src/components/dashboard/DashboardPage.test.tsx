@@ -12,14 +12,15 @@ import {
   makeResultFile,
 } from "@/test/fixtures";
 
-const replaceMock = vi.fn();
 let currentParams = new URLSearchParams();
 
 vi.mock("next/navigation", () => ({
-  useRouter: () => ({ replace: replaceMock }),
   usePathname: () => "/",
   useSearchParams: () => currentParams,
 }));
+
+// Selections are committed via the native History API (see useSelection).
+const replaceState = vi.spyOn(window.history, "replaceState");
 
 import { DashboardPage } from "./DashboardPage";
 
@@ -43,7 +44,7 @@ function stubFetch() {
 
 describe("DashboardPage", () => {
   beforeEach(() => {
-    replaceMock.mockClear();
+    replaceState.mockClear();
     currentParams = new URLSearchParams();
     stubFetch();
   });
@@ -88,7 +89,7 @@ describe("DashboardPage", () => {
     expect(within(drawer).getByRole("link", { name: /how it works/i })).toBeInTheDocument();
 
     await user.click(within(drawer).getByRole("button", { name: "Coin Toss Model" }));
-    expect(replaceMock).toHaveBeenCalled();
+    expect(replaceState).toHaveBeenCalled();
   });
 
   it("renders an error card when the index cannot be fetched", async () => {
