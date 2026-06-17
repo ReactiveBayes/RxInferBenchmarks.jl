@@ -1,5 +1,5 @@
 {
-    "generated_utc": "2026-06-17T01:43:08Z",
+    "generated_utc": "2026-06-17T05:10:16Z",
     "schema_version": 2,
     "hardware": [
         {
@@ -137,7 +137,8 @@
             "label": "Raspberry Pi 5 (8GB)",
             "julia_versions": [
                 "1.10",
-                "1.11"
+                "1.11",
+                "1.12"
             ],
             "id": "rpi5-8gb",
             "entries": [
@@ -158,6 +159,16 @@
                     "last_seen_utc": "2026-06-17T01:41:56Z",
                     "rxinfer_version": "5.4.0",
                     "first_seen_utc": "2026-06-17T01:41:56Z",
+                    "run_count": 1,
+                    "sample_count": 3
+                },
+                {
+                    "fingerprint": "d51c23e0175be5c383b0a8660354bb7a19ee99e337dccbc4a57a9ddbcaf8d87a",
+                    "julia_version": "1.12.6",
+                    "file": "rpi5-8gb/1.12/d51c23e0175b.json",
+                    "last_seen_utc": "2026-06-17T05:09:03Z",
+                    "rxinfer_version": "5.4.0",
+                    "first_seen_utc": "2026-06-17T05:09:03Z",
                     "run_count": 1,
                     "sample_count": 3
                 }
