@@ -1,5 +1,5 @@
 {
-    "generated_utc": "2026-08-10T12:14:21Z",
+    "generated_utc": "2026-08-10T15:53:26Z",
     "schema_version": 2,
     "hardware": [
         {
@@ -629,6 +629,16 @@
                     "last_seen_utc": "2026-08-10T12:13:06Z",
                     "rxinfer_version": "5.5.0",
                     "first_seen_utc": "2026-08-10T12:13:06Z",
+                    "run_count": 1,
+                    "sample_count": 3
+                },
+                {
+                    "fingerprint": "4b6b6a10611d0afc79cd7f919f8a5ac6beca927ec90ee36e73ecc13d7f4ae100",
+                    "julia_version": "1.12.6",
+                    "file": "rpi5-8gb/1.12/4b6b6a10611d.json",
+                    "last_seen_utc": "2026-08-10T15:52:10Z",
+                    "rxinfer_version": "5.5.0",
+                    "first_seen_utc": "2026-08-10T15:52:10Z",
                     "run_count": 1,
                     "sample_count": 3
                 }
