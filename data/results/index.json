@@ -1,5 +1,5 @@
 {
-    "generated_utc": "2026-09-21T04:48:32Z",
+    "generated_utc": "2026-09-21T05:48:32Z",
     "schema_version": 2,
     "hardware": [
         {
@@ -549,6 +549,16 @@
                     "last_seen_utc": "2026-09-21T04:48:15Z",
                     "rxinfer_version": "5.5.2",
                     "first_seen_utc": "2026-09-21T04:48:15Z",
+                    "run_count": 1,
+                    "sample_count": 3
+                },
+                {
+                    "fingerprint": "44ab10d2c3f50a090fc9eaadf75b11c9a1c48a4a1d4a389ae6f08d6c5150c4b9",
+                    "julia_version": "1.12.7",
+                    "file": "github-actions-ubuntu/1.12/44ab10d2c3f5.json",
+                    "last_seen_utc": "2026-09-21T05:48:12Z",
+                    "rxinfer_version": "5.5.2",
+                    "first_seen_utc": "2026-09-21T05:48:12Z",
                     "run_count": 1,
                     "sample_count": 3
                 }
