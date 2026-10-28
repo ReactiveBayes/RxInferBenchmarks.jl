@@ -1,0 +1,1285 @@
+{
+    "runs": [
+        {
+            "commit": "46f0603",
+            "processes": 3,
+            "timestamp_utc": "2026-10-28T11:07:09Z"
+        }
+    ],
+    "schema_version": 2,
+    "fingerprint": "846b78d0b774ddf1ac2da333d5527f430d86d422f919991d324284963a5116b5",
+    "hardware_id": "rpi5-8gb",
+    "environment": {
+        "cpu_threads": 4,
+        "cpu_model": "Cortex-A72",
+        "dependencies": {
+            "Static": "1.4.6",
+            "MetaGraphsNext": "0.7.5",
+            "StatsAPI": "1.8.0",
+            "AliasTables": "1.1.3",
+            "FunctionMaps": "0.1.2",
+            "PositiveFactorizations": "0.2.4",
+            "p7zip_jll": "17.8.3+0",
+            "DiffRules": "1.16.0",
+            "MozillaCACerts_jll": "2026.10.20",
+            "ExponentialFamily": "2.9.0",
+            "GaussianCouplingMessagePassingRules": "1.0.0",
+            "StandardMessagePassingRules": "1.0.0",
+            "SpecialFunctions": "2.9.1",
+            "FileWatching": "1.11.0",
+            "StatsFuns": "2.2.1",
+            "ForwardDiff": "1.4.6",
+            "StaticArrays": "1.9.24",
+            "DataStructures": "0.19.6",
+            "CompositeTypes": "0.1.4",
+            "BlockArrays": "1.10.3",
+            "StructTypes": "1.11.1",
+            "DeltaMessagePassingRules": "1.0.0",
+            "Distributions": "0.25.132",
+            "InteractiveUtils": "1.11.0",
+            "LibCURL": "1.0.0",
+            "GraphPPL": "4.9.0",
+            "Graphs": "1.15.0",
+            "MatrixCorrectionTools": "1.2.0",
+            "LibSSH2_jll": "1.11.104+0",
+            "Parsers": "2.8.10",
+            "Profile": "1.11.0",
+            "Rmath_jll": "0.5.2+0",
+            "ArgTools": "1.1.2",
+            "LibCURL_jll": "8.22.0+0",
+            "ProgressMeter": "1.13.0",
+            "CommonSolve": "0.2.14",
+            "HashArrayMappedTries": "0.2.0",
+            "BayesBase": "1.5.12",
+            "Requires": "1.3.1",
+            "SuiteSparse_jll": "7.10.1+0",
+            "Compat": "4.18.1",
+            "GCVMessagePassingRules": "1.0.1",
+            "MessagePassingRulesBase": "1.1.3",
+            "OpenSSL_jll": "3.5.8+0",
+            "Missings": "1.2.1",
+            "JuliaSyntaxHighlighting": "1.12.0",
+            "Dates": "1.11.0",
+            "IfElse": "0.1.1",
+            "IrrationalConstants": "0.2.7",
+            "SuiteSparse": "stdlib",
+            "Unrolled": "0.1.5",
+            "Sockets": "1.11.0",
+            "KalmanModel": "0.1.0",
+            "Statistics": "1.11.5",
+            "AutoregressiveMessagePassingRules": "1.0.0",
+            "LibGit2": "1.11.0",
+            "Mmap": "1.11.0",
+            "CodecZlib": "0.7.9",
+            "MacroTools": "0.5.16",
+            "Random": "1.11.0",
+            "SortingAlgorithms": "1.2.3",
+            "Pkg": "1.13.0",
+            "JSON": "1.13.0",
+            "MessagePassingRulesApproximations": "1.0.0",
+            "Preferences": "1.6.1",
+            "Libdl": "1.11.0",
+            "PDMats": "0.11.41",
+            "DomainSets": "0.8.3",
+            "Zlib_jll": "1.3.2+0",
+            "libblastrampoline_jll": "5.15.0+0",
+            "SoftDotMessagePassingRules": "1.0.0",
+            "Markdown": "1.11.0",
+            "IIDNormalModel": "0.1.0",
+            "ConstructionBase": "1.6.0",
+            "DiffResults": "1.1.0",
+            "OpenLibm_jll": "0.8.7+0",
+            "StructUtils": "2.11.2",
+            "CompositionsBase": "0.1.2",
+            "LinearAlgebra": "1.13.0",
+            "DiscreteTransitionMessagePassingRules": "1.0.0",
+            "JSON3": "1.14.4",
+            "UUIDs": "1.11.0",
+            "ReactiveMP": "7.0.1",
+            "IntervalSets": "0.7.15",
+            "InverseFunctions": "0.1.18",
+            "ScopedValues": "1.6.2",
+            "ChunkCodecCore": "1.0.2",
+            "Serialization": "1.11.0",
+            "TOML": "1.0.3",
+            "RxInfer": "6.1.1",
+            "FastCholesky": "1.5.0",
+            "HTTP": "2.13.1",
+            "Unicode": "1.11.0",
+            "ArrayLayouts": "1.16.0",
+            "Base64": "1.11.0",
+            "Reexport": "1.2.2",
+            "SciMLPublic": "1.3.0",
+            "Gamma": "1.2.0",
+            "FastGaussQuadrature": "1.3.0",
+            "HCubature": "1.8.0",
+            "BenchmarkTools": "1.8.0",
+            "OpenSpecFun_jll": "0.5.6+0",
+            "StaticArraysCore": "1.4.4",
+            "ChunkCodecLibZstd": "1.0.0",
+            "PrecompileTools": "1.3.4",
+            "SparseArrays": "1.13.0",
+            "TranscodingStreams": "0.11.3",
+            "NaNMath": "1.1.5",
+            "Artifacts": "1.11.0",
+            "Dictionaries": "0.4.6",
+            "OpenBLAS_jll": "0.3.30+0",
+            "Downloads": "1.7.0",
+            "Printf": "1.11.0",
+            "StableRNGs": "1.1.0",
+            "LinearRegressionModel": "0.1.0",
+            "StatsBase": "0.34.13",
+            "SimpleTraits": "0.9.6",
+            "CommonSubexpressions": "0.3.1",
+            "LogExpFunctions": "1.0.3",
+            "Tar": "1.10.0",
+            "Rmath": "0.9.0",
+            "BitSetTuples": "1.1.5",
+            "NetworkOptions": "1.3.0",
+            "CoinTossModel": "0.1.0",
+            "Combinatorics": "1.1.0",
+            "Inflate": "0.1.5",
+            "Roots": "3.0.13",
+            "nghttp2_jll": "1.70.0+0",
+            "Accessors": "0.1.46",
+            "Rocket": "1.11.0",
+            "JLD2": "0.6.7",
+            "PtrArrays": "1.4.0",
+            "OrderedCollections": "2.0.3",
+            "ChunkCodecLibZlib": "1.1.0",
+            "TupleTools": "1.6.1",
+            "LibGit2_jll": "1.9.7+0",
+            "FillArrays": "1.18.2",
+            "NamedTupleTools": "0.14.3",
+            "TinyHugeNumbers": "1.0.4",
+            "Logging": "1.11.0",
+            "JLLWrappers": "1.8.0",
+            "URIs": "1.7.2",
+            "HypergeometricFunctions": "0.3.31",
+            "CommonWorldInvalidations": "1.2.2",
+            "DocStringExtensions": "0.10.2",
+            "SHA": "1.0.0",
+            "Zstd_jll": "1.5.7+1",
+            "GaussianMixtureModel": "0.1.0",
+            "FileIO": "1.20.0",
+            "CompilerSupportLibraries_jll": "1.5.5+2",
+            "ArnoldiMethod": "0.4.0",
+            "DataAPI": "1.16.0",
+            "Reseau": "1.6.3",
+            "StyledStrings": "1.11.0",
+            "EnumX": "1.0.7",
+            "PCRE2_jll": "10.47.0+0",
+            "Indexing": "1.1.1",
+            "QuadGK": "2.11.3"
+        },
+        "hardware_id": "rpi5-8gb",
+        "rxinfer_version": "6.1.1",
+        "total_memory_bytes": 8199643136,
+        "arch": "aarch64",
+        "os": "linux",
+        "julia_version": "1.13.3"
+    },
+    "first_seen_utc": "2026-10-28T11:07:09Z",
+    "last_seen_utc": "2026-10-28T11:07:09Z",
+    "experiments": [
+        {
+            "scenarios": [
+                {
+                    "samples": {
+                        "allocated_bytes": [
+                            1285672,
+                            1285672,
+                            1285672
+                        ],
+                        "model_creation_ms": [
+                            6.905638,
+                            6.861129,
+                            7.003626
+                        ],
+                        "warm_run_median_ms": [
+                            7.7303505,
+                            7.766442,
+                            7.772461
+                        ],
+                        "warm_run_min_ms": [
+                            7.685499,
+                            7.674508,
+                            7.681693
+                        ],
+                        "gc_time_ms": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "cold_run_ms": [
+                            18643.933055,
+                            18665.371424,
+                            18705.917459999997
+                        ],
+                        "iteration_median_ms": [
+                            0.330348,
+                            0.316496,
+                            0.322608
+                        ],
+                        "ttfx_ms": [
+                            28110.388887,
+                            28215.158516000003,
+                            28152.892705999995
+                        ],
+                        "allocations": [
+                            26831,
+                            26831,
+                            26831
+                        ]
+                    },
+                    "scenario_id": "n=100__seed=42",
+                    "status": "ok",
+                    "params": {
+                        "n": 100,
+                        "seed": 42
+                    }
+                },
+                {
+                    "samples": {
+                        "allocated_bytes": [
+                            12022920,
+                            12022920,
+                            12022920
+                        ],
+                        "model_creation_ms": [
+                            77.172251,
+                            78.441305,
+                            78.659317
+                        ],
+                        "warm_run_median_ms": [
+                            74.818379,
+                            75.52057,
+                            74.8949425
+                        ],
+                        "warm_run_min_ms": [
+                            73.69403,
+                            74.0443,
+                            73.925758
+                        ],
+                        "gc_time_ms": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "cold_run_ms": [
+                            18708.146378999998,
+                            18808.492884,
+                            18797.893076
+                        ],
+                        "iteration_median_ms": [
+                            3.57683,
+                            3.378055,
+                            3.271537
+                        ],
+                        "ttfx_ms": [
+                            28175.00895,
+                            28274.387603999996,
+                            28258.763097
+                        ],
+                        "allocations": [
+                            263639,
+                            263639,
+                            263639
+                        ]
+                    },
+                    "scenario_id": "n=1000__seed=42",
+                    "status": "ok",
+                    "params": {
+                        "n": 1000,
+                        "seed": 42
+                    }
+                },
+                {
+                    "samples": {
+                        "allocated_bytes": [
+                            121632120,
+                            121632120,
+                            121632120
+                        ],
+                        "model_creation_ms": [
+                            742.620216,
+                            729.407668,
+                            739.935169
+                        ],
+                        "warm_run_median_ms": [
+                            997.0960525,
+                            1003.0471285,
+                            999.4331345
+                        ],
+                        "warm_run_min_ms": [
+                            792.322886,
+                            793.959232,
+                            793.424361
+                        ],
+                        "gc_time_ms": [
+                            188.6228795,
+                            189.301257,
+                            189.1172835
+                        ],
+                        "cold_run_ms": [
+                            19981.465912,
+                            20116.603317999998,
+                            20086.336175
+                        ],
+                        "iteration_median_ms": [
+                            35.869982,
+                            33.343841,
+                            35.547796
+                        ],
+                        "ttfx_ms": [
+                            29437.317433,
+                            29610.653626999996,
+                            29570.253593
+                        ],
+                        "allocations": [
+                            2627373,
+                            2627373,
+                            2627373
+                        ]
+                    },
+                    "scenario_id": "n=10000__seed=42",
+                    "status": "ok",
+                    "params": {
+                        "n": 10000,
+                        "seed": 42
+                    }
+                }
+            ],
+            "experiment_id": "basic/coin_toss"
+        },
+        {
+            "scenarios": [
+                {
+                    "samples": {
+                        "allocated_bytes": [
+                            4462184,
+                            4462184,
+                            4462184
+                        ],
+                        "model_creation_ms": [
+                            11.704531,
+                            11.636309,
+                            11.639401
+                        ],
+                        "warm_run_median_ms": [
+                            30.912106,
+                            30.5103495,
+                            30.9177695
+                        ],
+                        "warm_run_min_ms": [
+                            30.567647,
+                            30.342259,
+                            30.784178
+                        ],
+                        "gc_time_ms": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "cold_run_ms": [
+                            35392.977043,
+                            35292.600548,
+                            35274.70039300001
+                        ],
+                        "iteration_median_ms": [
+                            0.788694,
+                            0.773399,
+                            0.760195
+                        ],
+                        "ttfx_ms": [
+                            44867.080841,
+                            44771.730111000004,
+                            44764.979027
+                        ],
+                        "allocations": [
+                            90613,
+                            90613,
+                            90613
+                        ]
+                    },
+                    "scenario_id": "n=100__seed=42",
+                    "status": "ok",
+                    "params": {
+                        "n": 100,
+                        "seed": 42
+                    }
+                },
+                {
+                    "samples": {
+                        "allocated_bytes": [
+                            43289416,
+                            43289416,
+                            43289416
+                        ],
+                        "model_creation_ms": [
+                            114.905192,
+                            117.185012,
+                            115.309215
+                        ],
+                        "warm_run_median_ms": [
+                            358.7717825,
+                            362.9228855,
+                            351.99139
+                        ],
+                        "warm_run_min_ms": [
+                            350.900003,
+                            349.601079,
+                            340.782115
+                        ],
+                        "gc_time_ms": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "cold_run_ms": [
+                            35770.269595000005,
+                            35856.961657,
+                            35803.325446999996
+                        ],
+                        "iteration_median_ms": [
+                            9.563629,
+                            9.937438,
+                            9.585924
+                        ],
+                        "ttfx_ms": [
+                            45228.530021000006,
+                            45333.807819999995,
+                            45264.80634
+                        ],
+                        "allocations": [
+                            885297,
+                            885297,
+                            885297
+                        ]
+                    },
+                    "scenario_id": "n=1000__seed=42",
+                    "status": "ok",
+                    "params": {
+                        "n": 1000,
+                        "seed": 42
+                    }
+                },
+                {
+                    "samples": {
+                        "allocated_bytes": [
+                            429479848,
+                            429479848,
+                            429479848
+                        ],
+                        "model_creation_ms": [
+                            1316.9866,
+                            1300.287338,
+                            2660.178164
+                        ],
+                        "warm_run_median_ms": [
+                            5046.8076525,
+                            4978.499266,
+                            4764.404893
+                        ],
+                        "warm_run_min_ms": [
+                            4302.640826,
+                            4308.378658,
+                            4257.905297
+                        ],
+                        "gc_time_ms": [
+                            1179.201403,
+                            1177.1519175,
+                            1042.5686275
+                        ],
+                        "cold_run_ms": [
+                            41477.075134000006,
+                            41527.516796,
+                            41609.78903
+                        ],
+                        "iteration_median_ms": [
+                            105.489696,
+                            100.774211,
+                            99.261541
+                        ],
+                        "ttfx_ms": [
+                            50933.78689000001,
+                            51002.38557,
+                            51078.81426100001
+                        ],
+                        "allocations": [
+                            8829174,
+                            8829174,
+                            8829174
+                        ]
+                    },
+                    "scenario_id": "n=10000__seed=42",
+                    "status": "ok",
+                    "params": {
+                        "n": 10000,
+                        "seed": 42
+                    }
+                }
+            ],
+            "experiment_id": "basic/iid_normal"
+        },
+        {
+            "scenarios": [
+                {
+                    "samples": {
+                        "allocated_bytes": [
+                            1172624,
+                            1172624,
+                            1172624
+                        ],
+                        "model_creation_ms": [
+                            1.324023,
+                            1.240968,
+                            1.318208
+                        ],
+                        "warm_run_median_ms": [
+                            14.344792,
+                            14.2774115,
+                            14.099357
+                        ],
+                        "warm_run_min_ms": [
+                            14.193664,
+                            14.104774,
+                            13.745147
+                        ],
+                        "gc_time_ms": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "autostart_ms": [
+                            12.108982,
+                            11.501228,
+                            12.234331
+                        ],
+                        "cold_run_ms": [
+                            60597.243899,
+                            60673.04337,
+                            60649.303318
+                        ],
+                        "iteration_median_ms": [
+                            0.1020635,
+                            0.099379,
+                            0.10623
+                        ],
+                        "ttfx_ms": [
+                            70044.192528,
+                            70154.50702300001,
+                            70163.157858
+                        ],
+                        "allocations": [
+                            24193,
+                            24193,
+                            24193
+                        ]
+                    },
+                    "scenario_id": "mode=filtering__n=100__seed=42",
+                    "status": "ok",
+                    "params": {
+                        "n": 100,
+                        "mode": "filtering",
+                        "seed": 42
+                    }
+                },
+                {
+                    "samples": {
+                        "allocated_bytes": [
+                            13084592,
+                            13084592,
+                            13084592
+                        ],
+                        "model_creation_ms": [
+                            60.963427,
+                            60.785999,
+                            61.083362
+                        ],
+                        "warm_run_median_ms": [
+                            107.039572,
+                            108.0429415,
+                            107.1341865
+                        ],
+                        "warm_run_min_ms": [
+                            106.510226,
+                            107.175988,
+                            106.315103
+                        ],
+                        "gc_time_ms": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "cold_run_ms": [
+                            88003.771166,
+                            88368.876074,
+                            88344.06095500001
+                        ],
+                        "iteration_median_ms": [
+                            18.613815,
+                            18.580963,
+                            18.348964
+                        ],
+                        "ttfx_ms": [
+                            97456.657706,
+                            97830.846731,
+                            97809.368307
+                        ],
+                        "allocations": [
+                            267516,
+                            267516,
+                            267516
+                        ]
+                    },
+                    "scenario_id": "mode=smoothing__n=100__seed=42",
+                    "status": "ok",
+                    "params": {
+                        "n": 100,
+                        "mode": "smoothing",
+                        "seed": 42
+                    }
+                },
+                {
+                    "samples": {
+                        "allocated_bytes": [
+                            10497512,
+                            10497512,
+                            10497512
+                        ],
+                        "model_creation_ms": [
+                            1.377374,
+                            1.353448,
+                            1.326818
+                        ],
+                        "warm_run_median_ms": [
+                            118.9436635,
+                            129.11564,
+                            121.4533615
+                        ],
+                        "warm_run_min_ms": [
+                            117.519143,
+                            125.856418,
+                            120.61388
+                        ],
+                        "gc_time_ms": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "autostart_ms": [
+                            117.378958,
+                            116.737685,
+                            113.987973
+                        ],
+                        "cold_run_ms": [
+                            60921.222327999996,
+                            60754.288395,
+                            60757.620186
+                        ],
+                        "iteration_median_ms": [
+                            0.1069245,
+                            0.1064065,
+                            0.1035175
+                        ],
+                        "ttfx_ms": [
+                            70379.477306,
+                            70230.227395,
+                            70233.74913899999
+                        ],
+                        "allocations": [
+                            217780,
+                            217780,
+                            217780
+                        ]
+                    },
+                    "scenario_id": "mode=filtering__n=1000__seed=42",
+                    "status": "ok",
+                    "params": {
+                        "n": 1000,
+                        "mode": "filtering",
+                        "seed": 42
+                    }
+                },
+                {
+                    "samples": {
+                        "allocated_bytes": [
+                            131793128,
+                            131793128,
+                            131793128
+                        ],
+                        "model_creation_ms": [
+                            631.993261,
+                            637.497545,
+                            636.122484
+                        ],
+                        "warm_run_median_ms": [
+                            1095.3508095,
+                            1099.030193,
+                            1095.3673955
+                        ],
+                        "warm_run_min_ms": [
+                            1077.73216,
+                            1078.603783,
+                            1079.586227
+                        ],
+                        "gc_time_ms": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "cold_run_ms": [
+                            90293.347688,
+                            90687.510128,
+                            90447.977698
+                        ],
+                        "iteration_median_ms": [
+                            183.774785,
+                            188.15046,
+                            183.37601
+                        ],
+                        "ttfx_ms": [
+                            99757.957434,
+                            100124.821537,
+                            99933.36522200001
+                        ],
+                        "allocations": [
+                            2675081,
+                            2675081,
+                            2675081
+                        ]
+                    },
+                    "scenario_id": "mode=smoothing__n=1000__seed=42",
+                    "status": "ok",
+                    "params": {
+                        "n": 1000,
+                        "mode": "smoothing",
+                        "seed": 42
+                    }
+                },
+                {
+                    "samples": {
+                        "allocated_bytes": [
+                            103881512,
+                            103881512,
+                            103881512
+                        ],
+                        "model_creation_ms": [
+                            1.383376,
+                            1.383319,
+                            1.365319
+                        ],
+                        "warm_run_median_ms": [
+                            1343.4786465,
+                            1263.2059575,
+                            1344.310994
+                        ],
+                        "warm_run_min_ms": [
+                            1208.858887,
+                            1117.439053,
+                            1208.157421
+                        ],
+                        "gc_time_ms": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "autostart_ms": [
+                            1319.869238,
+                            1288.086976,
+                            1285.554479
+                        ],
+                        "cold_run_ms": [
+                            61985.69298,
+                            62036.448153000005,
+                            61990.560369
+                        ],
+                        "iteration_median_ms": [
+                            0.103573,
+                            0.10098,
+                            0.101629
+                        ],
+                        "ttfx_ms": [
+                            71471.704842,
+                            71503.68022400001,
+                            71446.703207
+                        ],
+                        "allocations": [
+                            2161780,
+                            2161780,
+                            2161780
+                        ]
+                    },
+                    "scenario_id": "mode=filtering__n=10000__seed=42",
+                    "status": "ok",
+                    "params": {
+                        "n": 10000,
+                        "mode": "filtering",
+                        "seed": 42
+                    }
+                },
+                {
+                    "samples": {
+                        "allocated_bytes": [
+                            1276618392,
+                            1276618392,
+                            1276618392
+                        ],
+                        "model_creation_ms": [
+                            9930.352831,
+                            9828.816456,
+                            9691.444051
+                        ],
+                        "warm_run_median_ms": [
+                            13434.04748,
+                            13279.704926,
+                            13394.3046995
+                        ],
+                        "warm_run_min_ms": [
+                            11996.630487,
+                            11814.827902,
+                            11905.851669
+                        ],
+                        "gc_time_ms": [
+                            1591.260516,
+                            1572.186169,
+                            1570.150465
+                        ],
+                        "cold_run_ms": [
+                            111288.18609799999,
+                            111309.152503,
+                            111664.47809500001
+                        ],
+                        "iteration_median_ms": [
+                            2136.556691,
+                            2076.430313,
+                            2183.974441
+                        ],
+                        "ttfx_ms": [
+                            120757.642101,
+                            120774.05911900001,
+                            121122.88673
+                        ],
+                        "allocations": [
+                            26718724,
+                            26718724,
+                            26718724
+                        ]
+                    },
+                    "scenario_id": "mode=smoothing__n=10000__seed=42",
+                    "status": "ok",
+                    "params": {
+                        "n": 10000,
+                        "mode": "smoothing",
+                        "seed": 42
+                    }
+                }
+            ],
+            "experiment_id": "basic/kalman"
+        },
+        {
+            "scenarios": [
+                {
+                    "samples": {
+                        "allocated_bytes": [
+                            20373312,
+                            20373312,
+                            20373312
+                        ],
+                        "model_creation_ms": [
+                            47.263066,
+                            47.130622,
+                            47.202046
+                        ],
+                        "warm_run_median_ms": [
+                            218.336257,
+                            218.2538745,
+                            217.7548415
+                        ],
+                        "warm_run_min_ms": [
+                            213.865542,
+                            214.670936,
+                            214.089107
+                        ],
+                        "gc_time_ms": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "cold_run_ms": [
+                            71475.010005,
+                            71393.895766,
+                            71858.47979499999
+                        ],
+                        "iteration_median_ms": [
+                            8.824404,
+                            8.868172,
+                            8.836255
+                        ],
+                        "ttfx_ms": [
+                            80944.67120699999,
+                            80857.598217,
+                            81324.25471899999
+                        ],
+                        "allocations": [
+                            409941,
+                            409941,
+                            409941
+                        ]
+                    },
+                    "scenario_id": "n=100__seed=42",
+                    "status": "ok",
+                    "params": {
+                        "n": 100,
+                        "seed": 42
+                    }
+                },
+                {
+                    "samples": {
+                        "allocated_bytes": [
+                            200555792,
+                            200555792,
+                            200555792
+                        ],
+                        "model_creation_ms": [
+                            828.399975,
+                            819.950569,
+                            801.733234
+                        ],
+                        "warm_run_median_ms": [
+                            2577.469304,
+                            2568.2772325,
+                            2569.855087
+                        ],
+                        "warm_run_min_ms": [
+                            2162.506049,
+                            2143.806438,
+                            2142.821824
+                        ],
+                        "gc_time_ms": [
+                            382.6954665,
+                            379.498409,
+                            380.709566
+                        ],
+                        "cold_run_ms": [
+                            74904.654761,
+                            74374.793705,
+                            74497.74009200001
+                        ],
+                        "iteration_median_ms": [
+                            83.442529,
+                            83.675637,
+                            82.4649825
+                        ],
+                        "ttfx_ms": [
+                            84378.141955,
+                            83829.924524,
+                            83964.385708
+                        ],
+                        "allocations": [
+                            4087112,
+                            4087112,
+                            4087112
+                        ]
+                    },
+                    "scenario_id": "n=1000__seed=42",
+                    "status": "ok",
+                    "params": {
+                        "n": 1000,
+                        "seed": 42
+                    }
+                },
+                {
+                    "samples": {
+                        "allocated_bytes": [
+                            2012244536,
+                            2012244536,
+                            2012244536
+                        ],
+                        "model_creation_ms": [
+                            8060.24686,
+                            8074.879783,
+                            7982.105597
+                        ],
+                        "warm_run_median_ms": [
+                            30691.8551615,
+                            30748.8970695,
+                            30436.883265
+                        ],
+                        "warm_run_min_ms": [
+                            29092.486552,
+                            29171.721094,
+                            28850.505636
+                        ],
+                        "gc_time_ms": [
+                            7085.6712835,
+                            7225.721426,
+                            7075.831765
+                        ],
+                        "cold_run_ms": [
+                            107366.952322,
+                            108683.59151200001,
+                            106929.530184
+                        ],
+                        "iteration_median_ms": [
+                            921.328863,
+                            903.8902985,
+                            914.614395
+                        ],
+                        "ttfx_ms": [
+                            116838.895865,
+                            118145.49673,
+                            116386.591395
+                        ],
+                        "allocations": [
+                            40820317,
+                            40820317,
+                            40820317
+                        ]
+                    },
+                    "scenario_id": "n=10000__seed=42",
+                    "status": "ok",
+                    "params": {
+                        "n": 10000,
+                        "seed": 42
+                    }
+                }
+            ],
+            "experiment_id": "basic/linear_regression"
+        },
+        {
+            "scenarios": [
+                {
+                    "samples": {
+                        "allocated_bytes": [
+                            166998912,
+                            166998912,
+                            166998912
+                        ],
+                        "model_creation_ms": [
+                            363.531747,
+                            366.08134,
+                            356.082486
+                        ],
+                        "warm_run_median_ms": [
+                            1770.753876,
+                            1773.7760295,
+                            1766.079638
+                        ],
+                        "warm_run_min_ms": [
+                            1708.110609,
+                            1716.289106,
+                            1694.240544
+                        ],
+                        "gc_time_ms": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "cold_run_ms": [
+                            92458.931048,
+                            92959.841155,
+                            92605.69303600001
+                        ],
+                        "iteration_median_ms": [
+                            56.544279,
+                            56.443723,
+                            56.590342
+                        ],
+                        "ttfx_ms": [
+                            101915.345512,
+                            102425.354013,
+                            102079.05198500001
+                        ],
+                        "allocations": [
+                            3518525,
+                            3518525,
+                            3518525
+                        ]
+                    },
+                    "scenario_id": "dimension=1__n=1000__n_components=2__seed=42",
+                    "status": "ok",
+                    "params": {
+                        "n_components": 2,
+                        "dimension": 1,
+                        "n": 1000,
+                        "seed": 42
+                    }
+                },
+                {
+                    "samples": {
+                        "allocated_bytes": [
+                            506581504,
+                            506581504,
+                            506581504
+                        ],
+                        "model_creation_ms": [
+                            366.46287,
+                            371.224266,
+                            358.949184
+                        ],
+                        "warm_run_median_ms": [
+                            3774.2432525,
+                            3740.16072,
+                            3833.894643
+                        ],
+                        "warm_run_min_ms": [
+                            3308.804507,
+                            3276.049984,
+                            3332.896567
+                        ],
+                        "gc_time_ms": [
+                            811.2262005,
+                            807.434103,
+                            818.4093215
+                        ],
+                        "cold_run_ms": [
+                            107488.163905,
+                            107633.37678800001,
+                            107591.05601
+                        ],
+                        "iteration_median_ms": [
+                            107.265647,
+                            102.642025,
+                            109.30508
+                        ],
+                        "ttfx_ms": [
+                            116969.308041,
+                            117081.618581,
+                            117061.916979
+                        ],
+                        "allocations": [
+                            6623419,
+                            6623419,
+                            6623419
+                        ]
+                    },
+                    "scenario_id": "dimension=5__n=1000__n_components=2__seed=42",
+                    "status": "ok",
+                    "params": {
+                        "n_components": 2,
+                        "dimension": 5,
+                        "n": 1000,
+                        "seed": 42
+                    }
+                },
+                {
+                    "samples": {
+                        "allocated_bytes": [
+                            204880472,
+                            204880472,
+                            204880472
+                        ],
+                        "model_creation_ms": [
+                            423.316965,
+                            427.261898,
+                            420.266488
+                        ],
+                        "warm_run_median_ms": [
+                            2524.310296,
+                            2480.9014505,
+                            2461.6174715
+                        ],
+                        "warm_run_min_ms": [
+                            2193.111239,
+                            2182.633289,
+                            2200.312375
+                        ],
+                        "gc_time_ms": [
+                            287.484904,
+                            281.6859725,
+                            236.2686005
+                        ],
+                        "cold_run_ms": [
+                            98252.224051,
+                            98359.652013,
+                            97907.94003099999
+                        ],
+                        "iteration_median_ms": [
+                            70.203094,
+                            70.656662,
+                            70.48296
+                        ],
+                        "ttfx_ms": [
+                            107713.466437,
+                            107838.64016200001,
+                            107373.76890099999
+                        ],
+                        "allocations": [
+                            4211132,
+                            4211132,
+                            4211132
+                        ]
+                    },
+                    "scenario_id": "dimension=1__n=1000__n_components=3__seed=42",
+                    "status": "ok",
+                    "params": {
+                        "n_components": 3,
+                        "dimension": 1,
+                        "n": 1000,
+                        "seed": 42
+                    }
+                },
+                {
+                    "samples": {
+                        "allocated_bytes": [
+                            713656992,
+                            713656992,
+                            713656992
+                        ],
+                        "model_creation_ms": [
+                            429.362647,
+                            429.625272,
+                            430.948886
+                        ],
+                        "warm_run_median_ms": [
+                            4946.3758845,
+                            4964.346176,
+                            5064.9820075
+                        ],
+                        "warm_run_min_ms": [
+                            4705.940806,
+                            4651.630187,
+                            4724.485291
+                        ],
+                        "gc_time_ms": [
+                            921.5816685,
+                            1002.7726655,
+                            999.5617985
+                        ],
+                        "cold_run_ms": [
+                            113978.357646,
+                            114102.74175399999,
+                            114520.322227
+                        ],
+                        "iteration_median_ms": [
+                            150.930717,
+                            150.288465,
+                            154.931562
+                        ],
+                        "ttfx_ms": [
+                            123480.205201,
+                            123574.51525799998,
+                            123998.744268
+                        ],
+                        "allocations": [
+                            8864787,
+                            8864787,
+                            8864787
+                        ]
+                    },
+                    "scenario_id": "dimension=5__n=1000__n_components=3__seed=42",
+                    "status": "ok",
+                    "params": {
+                        "n_components": 3,
+                        "dimension": 5,
+                        "n": 1000,
+                        "seed": 42
+                    }
+                }
+            ],
+            "experiment_id": "problem_specific/gaussian_mixture"
+        }
+    ]
+}
